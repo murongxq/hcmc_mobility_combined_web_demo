@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HCMC Mobility — Analysis for Mobility</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="theme-dark">
+  <!-- Top glass nav -->
+  <header class="topbar glass" role="banner">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-title">HCMC Mobility</div>
+        <div class="brand-sub">Analysis for Mobility</div>
+      </div>
+    </div>
+
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="pill" href="index.html">Home</a>
+      <a class="pill" href="content.html">Content</a>
+      <a class="pill" href="motivation.html">Motivation</a>
+      <a class="pill" href="framework.html">Framework</a>
+
+      <div class="pill dropdown" tabindex="0" aria-label="Parts">
+        <span>Parts</span>
+        <div class="dropdown-menu" role="menu">
+          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        </div>
+      </div>
+
+      <a class="pill" href="interpretation.html">Interpretation</a>
+      <a class="pill" href="conclusion.html">Conclusion</a>
+    </nav>
+  </header>
+
+  <!-- HERO with background carousel -->
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-slide is-active" style="background-image:url('./assets/motobike.JPG')"></div>
+        <div class="hero-slide" style="background-image:url('./assets/bus_station.png')"></div>
+        <div class="hero-slide" style="background-image:url('./assets/metro.png')"></div>
+        <div class="hero-vignette"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-tag">HCMC STUDIO</div>
+        <h1 class="hero-title">Analysis for Mobility</h1>
+        <p class="hero-subtitle">
+          A combined macro + micro assessment of traffic dynamics and public transport experience in Ho Chi Minh City.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#chapters">See the chapters</a>
+        </div>
+
+        <a class="hero-scroll" href="#overview" aria-label="Scroll to Overview">
+          <span>Scroll down to explore the mobility story of Ho Chi Minh City.</span>
+          <span class="chev">↓</span>
+        </a>
+
+        <div class="hero-dots" aria-hidden="true">
+          <button class="dot is-active" type="button" aria-label="Slide 1"></button>
+          <button class="dot" type="button" aria-label="Slide 2"></button>
+          <button class="dot" type="button" aria-label="Slide 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="section" id="overview">
+      <div class="container">
+        <div class="kicker">OVERVIEW</div>
+        <h2 class="h2">Two layers, one story</h2>
+        <p class="lead">
+          This site presents a two-layer mobility reading: a macro-scale, data-driven assessment of traffic and supply patterns,
+          paired with a micro-scale field investigation of public transport experience and corridor conditions.
+        </p>
+
+        <div class="grid-2">
+          <div class="card glass">
+            <h3 class="h3">Macro-Level Mobility Assessment</h3>
+            <ul class="bullets">
+              <li>Citywide traffic distribution (mode-specific intensity)</li>
+              <li>Congestion measurement (space × time indicators)</li>
+              <li>Public transport supply & accessibility (schedule-based)</li>
+              <li>Integrated interpretation (typologies & priority zones)</li>
+            </ul>
+            <div class="card-actions">
+              <a class="btn" href="framework.html">Start from Framework</a>
+            </div>
+          </div>
+
+          <div class="card glass">
+            <h3 class="h3">Micro-Level Site Investigation</h3>
+            <ul class="bullets">
+              <li>Bus transect observation (transfers, waiting, stop conditions)</li>
+              <li>Metro user experience (Line 1 station + in-vehicle + ticketing)</li>
+              <li>Corridor snapshots (Line 1 & Line 2 interface and street context)</li>
+            </ul>
+            <div class="muted small">
+              (Micro panels will be inserted into Part pages later.)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOTIVATION (homepage section, not the separate page) -->
+    <section class="section" id="motivation">
+      <div class="container">
+        <div class="kicker">MOTIVATION</div>
+        <h2 class="h2">Why this analysis matters</h2>
+
+        <div class="grid-2">
+          <div class="card glass">
+            <h3 class="h3">Key motivation</h3>
+            <ul class="bullets">
+              <li>Limited availability of high-resolution, mode-specific traffic evidence at city scale</li>
+              <li>Many studies overlook temporal dynamics and modal differences in mobility patterns</li>
+              <li>Public transport may play a limited yet critical role in addressing urban mobility stress</li>
+            </ul>
+
+            <div class="img-wrap">
+              <div class="img-label">Traffic context (field impression)</div>
+              <img class="img" src="./assets/traffic_jam.jpg" alt="Traffic congestion context" />
+            </div>
+
+            <div class="card-actions">
+              <a class="btn" href="motivation.html">Open Motivation page</a>
+            </div>
+          </div>
+
+          <div class="card glass">
+            <h3 class="h3">Modal Share Snapshot</h3>
+            <p class="muted">
+              Hover a slice to see the mode and share.
+            </p>
+
+            <div class="pie-wrap">
+              <svg id="modalPie" class="pie" viewBox="0 0 240 240" role="img" aria-label="Modal share pie chart">
+                <!-- arcs injected by JS -->
+              </svg>
+
+              <div class="pie-legend">
+                <div class="legend-row">
+                  <span class="legend-k">Hover</span>
+                  <span id="pieLabel" class="legend-v">—</span>
+                </div>
+                <div class="legend-row">
+                  <span class="legend-k">Share</span>
+                  <span id="pieValue" class="legend-v">—</span>
+                </div>
+              </div>
+
+              <div id="pieTooltip" class="tooltip" role="status" aria-live="polite"></div>
+            </div>
+
+            <div class="muted small">
+              Values used here: Motorcycles 74%, Active Mobility 19%, Public Transport 4%, Private Cars 1%, Other 2%.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTERS -->
+    <section class="section" id="chapters">
+      <div class="container">
+        <div class="kicker">CHAPTERS</div>
+        <div class="chapters-head">
+          <h2 class="h2">Choose where to go next</h2>
+          <a class="follow" href="framework.html">
+            or follow the story with us <span class="chev">→</span>
+          </a>
+        </div>
+
+        <div class="chapters-grid">
+          <a class="chapter card glass" href="framework.html">
+            <div class="chapter-title">Framework</div>
+            <div class="chapter-desc">Unified spatiotemporal unit (250m grid + time) linking distribution, congestion, and supply.</div>
+          </a>
+
+          <a class="chapter card glass" href="part1.html">
+            <div class="chapter-title">Part I — Traffic Distribution</div>
+            <div class="chapter-desc">Mode-specific vehicle intensity across space (SVI detection: motorcycles, cars, buses).</div>
+          </a>
+
+          <a class="chapter card glass" href="part2.html">
+            <div class="chapter-title">Part II — Measuring Congestion</div>
+            <div class="chapter-desc">Indicators and comparative patterns across space and time.</div>
+          </a>
+
+          <a class="chapter card glass" href="part3.html">
+            <div class="chapter-title">Part III — Public Transport Supply</div>
+            <div class="chapter-desc">Schedule-based supply patterns, reachability, and weekday/weekend comparison.</div>
+          </a>
+
+          <a class="chapter card glass" href="interpretation.html">
+            <div class="chapter-title">Interpretation</div>
+            <div class="chapter-desc">Cross-reading across modes, time, and space to identify typologies and priorities.</div>
+          </a>
+
+          <a class="chapter card glass" href="conclusion.html">
+            <div class="chapter-title">Conclusion</div>
+            <div class="chapter-desc">Key takeaways, limitations, and next steps.</div>
+          </a>
+        </div>
+
+        <div class="footerbar">
+          <div class="muted">HCMC Mobility — Analysis for Mobility</div>
+          <a class="btn small" href="#top">Back to top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

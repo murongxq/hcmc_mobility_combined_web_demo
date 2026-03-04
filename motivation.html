@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Motivation — HCMC Mobility</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html">
+        <div class="brand__title">HCMC Mobility</div>
+        <div class="brand__subtitle">Analysis for Mobility</div>
+      </a>
+      <nav class="navchips">
+        <a class="chip" href="index.html">Home</a>
+        <a class="chip" href="contents.html">Contents</a>
+        <a class="chip" href="motivation.html">Motivation</a>
+        <a class="chip" href="framework.html">Framework</a>
+        <a class="chip" href="part1.html">Part I</a>
+        <a class="chip" href="part2.html">Part II</a>
+        <a class="chip" href="part3.html">Part III</a>
+        <a class="chip" href="interpretation.html">Interpretation</a>
+        <a class="chip" href="conclusion.html">Conclusion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <div class="container">
+        <div class="kicker">Motivation</div>
+        <h1 class="h1">Research motivation &amp; core question</h1>
+
+        <div class="grid2">
+          <article class="card reveal">
+            <h3 class="h3">Key motivation</h3>
+            <p class="p">
+              Mobility in Ho Chi Minh City is dominated by motorcycles, while public transport remains limited but potentially critical.
+              However, high-resolution, mode-specific traffic datasets are often unavailable or inconsistent, making it difficult to compare modes fairly across space and time.
+            </p>
+            <p class="p">
+              We therefore build a workflow that connects <b>street-view object detection</b>, <b>road network structure</b>, and <b>schedule-based public transport supply</b>,
+              and then interpret them under one unified framework.
+            </p>
+            <ul class="list">
+              <li>Limited availability of high-resolution, mode-specific traffic data</li>
+              <li>Existing studies often overlook temporal dynamics and modal differences</li>
+              <li>Public transport plays a limited but potentially critical role</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="h3">Modal Share Snapshot</h3>
+            <p class="p p--muted">A context image used to frame the baseline mobility structure.</p>
+            <div class="media">
+              <img src="assets/model_share.png" alt="Modal share snapshot" />
+            </div>
+            <div class="card__footer">
+              <a class="btn btn--small btn--glass" href="framework.html">Next: Framework</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="card reveal">
+          <h3 class="h3">What this project aims to deliver</h3>
+          <p class="p">
+            The goal is not to claim exact “ground truth” traffic counts, but to build a comparable view of mobility dynamics:
+            <b>distribution (where)</b>, <b>congestion (how intense)</b>, and <b>supply (when and how much)</b>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__title">Motivation</div>
+          <div class="footer__muted">Next: framework logic and units.</div>
+        </div>
+        <div class="footer__right">
+          <a class="btn btn--small btn--glass" href="framework.html">Continue →</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

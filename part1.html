@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Part I — Traffic Distribution | HCMC Mobility</title>
 
-  <!-- Your existing site styles -->
   <link rel="stylesheet" href="style.css" />
 
   <!-- Mapbox GL -->
@@ -13,15 +12,26 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
   <style>
-    /* Page spacing under fixed topbar */
     .page-pad{ padding-top: 110px; }
 
-    /* Part header */
-    .part-kicker{ letter-spacing:.16em; font-size:12px; color: rgba(255,255,255,.55); margin: 0 0 10px; }
-    .part-title{ font-size:56px; line-height:1.02; margin: 0 0 12px; }
-    .part-sub{ color: rgba(255,255,255,.78); max-width: 78ch; line-height:1.55; margin: 0 0 18px; }
+    .part-kicker{
+      letter-spacing:.16em;
+      font-size:12px;
+      color: rgba(255,255,255,.55);
+      margin: 0 0 10px;
+    }
+    .part-title{
+      font-size:56px;
+      line-height:1.02;
+      margin: 0 0 12px;
+    }
+    .part-sub{
+      color: rgba(255,255,255,.78);
+      max-width: 86ch;
+      line-height:1.55;
+      margin: 0 0 18px;
+    }
 
-    /* Metric cards (full-width stacked) */
     .metric-card{
       border-radius: var(--radius2);
       padding: 18px;
@@ -32,6 +42,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .metric-head{
       display:flex;
       align-items:flex-start;
@@ -49,11 +60,10 @@
       margin:4px 0 0;
       color: rgba(255,255,255,.68);
       font-size: 13.5px;
-      line-height:1.4;
-      max-width: 70ch;
+      line-height:1.45;
+      max-width: 74ch;
     }
 
-    /* Toggle pills (local to each metric) */
     .toggles{
       display:inline-flex;
       gap:8px;
@@ -75,24 +85,22 @@
       transition: background .15s ease, transform .15s ease, color .15s ease;
       user-select:none;
     }
-    .tbtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .tbtn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+    }
     .tbtn.is-active{
       background: rgba(255,255,255,.90);
       color: #12161c;
     }
 
-    /* Narrative blocks inside each metric */
     .metric-narr{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin: 10px 0 12px;
     }
-    @media (max-width: 860px){
-      .part-title{ font-size:44px; }
-      .metric-narr{ grid-template-columns: 1fr; }
-      .metric-head{ flex-direction:column; align-items:flex-start; }
-    }
+
     .narr-card{
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
@@ -100,7 +108,7 @@
       padding: 12px 12px;
     }
     .narr-card h4{
-      margin:0 0 6px;
+      margin:0 0 8px;
       font-size: 13.5px;
       letter-spacing: .02em;
     }
@@ -109,27 +117,55 @@
       padding-left: 18px;
       color: rgba(255,255,255,.82);
     }
-    .narr-card li{ margin: 7px 0; line-height:1.45; font-size: 13px; }
+    .narr-card li{
+      margin: 7px 0;
+      line-height:1.45;
+      font-size: 13px;
+    }
+    .narr-card p{
+      margin: 7px 0;
+      color: rgba(255,255,255,.82);
+      line-height:1.5;
+      font-size: 13px;
+    }
 
-    /* Map frame */
+    .formula{
+      display:block;
+      margin: 8px 0 8px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,.92);
+      font-weight: 700;
+      word-break: break-word;
+    }
+    .formula-note{
+      font-size: 12px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.68);
+      margin-top: 2px;
+    }
+
     .map-wrap{
       position: relative;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
       overflow: hidden;
-      background: rgba(0,0,0,.15);
-      height: 440px;
+      background: rgba(255,255,255,.03);
+      height: 460px;
+    }
+    .map-wrap.tall{
+      height: 560px;
     }
     .map{
-      position:absolute; inset:0;
+      position:absolute;
+      inset:0;
     }
 
-    /* Legend (inside map, bottom-left) */
     .legend{
       position:absolute;
       left: 14px;
       bottom: 14px;
-      width: 260px;
+      width: 280px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(18,22,28,.82);
@@ -181,21 +217,28 @@
       flex-shrink:0;
     }
 
-    /* Mapbox attribution a bit softer in dark UI */
-    .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-logo{ opacity: .9; }
-
-    /* Tiny helper note under each metric card */
     .metric-note{
       margin-top: 10px;
       color: rgba(255,255,255,.55);
       font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-logo{ opacity: .95; }
+
+    @media (max-width: 980px){
+      .part-title{ font-size:44px; }
+      .metric-head{ flex-direction:column; align-items:flex-start; }
+      .metric-narr{ grid-template-columns: 1fr; }
+      .map-wrap{ height: 420px; }
+      .map-wrap.tall{ height: 500px; }
+      .legend{ width: 240px; }
     }
   </style>
 </head>
 
 <body class="theme-dark">
 
-  <!-- ✅ Copy the SAME topbar from index.html into every page -->
   <header class="topbar glass" role="banner">
     <div class="topbar-left">
       <div class="brand">
@@ -231,27 +274,32 @@
         <div class="part-kicker">PART I</div>
         <h1 class="part-title">Traffic Distribution</h1>
         <p class="part-sub">
-          Mode-specific vehicle intensity across space (250m grid, street-view detections).
-          Use the toggles to compare <b>Motorcycle</b>, <b>Car</b>, and <b>Bus</b> across three metrics.
+          Mode-specific vehicle intensity across space. We begin with <b>street-view detections</b> of motorcycles, cars, and buses,
+          then compare them through three grid-based readings: <b>detection count</b>, <b>all-time mean traffic intensity</b>,
+          and <b>observed mode share</b>. Finally, we translate relative traffic composition into a typology of
+          <b>motorcycle baseline</b>, <b>car-oriented</b>, <b>bus-influenced</b>, <b>mixed</b>, and <b>low confidence</b>.
         </p>
 
-        <!-- Page-level narrative (your “PPT logic” in text) -->
         <div class="card glass" style="padding:16px 16px; margin: 0 0 18px;">
           <h3 class="h3" style="margin:0 0 8px;">What this part shows</h3>
           <p class="muted" style="margin:0; line-height:1.55;">
             We start from <b>street-view image detections</b> (motorcycles, cars, buses), then aggregate them into a consistent
             <b>250m × 250m grid</b> to enable citywide comparison. The same grid is visualized through three lenses:
-            <b>(1) Detection Count</b> (total exposure), <b>(2) Grid Mean Intensity</b> (average intensity), and
-            <b>(3) Mode Share</b> (relative composition within each grid cell).
+            <b>(1) Detection Count</b> for total observed exposure, <b>(2) Grid Mean Intensity</b> for typical mode-specific intensity,
+            and <b>(3) Mode Share</b> for relative composition within each grid cell. The last step further summarizes this composition
+            into a <b>traffic composition typology</b> based on deviation from the citywide baseline.
           </p>
         </div>
 
-        <!-- ===================== 1) COUNT ===================== -->
+        <!-- 1 -->
         <div class="metric-card" id="sec-count">
           <div class="metric-head">
             <div>
-              <h2 class="metric-title">1) Detection Count (n)</h2>
-              <p class="metric-sub">Point-level detections aggregated to grid (all observations).</p>
+              <h2 class="metric-title">1) Object Detection from Street-View Images</h2>
+              <p class="metric-sub">
+                Street-Level Detection of <b>Motorcycles</b>, <b>Cars</b>, and <b>Buses</b>.
+                This first layer shows the point-level spatial distribution of captured SVI detections after grid aggregation.
+              </p>
             </div>
 
             <div class="toggles" data-map="count">
@@ -263,19 +311,22 @@
 
           <div class="metric-narr">
             <div class="narr-card">
+              <h4>Detection result from each SVI</h4>
+              <ul>
+                <li>Motorcycle</li>
+                <li>Car</li>
+                <li>Bus</li>
+              </ul>
+              <p>
+                The map summarizes the <b>point-level spatial distribution</b> of captured street-view detections.
+              </p>
+            </div>
+            <div class="narr-card">
               <h4>How to read</h4>
               <ul>
                 <li><b>Count (n)</b> summarizes total detected vehicles aggregated into each 250m grid cell.</li>
                 <li>Higher values indicate <b>stronger street-level exposure</b> captured by SVI samples.</li>
                 <li>Use the toggle to compare <b>Motorcycle / Car / Bus</b> under the same spatial unit.</li>
-              </ul>
-            </div>
-            <div class="narr-card">
-              <h4>What it implies</h4>
-              <ul>
-                <li>This is a <b>volume-like</b> indicator influenced by both traffic presence and SVI coverage.</li>
-                <li>It is useful for identifying <b>where each mode concentrates</b> at city scale.</li>
-                <li>We interpret it together with mean and share to reduce sampling bias.</li>
               </ul>
             </div>
           </div>
@@ -291,16 +342,20 @@
           </div>
 
           <div class="metric-note">
-            Data source: SVI object detection → grid aggregation. Boundary overlays: HCMC boundary (red), wards/districts (black).
+            Detection count is useful for identifying <b>where each mode is observed most frequently</b>, but it should be interpreted
+            together with mean intensity because count also reflects SVI observation density.
           </div>
         </div>
 
-        <!-- ===================== 2) MEAN ===================== -->
+        <!-- 2 -->
         <div class="metric-card" id="sec-mean">
           <div class="metric-head">
             <div>
-              <h2 class="metric-title">2) Grid Mean Intensity</h2>
-              <p class="metric-sub">All-time mean per grid (mode-specific).</p>
+              <h2 class="metric-title">2) Grid-Based Mean Traffic Intensity</h2>
+              <p class="metric-sub">
+                Grid-Level Average Traffic Intensity (All-Time Mean). This second step moves from total detections to
+                <b>typical intensity</b> in each grid.
+              </p>
             </div>
 
             <div class="toggles" data-map="mean">
@@ -312,19 +367,32 @@
 
           <div class="metric-narr">
             <div class="narr-card">
-              <h4>Method (PPT Step 1 → Step 2)</h4>
-              <ul>
-                <li><b>Step 1:</b> compute hourly grid mean by averaging detections within the same hour and grid.</li>
-                <li><b>Step 2:</b> average across all observed time slices to get an <b>all-time mean</b> per grid.</li>
-                <li>This focuses on <b>typical intensity</b> rather than simply “how many images we have”.</li>
-              </ul>
+              <h4>Step 1 — Hourly Grid Mean</h4>
+              <span class="formula">
+                I<sub>g,h,d</sub><sup>(m)</sup> =
+                (1 / N<sub>g,h,d</sub>) × Σ<sub>i ∈ (g,h,d)</sub> n<sub>i</sub><sup>(m)</sup>
+              </span>
+              <div class="formula-note">
+                where: g = grid, h = hour, d = day type, m = mode,
+                and n<sub>i</sub><sup>(m)</sup> = detected count per image
+              </div>
+
+              <h4 style="margin-top:12px;">Step 2 — All-Time Mean per Grid</h4>
+              <span class="formula">
+                Ī<sub>g</sub><sup>(m)</sup> =
+                (1 / T<sub>g</sub>) × Σ<sub>h,d</sub> I<sub>g,h,d</sub><sup>(m)</sup>
+              </span>
+              <div class="formula-note">
+                where T<sub>g</sub> = number of observed time slices in grid g
+              </div>
             </div>
+
             <div class="narr-card">
               <h4>Interpretation</h4>
               <ul>
                 <li>Mean intensity highlights <b>persistent hotspots</b> rather than one-off spikes.</li>
                 <li>It enables fairer comparison when SVI sampling density varies.</li>
-                <li>Compare modes to see where the city is <b>motorcycle-dominant</b>, <b>car-heavy</b>, or <b>bus-present</b>.</li>
+                <li>Comparing modes shows where the city is more <b>motorcycle-dominant</b>, <b>car-heavy</b>, or <b>bus-present</b>.</li>
               </ul>
             </div>
           </div>
@@ -340,16 +408,18 @@
           </div>
 
           <div class="metric-note">
-            Mean bins follow your PPT legend ranges (fixed breaks, mode-specific).
+            Mean bins follow your PPT legend ranges, so the webpage and slides use the same fixed breaks for mode-specific interpretation.
           </div>
         </div>
 
-        <!-- ===================== 3) SHARE ===================== -->
-        <div class="metric-card" id="sec-share" style="margin-bottom: 6px;">
+        <!-- 3 -->
+        <div class="metric-card" id="sec-share">
           <div class="metric-head">
             <div>
-              <h2 class="metric-title">3) Mode Composition (Share)</h2>
-              <p class="metric-sub">Observed mode share per grid (relative composition).</p>
+              <h2 class="metric-title">3) Mode Composition (Observed Share)</h2>
+              <p class="metric-sub">
+                Observed Mode Share by Grid. This layer focuses on <b>relative composition</b> rather than absolute intensity.
+              </p>
             </div>
 
             <div class="toggles" data-map="share">
@@ -362,18 +432,22 @@
           <div class="metric-narr">
             <div class="narr-card">
               <h4>Definition</h4>
-              <ul>
-                <li><b>Share</b> represents the relative composition of modes within each grid cell.</li>
-                <li>Computed as <b>mode mean / total mean</b> (motorcycle + car + bus) per grid.</li>
-                <li>It describes <b>street-level exposure structure</b>, not a travel-survey modal split.</li>
-              </ul>
+              <span class="formula">
+                S<sub>g</sub><sup>(m)</sup> =
+                Ī<sub>g</sub><sup>(m)</sup> / Σ<sub>k</sub> Ī<sub>g</sub><sup>(k)</sup>
+              </span>
+              <div class="formula-note">
+                where k ∈ {motorcycle, car, bus}
+              </div>
+              <p>Share = <b>mode mean / total mean</b></p>
             </div>
+
             <div class="narr-card">
-              <h4>Why it matters</h4>
+              <h4>What it means</h4>
               <ul>
-                <li>Share separates “busy areas” from “mode-dominant areas”.</li>
-                <li>It reveals whether corridors are <b>car-oriented</b> or <b>motorcycle baseline</b>.</li>
-                <li>Even small bus share clusters can indicate <b>public transport influence</b>.</li>
+                <li><b>Relative composition within each grid</b></li>
+                <li>Represents <b>street-level exposure structure</b></li>
+                <li><b>Not equivalent</b> to travel survey modal split</li>
               </ul>
             </div>
           </div>
@@ -389,16 +463,100 @@
           </div>
 
           <div class="metric-note">
-            Share bins follow your PPT legend ranges (fixed breaks, mode-specific).
+            Share separates “busy places” from “mode-dominant places”. Even where total traffic is not highest, a high local share can still reveal
+            strong <b>car orientation</b> or visible <b>bus influence</b>.
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="metric-card" id="sec-typology">
+          <div class="metric-head">
+            <div>
+              <h2 class="metric-title">4) Traffic Composition Typology</h2>
+              <p class="metric-sub">
+                Traffic Composition Types (Top 20% Deviation Classification). This final map translates local composition into interpretable traffic types.
+              </p>
+            </div>
+          </div>
+
+          <div class="metric-narr">
+            <div class="narr-card">
+              <h4>Step 1 — Baseline</h4>
+              <span class="formula">
+                S̄<sup>(m)</sup> = (1 / G) × Σ<sub>g</sub> S<sub>g</sub><sup>(m)</sup>
+              </span>
+
+              <h4 style="margin-top:12px;">Step 2 — Deviation</h4>
+              <span class="formula">
+                Δ<sub>g</sub><sup>(m)</sup> = S<sub>g</sub><sup>(m)</sup> − S̄<sup>(m)</sup>
+              </span>
+
+              <h4 style="margin-top:12px;">Step 3 — Classification (Top 20%)</h4>
+              <span class="formula">
+                Δ<sub>g</sub><sup>(m)</sup> ≥ Q<sub>0.8</sub>(Δ<sup>(m)</sup>)
+              </span>
+
+              <div class="formula-note">
+                g = grid cell (250m × 250m), m = traffic mode (motorcycle, car, bus),
+                S<sub>g</sub><sup>(m)</sup> = observed mode share in grid g,
+                S̄<sup>(m)</sup> = city-level baseline share,
+                Δ<sub>g</sub><sup>(m)</sup> = deviation from baseline,
+                Q<sub>0.8</sub> = 80th percentile threshold
+              </div>
+            </div>
+
+            <div class="narr-card">
+              <h4>Classification based on deviation from city baseline</h4>
+              <ul>
+                <li><b>Motorcycle Baseline</b></li>
+                <li><b>Car-Oriented</b></li>
+                <li><b>Bus-Influenced</b></li>
+                <li><b>Mixed</b></li>
+                <li><b>Low Confidence</b></li>
+              </ul>
+              <p>
+                This typology does not measure total magnitude directly. Instead, it shows which grids deviate most strongly from the citywide composition baseline.
+              </p>
+            </div>
+          </div>
+
+          <div class="map-wrap tall">
+            <div id="mapTypology" class="map"></div>
+
+            <div class="legend" id="legendTypology">
+              <div class="k">TRAFFIC TYPE</div>
+              <div class="field">Field: traffic_type</div>
+
+              <div class="legend-row">
+                <div class="legend-left"><span class="swatch" style="background:#f4b76a"></span><span>Motorcycle Baseline</span></div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-left"><span class="swatch" style="background:#e31a1c"></span><span>Car-Oriented</span></div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-left"><span class="swatch" style="background:#33a02c"></span><span>Bus-Influenced</span></div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-left"><span class="swatch" style="background:#8e44ad"></span><span>Mixed</span></div>
+              </div>
+              <div class="legend-row">
+                <div class="legend-left"><span class="swatch" style="background:#9e9e9e"></span><span>Low Confidence</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-note">
+            This interactive typology map reads from <b>traffic_distribution_grid_summary_typed.geojson</b> and uses the
+            <b>traffic_type</b> field. Hover each grid to inspect its classified type.
           </div>
         </div>
 
         <div class="card glass" style="padding:16px 16px; margin-top: 14px;">
           <h3 class="h3" style="margin:0 0 8px;">Takeaway from Part I</h3>
           <p class="muted" style="margin:0; line-height:1.55;">
-            Together, <b>count</b> (total exposure), <b>mean</b> (typical intensity), and <b>share</b> (relative composition)
+            Together, <b>count</b>, <b>mean intensity</b>, <b>observed share</b>, and <b>traffic composition typology</b>
             provide a layered picture of where each mode concentrates and how street-level mobility structure varies across HCMC.
-            In Part II, we translate these patterns into congestion indicators across space and time.
+            Part II then builds on these spatial patterns to measure congestion across space and time.
           </p>
         </div>
 
@@ -407,90 +565,69 @@
   </main>
 
   <script>
-    /* =========================
-       FILE PATHS (your folder layout)
-       ========================= */
     const GRID_GEOJSON   = "./assets/grid_250m_merged_all_features_with_quadrants.geojson";
+    const TYPE_GEOJSON   = "./assets/traffic_distribution_grid_summary_typed.geojson";
     const HCMC_BOUNDARY  = "./assets/hcmc_boundary.geojson";
     const HCMC_WARDS     = "./assets/hcmc_wards.geojson";
 
-    /* =========================
-       MAPBOX (your style + token)
-       ========================= */
     mapboxgl.accessToken = "pk.eyJ1IjoiZGVmZmllIiwiYSI6ImNtZTl1MTBvcjBvZGkyanFhdmwydHp0aTUifQ.vACEuAMjlPb7JoRrNbtKQg";
-    const MAPBOX_STYLE = "mapbox://styles/deffie/cme9u4fuy000f01s68bvr1a8f";
+    const MAPBOX_STYLE = "mapbox://styles/mapbox/light-v11";
 
-    /* =========================
-       COLOR RAMPS (match your PPT look)
-       - motorcycle: orange
-       - car: red
-       - bus: green
-       ========================= */
     const RAMPS = {
-      motorcycle: ["#fff7ec","#fee8c8","#fdd49e","#fdbb84","#fc8d59","#ef6548","#d7301f","#990000"],
+      motorcycle: ["#fff7ec","#fee8c8","#fdd49e","#fdbb84","#fc8d59","#ef6548","#d7301f","#b30000","#7f0000"],
       car:        ["#fff5f0","#fee0d2","#fcbba1","#fc9272","#fb6a4a","#ef3b2c","#cb181d","#99000d"],
       bus:        ["#f7fcf5","#e5f5e0","#c7e9c0","#a1d99b","#74c476","#41ab5d","#238b45","#005a32"]
     };
 
-    /* =========================
-       FIELDS (from your geojson)
-       ========================= */
     const FIELDS = {
       count: {
         motorcycle: "n_motorcycle",
         car:        "n_car",
-        bus:        "n_bus",
+        bus:        "n_bus"
       },
       mean: {
         motorcycle: "n_motorcycle_mean_all",
         car:        "n_car_mean_all",
-        bus:        "n_bus_mean_all",
+        bus:        "n_bus_mean_all"
       },
       share: {
         motorcycle: "share_motorcycle_all",
         car:        "share_car_all",
-        bus:        "share_bus_all",
+        bus:        "share_bus_all"
       }
     };
 
-    /* =========================
-       FIXED BINS (use your PPT legend numbers)
-       - mean: fixed breaks per mode
-       - share: fixed breaks per mode
-       - count: we compute quantiles dynamically (because PPT did not give grid-count ranges)
-       ========================= */
     const BINS_FIXED = {
       mean: {
         motorcycle: [0.27, 0.92, 1.67, 2.65, 3.83, 5.25, 7.15, 18.13],
         car:        [0.46, 1.35, 2.27, 3.42, 5.17, 10.2, 21.0],
-        bus:        [0.045, 0.144, 0.272, 0.45, 0.759, 1.533, 2.813],
+        bus:        [0.045, 0.144, 0.272, 0.45, 0.759, 1.533, 2.813]
       },
       share: {
         motorcycle: [0.11, 0.30, 0.46, 0.59, 0.72, 0.85, 1.0],
         car:        [0.082, 0.232, 0.37, 0.517, 0.674, 0.867, 1.0],
-        bus:        [0.0096, 0.0315, 0.0631, 0.1154, 0.2138, 0.5, 1.0],
+        bus:        [0.0096, 0.0315, 0.0631, 0.1154, 0.2138, 0.5, 1.0]
       }
     };
 
-    /* =========================
-       UTIL: format label
-       ========================= */
+    const state = {
+      count: { mode:"motorcycle", breaksByMode: {} },
+      mean:  { mode:"motorcycle" },
+      share: { mode:"motorcycle" }
+    };
+
     function fmtNumber(x){
       if (x === null || x === undefined || Number.isNaN(x)) return "—";
-      // keep small numbers readable
       if (x < 0.01) return x.toFixed(4);
       if (x < 1) return x.toFixed(3);
       if (x < 10) return x.toFixed(2);
       return x.toFixed(2);
     }
+
     function pct(x){
-      // share legend in your PPT is 0-1; show as percent for readability
       return (x * 100).toFixed(1) + "%";
     }
 
-    /* =========================
-       UTIL: compute quantile breaks (for COUNT)
-       ========================= */
     function quantile(sortedArr, q){
       const pos = (sortedArr.length - 1) * q;
       const base = Math.floor(pos);
@@ -500,14 +637,14 @@
       }
       return sortedArr[base];
     }
+
     function computeQuantileBreaks(values, nClasses){
       const v = values.filter(d => Number.isFinite(d)).sort((a,b)=>a-b);
-      if (!v.length) return [1,2,3,4,5,6,7]; // fallback
+      if (!v.length) return [1,2,3,4,5,6,7];
       const breaks = [];
       for (let i=1; i<nClasses; i++){
         breaks.push(quantile(v, i/nClasses));
       }
-      // remove duplicates (can happen if many zeros)
       const uniq = [];
       for (const b of breaks){
         if (!uniq.length || Math.abs(b - uniq[uniq.length-1]) > 1e-12) uniq.push(b);
@@ -515,15 +652,8 @@
       return uniq;
     }
 
-    /* =========================
-       Build a Mapbox "step" expression for choropleth fill
-       ========================= */
     function stepExpr(field, breaks, colors){
-      // Ensure we always have a numeric value
       const val = ["coalesce", ["to-number", ["get", field]], 0];
-
-      // Step: base color for <= first break, then each break => next color
-      // We want number of colors = breaks.length + 1 ideally.
       const cols = colors.slice(0);
       const needed = breaks.length + 1;
       while (cols.length < needed) cols.push(cols[cols.length - 1]);
@@ -536,20 +666,15 @@
       return expr;
     }
 
-    /* =========================
-       Legend renderer
-       ========================= */
-    function renderLegend(rowsEl, mode, metric, breaks, colors){
+    function renderLegend(rowsEl, metric, breaks, colors){
       rowsEl.innerHTML = "";
-
       const ranges = [];
-      // ranges: [min,max] with min inclusive, max exclusive (except last)
       let prev = 0;
       for (let i=0; i<breaks.length; i++){
         ranges.push([prev, breaks[i]]);
         prev = breaks[i];
       }
-      ranges.push([prev, null]); // last open-ended
+      ranges.push([prev, null]);
 
       ranges.forEach((r, i)=>{
         const row = document.createElement("div");
@@ -560,44 +685,96 @@
 
         const sw = document.createElement("span");
         sw.className = "swatch";
-        sw.style.background = colors[i] || colors[colors.length-1];
+        sw.style.background = colors[i] || colors[colors.length - 1];
 
         const lab = document.createElement("span");
-        // label formatting differs for share
         let txt;
         if (metric === "share"){
-          const a = r[0], b = r[1];
-          txt = (b === null) ? `${pct(a)} – 100.0%` : `${pct(a)} – ${pct(b)}`;
+          txt = r[1] === null
+            ? `${pct(r[0])} – 100.0%`
+            : `${pct(r[0])} – ${pct(r[1])}`;
         } else {
-          const a = r[0], b = r[1];
-          txt = (b === null) ? `${fmtNumber(a)} – max` : `${fmtNumber(a)} – ${fmtNumber(b)}`;
+          txt = r[1] === null
+            ? `${fmtNumber(r[0])} – max`
+            : `${fmtNumber(r[0])} – ${fmtNumber(r[1])}`;
         }
         lab.textContent = txt;
 
         left.appendChild(sw);
         left.appendChild(lab);
-
-        const right = document.createElement("div");
-        right.className = "legend-right";
-        right.textContent = ""; // keep empty (clean)
-
         row.appendChild(left);
-        row.appendChild(right);
         rowsEl.appendChild(row);
       });
     }
 
-    /* =========================
-       Create one metric map
-       ========================= */
-    async function makeMetricMap(opts){
-      const {
-        containerId,
-        metricKey,                // count | mean | share
-        legendTitleEl,
-        legendFieldEl,
-        legendRowsEl,
-      } = opts;
+    function flattenCoords(coords, out=[]){
+      for (const c of coords){
+        if (typeof c[0] === "number" && typeof c[1] === "number"){
+          out.push(c);
+        } else {
+          flattenCoords(c, out);
+        }
+      }
+      return out;
+    }
+
+    function bboxFromGeojson(gj){
+      let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+      (gj.features || []).forEach(f=>{
+        const coords = flattenCoords(f.geometry.coordinates);
+        coords.forEach(([x,y])=>{
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
+        });
+      });
+      return [[minX,minY],[maxX,maxY]];
+    }
+
+    async function loadJSON(url){
+      const r = await fetch(url);
+      if(!r.ok) throw new Error(`Failed to load ${url}: ${r.status}`);
+      return await r.json();
+    }
+
+    function addContextLayers(map, boundary, wards){
+      map.addSource("hcmc-boundary", { type:"geojson", data: boundary });
+      map.addSource("hcmc-wards", { type:"geojson", data: wards });
+
+      map.addLayer({
+        id: "wards-line",
+        type: "line",
+        source: "hcmc-wards",
+        paint: {
+          "line-color": "rgba(0,0,0,.28)",
+          "line-width": 0.7
+        }
+      });
+
+      map.addLayer({
+        id: "boundary-line",
+        type: "line",
+        source: "hcmc-boundary",
+        paint: {
+          "line-color": "#ff4d4d",
+          "line-width": 2.1
+        }
+      });
+    }
+
+    function cap(s){
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    async function makeMetricMap(containerId, metricKey){
+      const [boundary, wards, grid] = await Promise.all([
+        loadJSON(HCMC_BOUNDARY),
+        loadJSON(HCMC_WARDS),
+        loadJSON(GRID_GEOJSON)
+      ]);
+
+      const bounds = bboxFromGeojson(boundary);
 
       const map = new mapboxgl.Map({
         container: containerId,
@@ -609,86 +786,35 @@
 
       map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-left");
 
-      // Load all data (boundary, wards, grid) once
-      const [boundary, wards, grid] = await Promise.all([
-        fetch(HCMC_BOUNDARY).then(r=>r.json()),
-        fetch(HCMC_WARDS).then(r=>r.json()),
-        fetch(GRID_GEOJSON).then(r=>r.json())
-      ]);
-
-      // Compute bounds from boundary (fit all maps same extent)
-      function bboxFromGeojson(gj){
-        // crude bounds from coordinates
-        let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
-        const scan = (coords)=>{
-          for (const c of coords){
-            if (typeof c[0] === "number" && typeof c[1] === "number"){
-              minX = Math.min(minX, c[0]); minY = Math.min(minY, c[1]);
-              maxX = Math.max(maxX, c[0]); maxY = Math.max(maxY, c[1]);
-            } else {
-              scan(c);
-            }
-          }
-        };
-        boundary.features.forEach(f=> scan(f.geometry.coordinates));
-        return [[minX,minY],[maxX,maxY]];
-      }
-      const bounds = bboxFromGeojson(boundary);
-
       map.on("load", ()=>{
         map.fitBounds(bounds, { padding: 40, duration: 0 });
 
-        // Sources
-        map.addSource("hcmc-boundary", { type:"geojson", data: boundary });
-        map.addSource("hcmc-wards",    { type:"geojson", data: wards });
-        map.addSource("grid",          { type:"geojson", data: grid });
+        addContextLayers(map, boundary, wards);
 
-        // Wards/districts outline (thin black)
-        map.addLayer({
-          id: "wards-line",
-          type: "line",
-          source: "hcmc-wards",
-          paint: {
-            "line-color": "rgba(0,0,0,.55)",
-            "line-width": 0.7
-          }
-        });
+        map.addSource("grid", { type:"geojson", data: grid });
 
-        // Grid fill (choropleth)
         map.addLayer({
           id: "grid-fill",
           type: "fill",
           source: "grid",
           paint: {
             "fill-color": "rgba(255,255,255,0.2)",
-            "fill-opacity": 0.72
+            "fill-opacity": 0.82
           }
         });
 
-        // Grid outline (subtle)
         map.addLayer({
           id: "grid-line",
           type: "line",
           source: "grid",
           paint: {
-            "line-color": "rgba(0,0,0,.18)",
-            "line-width": 0.2
+            "line-color": "rgba(0,0,0,.10)",
+            "line-width": 0.15
           }
         });
 
-        // City boundary (red)
-        map.addLayer({
-          id: "boundary-line",
-          type: "line",
-          source: "hcmc-boundary",
-          paint: {
-            "line-color": "rgba(255,70,70,0.95)",
-            "line-width": 2.2
-          }
-        });
-
-        // Interactions: hover popup (optional, clean)
         const popup = new mapboxgl.Popup({ closeButton:false, closeOnClick:false, offset: 8 });
+
         map.on("mousemove", "grid-fill", (e)=>{
           map.getCanvas().style.cursor = "pointer";
           const f = e.features && e.features[0];
@@ -696,7 +822,10 @@
           const current = state[metricKey].mode;
           const field = FIELDS[metricKey][current];
           const v = Number(f.properties?.[field]);
-          const text = (metricKey === "share") ? pct(Number.isFinite(v)?v:0) : fmtNumber(Number.isFinite(v)?v:0);
+          const text = metricKey === "share"
+            ? pct(Number.isFinite(v) ? v : 0)
+            : fmtNumber(Number.isFinite(v) ? v : 0);
+
           popup.setLngLat(e.lngLat).setHTML(
             `<div style="font-size:12.5px; line-height:1.35;">
               <div style="font-weight:750; margin-bottom:4px;">${current.toUpperCase()}</div>
@@ -704,43 +833,28 @@
             </div>`
           ).addTo(map);
         });
+
         map.on("mouseleave", "grid-fill", ()=>{
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        // Initial paint
         updateMetric(metricKey, state[metricKey].mode, map, grid);
       });
 
       return { map, grid };
     }
 
-    /* =========================
-       STATE
-       ========================= */
-    const state = {
-      count: { mode:"motorcycle", breaksByMode: {} },
-      mean:  { mode:"motorcycle" },
-      share: { mode:"motorcycle" },
-    };
-
-    /* =========================
-       Update a metric (set colors + legend)
-       ========================= */
     function updateMetric(metricKey, mode, map, gridGeojson){
       state[metricKey].mode = mode;
 
       const field = FIELDS[metricKey][mode];
       const colors = RAMPS[mode];
 
-      // breaks
       let breaks;
       if (metricKey === "count"){
-        // compute once per mode
         if (!state.count.breaksByMode[mode]){
           const vals = (gridGeojson.features || []).map(f => Number(f.properties?.[field]));
-          // 8 classes => 7 breaks
           state.count.breaksByMode[mode] = computeQuantileBreaks(vals, 8);
         }
         breaks = state.count.breaksByMode[mode];
@@ -748,34 +862,26 @@
         breaks = BINS_FIXED[metricKey][mode];
       }
 
-      // apply paint
       const expr = stepExpr(field, breaks, colors);
 
-      // IMPORTANT FIX for your “first map not showing data”:
-      // - Ensure paint is updated after source/layer load
-      // - Ensure numeric conversion + coalesce in expression (done)
       if (map.getLayer("grid-fill")){
         map.setPaintProperty("grid-fill", "fill-color", expr);
-        map.setPaintProperty("grid-fill", "fill-opacity", 0.78);
+        map.setPaintProperty("grid-fill", "fill-opacity", 0.80);
       }
 
-      // update legend for this metric
-      const prefix = metricKey === "count" ? "COUNT" : (metricKey === "mean" ? "MEAN" : "SHARE");
-      const titleEl = document.getElementById(`legend${cap(metricKey)}Title`);
-      const fieldEl = document.getElementById(`legend${cap(metricKey)}Field`);
-      const rowsEl  = document.getElementById(`legend${cap(metricKey)}Rows`);
+      document.getElementById(`legend${cap(metricKey)}Title`).textContent =
+        `${metricKey === "count" ? "COUNT" : metricKey === "mean" ? "MEAN" : "SHARE"} · ${mode.toUpperCase()}`;
+      document.getElementById(`legend${cap(metricKey)}Field`).textContent =
+        `Field: ${field}`;
 
-      titleEl.textContent = `${prefix} · ${mode.toUpperCase()}`;
-      fieldEl.textContent = `Field: ${field}`;
-
-      renderLegend(rowsEl, mode, metricKey, breaks, colors);
+      renderLegend(
+        document.getElementById(`legend${cap(metricKey)}Rows`),
+        metricKey,
+        breaks,
+        colors
+      );
     }
 
-    function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
-
-    /* =========================
-       Wire toggles
-       ========================= */
     function bindToggles(metricKey, mapRef, gridRef){
       const wrap = document.querySelector(`.toggles[data-map="${metricKey}"]`);
       if (!wrap) return;
@@ -790,37 +896,114 @@
       });
     }
 
-    /* =========================
-       Boot
-       ========================= */
-    (async function init(){
-      // Build maps
-      const count = await makeMetricMap({
-        containerId: "mapCount",
-        metricKey: "count",
-        legendTitleEl: document.getElementById("legendCountTitle"),
-        legendFieldEl: document.getElementById("legendCountField"),
-        legendRowsEl: document.getElementById("legendCountRows"),
-      });
-      const mean = await makeMetricMap({
-        containerId: "mapMean",
-        metricKey: "mean",
-        legendTitleEl: document.getElementById("legendMeanTitle"),
-        legendFieldEl: document.getElementById("legendMeanField"),
-        legendRowsEl: document.getElementById("legendMeanRows"),
-      });
-      const share = await makeMetricMap({
-        containerId: "mapShare",
-        metricKey: "share",
-        legendTitleEl: document.getElementById("legendShareTitle"),
-        legendFieldEl: document.getElementById("legendShareField"),
-        legendRowsEl: document.getElementById("legendShareRows"),
+    async function makeTypologyMap(){
+      const [boundary, wards, typed] = await Promise.all([
+        loadJSON(HCMC_BOUNDARY),
+        loadJSON(HCMC_WARDS),
+        loadJSON(TYPE_GEOJSON)
+      ]);
+
+      const bounds = bboxFromGeojson(boundary);
+
+      const map = new mapboxgl.Map({
+        container: "mapTypology",
+        style: MAPBOX_STYLE,
+        center: [106.7, 10.78],
+        zoom: 9.2,
+        attributionControl: true
       });
 
-      // Bind toggles (each metric controls its own map)
-      bindToggles("count", count.map, count.grid);
-      bindToggles("mean",  mean.map,  mean.grid);
-      bindToggles("share", share.map, share.grid);
+      map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-left");
+
+      map.on("load", ()=>{
+        map.fitBounds(bounds, { padding: 40, duration: 0 });
+
+        addContextLayers(map, boundary, wards);
+
+        map.addSource("typed-grid", { type:"geojson", data: typed });
+
+        map.addLayer({
+          id: "typed-fill",
+          type: "fill",
+          source: "typed-grid",
+          paint: {
+            "fill-color": [
+              "match",
+              ["to-string", ["coalesce", ["get", "traffic_type"], ""]],
+              "A_motorcycle_baseline", "#f4b76a",
+              "motorcycle_baseline", "#f4b76a",
+              "B_car_oriented", "#e31a1c",
+              "car_oriented", "#e31a1c",
+              "C_bus_influenced", "#33a02c",
+              "bus_influenced", "#33a02c",
+              "D_mixed", "#8e44ad",
+              "mixed", "#8e44ad",
+              "mixed(car/bus)", "#8e44ad",
+              "D_mixed(car/bus)", "#8e44ad",
+              "E_low_confidence", "#9e9e9e",
+              "low_confidence", "#9e9e9e",
+              "#cccccc"
+            ],
+            "fill-opacity": 0.90
+          }
+        });
+
+        map.addLayer({
+          id: "typed-line",
+          type: "line",
+          source: "typed-grid",
+          paint: {
+            "line-color": "rgba(0,0,0,.18)",
+            "line-width": 0.15
+          }
+        });
+
+        const popup = new mapboxgl.Popup({ closeButton:false, closeOnClick:false, offset: 8 });
+
+        map.on("mousemove", "typed-fill", (e)=>{
+          map.getCanvas().style.cursor = "pointer";
+          const f = e.features && e.features[0];
+          if (!f) return;
+          const t = f.properties?.traffic_type || "NA";
+          const obs = f.properties?.obs_rows;
+          const shareMc = f.properties?.share_motorcycle_all;
+          const shareCar = f.properties?.share_car_all;
+          const shareBus = f.properties?.share_bus_all;
+
+          popup.setLngLat(e.lngLat).setHTML(
+            `<div style="font-size:12.5px; line-height:1.4;">
+              <div style="font-weight:750; margin-bottom:4px;">${t}</div>
+              <div style="opacity:.86;">obs_rows: <b>${obs ?? "—"}</b></div>
+              <div style="opacity:.86;">mc share: <b>${shareMc != null ? pct(Number(shareMc)) : "—"}</b></div>
+              <div style="opacity:.86;">car share: <b>${shareCar != null ? pct(Number(shareCar)) : "—"}</b></div>
+              <div style="opacity:.86;">bus share: <b>${shareBus != null ? pct(Number(shareBus)) : "—"}</b></div>
+            </div>`
+          ).addTo(map);
+        });
+
+        map.on("mouseleave", "typed-fill", ()=>{
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+      });
+
+      return map;
+    }
+
+    (async function init(){
+      try{
+        const count = await makeMetricMap("mapCount", "count");
+        const mean  = await makeMetricMap("mapMean", "mean");
+        const share = await makeMetricMap("mapShare", "share");
+
+        bindToggles("count", count.map, count.grid);
+        bindToggles("mean",  mean.map,  mean.grid);
+        bindToggles("share", share.map, share.grid);
+
+        await makeTypologyMap();
+      }catch(err){
+        console.error(err);
+      }
     })();
   </script>
 

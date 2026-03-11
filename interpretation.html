@@ -2,70 +2,900 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interpretation — HCMC Mobility</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Integrated Interpretation | HCMC Mobility</title>
+
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Mapbox GL -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+  <style>
+    .page-pad{ padding-top:110px; }
+
+    .page-head{ margin-bottom:18px; }
+    .h1{ font-size:56px; line-height:1.03; margin:0 0 10px; }
+    .sublead{
+      color: rgba(255,255,255,.74);
+      max-width: 90ch;
+      line-height: 1.58;
+      margin: 0;
+    }
+
+    .section-tight{ padding: 40px 0 56px; }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items:start;
+    }
+
+    .analysis-boxes{
+      display:grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .analysis-pill{
+      border-radius: 18px;
+      background: #1f6b8f;
+      color: rgba(255,255,255,.96);
+      padding: 18px 20px;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.35;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .analysis-card{
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(20,20,22,.66);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .analysis-layout{
+      display:grid;
+      grid-template-columns: 0.95fr 1.25fr;
+      gap: 18px;
+      align-items:start;
+    }
+
+    .analysis-text h3{
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .analysis-text p{
+      margin: 8px 0;
+      line-height: 1.56;
+      color: rgba(255,255,255,.9);
+    }
+
+    .analysis-text ul{
+      margin: 0;
+      padding-left: 20px;
+      color: rgba(255,255,255,.9);
+    }
+
+    .analysis-text li{
+      margin: 6px 0;
+      line-height: 1.5;
+    }
+
+    .qblock{
+      margin: 12px 0 14px;
+      line-height: 1.52;
+    }
+
+    .qtitle{
+      font-weight: 900;
+      font-size: 17px;
+      display:block;
+      margin-bottom: 2px;
+    }
+
+    .qline{
+      display:block;
+      margin-left: 0;
+      color: rgba(255,255,255,.92);
+    }
+
+    .c-blue{ color:#5b8bd9; }
+    .c-green{ color:#4caf50; }
+    .c-orange{ color:#f2a654; }
+    .c-red{ color:#e53935; }
+    .c-grey{ color:#bdbdbd; }
+
+    .small-muted{
+      color: rgba(255,255,255,.66);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    .map-wrap{
+      position: relative;
+      min-height: 720px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+
+    .map-wrap.cluster{
+      min-height: 760px;
+    }
+
+    .map{
+      position:absolute;
+      inset:0;
+    }
+
+    .legend-box{
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      z-index:5;
+      width: 285px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(18,22,28,.90);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.90);
+    }
+
+    .legend-title{
+      font-weight: 800;
+      letter-spacing: .08em;
+      font-size: 12px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .legend-sub{
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .legend-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin: 6px 0;
+    }
+
+    .legend-left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:0;
+    }
+
+    .swatch{
+      width: 14px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,.15);
+      flex: 0 0 auto;
+    }
+
+    .legend-k{
+      color: rgba(255,255,255,.88);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cluster-list{
+      display:grid;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .cluster-item{
+      display:grid;
+      grid-template-columns: 64px 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+
+    .cluster-swatch{
+      width: 64px;
+      height: 34px;
+      border-radius: 0;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    .cluster-name{
+      font-size: 17px;
+      font-weight: 900;
+      margin: 0 0 4px;
+      color: rgba(255,255,255,.95);
+    }
+
+    .cluster-desc{
+      margin:0;
+      color: rgba(255,255,255,.88);
+      line-height:1.5;
+    }
+
+    @media (max-width: 1100px){
+      .analysis-layout{ grid-template-columns: 1fr; }
+      .intro-grid{ grid-template-columns: 1fr; }
+      .map-wrap, .map-wrap.cluster{ min-height: 620px; }
+    }
+
+    @media (max-width: 820px){
+      .h1{ font-size: 42px; }
+      .map-wrap, .map-wrap.cluster{ min-height: 560px; }
+      .legend-box{ width: 245px; }
+    }
+  </style>
 </head>
 
-<body>
-  <header class="topbar">
-    <div class="topbar__inner">
-      <a class="brand" href="index.html">
-        <div class="brand__title">HCMC Mobility</div>
-        <div class="brand__subtitle">Analysis for Mobility</div>
-      </a>
-      <nav class="navchips">
-        <a class="chip" href="index.html">Home</a>
-        <a class="chip" href="contents.html">Contents</a>
-        <a class="chip" href="motivation.html">Motivation</a>
-        <a class="chip" href="framework.html">Framework</a>
-        <a class="chip" href="part1.html">Part I</a>
-        <a class="chip" href="part2.html">Part II</a>
-        <a class="chip" href="part3.html">Part III</a>
-        <a class="chip" href="interpretation.html">Interpretation</a>
-        <a class="chip" href="conclusion.html">Conclusion</a>
-      </nav>
+<body class="theme-dark">
+  <header class="topbar glass" role="banner">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-title">HCMC Mobility</div>
+        <div class="brand-sub">Analysis for Mobility</div>
+      </div>
     </div>
+
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="pill" href="index.html">Home</a>
+      <a class="pill" href="content.html">Content</a>
+      <a class="pill" href="motivation.html">Motivation</a>
+      <a class="pill" href="framework.html">Framework</a>
+
+      <div class="pill dropdown" tabindex="0" aria-label="Parts">
+        <span>Parts</span>
+        <div class="dropdown-menu" role="menu">
+          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        </div>
+      </div>
+
+      <a class="pill" href="interpretation.html">Interpretation</a>
+      <a class="pill" href="conclusion.html">Conclusion</a>
+    </nav>
   </header>
 
-  <main class="page">
-    <section class="section">
-      <div class="container">
-        <div class="kicker">Interpretation</div>
-        <h1 class="h1">Integrated interpretation</h1>
-        <p class="p">
-          This chapter will integrate results across parts:
-          <b>distribution (Part I)</b>, <b>congestion indicators (Part II)</b>, and <b>planned supply (Part III)</b>.
-          The goal is to explain not only where mobility intensity is high, but how mode differences and schedule-based supply patterns shape observed conditions.
+  <main class="page-pad">
+    <section class="section-tight" id="top">
+      <div class="container page-head">
+        <div class="kicker">INTERPRETATION</div>
+        <h1 class="h1">Integrated Interpretation</h1>
+        <p class="sublead">
+          Integrating distribution, congestion, and public transport through a common 250m grid framework.
+          This section cross-reads <b>bus supply</b>, <b>motorcycle intensity</b>, <b>bus street visibility</b>, and
+          <b>congestion index</b> to identify mismatches, benchmark areas, and structurally stressed corridors.
         </p>
+      </div>
+    </section>
 
-        <div class="card reveal">
-          <h3 class="h3">PLACEHOLDER — integrated findings</h3>
-          <div class="placeholder placeholder--big">
-            <div class="placeholder__title">PLACEHOLDER #INT-01</div>
-            <div class="placeholder__desc">
-              Add: (1) key spatial hotspots, (2) weekday/weekend contrast, (3) supply-demand mismatch hypothesis, (4) planning implications.
+    <section class="section-tight" id="overview">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="intro-grid">
+            <div>
+              <h2 class="h2" style="margin-top:0;">Integrating Accessibility, Supply, Demand &amp; Congestion</h2>
+
+              <div style="margin-top:18px;">
+                <h3 class="h3" style="margin:0 0 10px;">Data Foundation</h3>
+                <p><b>• Bus Supply</b> → <code>seat_sum</code></p>
+                <p><b>• Motorcycle Intensity</b> → <code>n_motorcycle</code></p>
+                <p><b>• Congestion Index</b> → <code>CI_final</code></p>
+                <p><b>• Bus Share</b> → <code>share_bus_all</code></p>
+                <p>All indicators aggregated at <b>250m grid level</b>.</p>
+              </div>
+
+              <div style="margin-top:22px;">
+                <h3 class="h3" style="margin:0 0 10px;">Method</h3>
+                <p>Median split for each indicator</p>
+                <p><span class="c-green"><b>High:</b> value &gt; city median</span></p>
+                <p><span class="c-red"><b>Low:</b> value ≤ city median</span></p>
+                <p>Quadrant-based classification</p>
+              </div>
             </div>
-          </div>
 
-          <div class="card__footer">
-            <a class="btn btn--small btn--glass" href="conclusion.html">Continue to Conclusion →</a>
+            <div>
+              <h2 class="h2" style="margin-top:0;">Three Comparative Analyses</h2>
+              <div class="analysis-boxes">
+                <div class="analysis-pill">Public Transport Supply × Motorcycle Distribution</div>
+                <div style="padding-left: 8px;">
+                  <p style="margin:6px 0;">• Identify spatial supply–demand mismatch</p>
+                  <p style="margin:6px 0;">• Detect under-served motorcycle-dependent areas</p>
+                </div>
+
+                <div class="analysis-pill">Public Transport Supply × Bus Share</div>
+                <div style="padding-left: 8px;">
+                  <p style="margin:6px 0;">• Examine effectiveness of bus provision</p>
+                  <p style="margin:6px 0;">• Evaluate modal substitution performance</p>
+                </div>
+
+                <div class="analysis-pill">Public Transport Supply × Congestion Index</div>
+                <div style="padding-left: 8px;">
+                  <p style="margin:6px 0;">• Assess whether supply alleviates congestion</p>
+                  <p style="margin:6px 0;">• Identify structurally stressed corridors</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="container footer__inner">
-        <div class="footer__left">
-          <div class="footer__title">Interpretation</div>
-          <div class="footer__muted">Next: conclusion and team credits.</div>
+    <section class="section-tight" id="supply-mc">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="analysis-layout">
+            <div class="analysis-text">
+              <h2 class="h2" style="margin-top:0;">Public Transport Supply vs Motorcycle Distribution</h2>
+
+              <div class="qblock">
+                <span class="qtitle">Q1 – High Supply / High Motorcycle</span>
+                <span class="qline">→ Supply exists but modal shift not achieved</span>
+                <span class="qline">→ Public transport not attractive enough</span>
+                <span class="qline">→ Possible behavioral or network barrier</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle c-red">Q2 – Low Supply / High Motorcycle</span>
+                <span class="qline c-red">→ Clear underserved area</span>
+                <span class="qline c-red">→ Strong dependence on motorcycles</span>
+                <span class="qline c-red">→ Priority zone for supply expansion</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle">Q3 – Low Supply / Low Motorcycle</span>
+                <span class="qline">→ Possibly low demand or peripheral area</span>
+                <span class="qline">→ Infrastructure-light zones</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle c-green">Q4 – High Supply / Low Motorcycle</span>
+                <span class="qline c-green">→ Successful modal substitution</span>
+                <span class="qline c-green">→ Potential benchmark areas</span>
+              </div>
+
+              <div class="small-muted">
+                Field used in interactive map: <code>quad_bus_supply_motorcycle</code>
+              </div>
+            </div>
+
+            <div class="map-wrap">
+              <div id="mapMotorcycle" class="map" aria-label="Public transport supply vs motorcycle distribution"></div>
+              <div class="legend-box">
+                <div class="legend-title">Supply × Motorcycle</div>
+                <div class="legend-sub">Field: <span class="muted">quad_bus_supply_motorcycle</span></div>
+
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#4c78a8"></span><span class="legend-k">Q1_highX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#2ca02c"></span><span class="legend-k">Q2_lowX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f2a654"></span><span class="legend-k">Q3_lowX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#e53935"></span><span class="legend-k">Q4_highX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#bdbdbd"></span><span class="legend-k">low_confidence</span></div></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <a class="btn btn--small btn--glass" href="conclusion.html">Continue →</a>
       </div>
-    </footer>
+    </section>
+
+    <section class="section-tight" id="supply-busshare">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="analysis-layout">
+            <div class="analysis-text">
+              <h2 class="h2" style="margin-top:0;">Public Transport Supply vs Bus Share (Street Visibility)</h2>
+
+              <div class="qblock">
+                <span class="qtitle c-green">Q1 – High Supply / High Bus Share</span>
+                <span class="qline c-green">→ Strong public transport presence</span>
+                <span class="qline c-green">→ High network integration</span>
+                <span class="qline c-green">→ Transit-oriented pattern</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle">Q2 – Low Supply / High Bus Share</span>
+                <span class="qline">→ Visual dominance but limited capacity</span>
+                <span class="qline">→ Possibly corridor concentration</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle">Q3 – Low Supply / Low Bus Share</span>
+                <span class="qline">→ Public transport marginal</span>
+                <span class="qline">→ Car/motorcycle dominant streets</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle c-red">Q4 – High Supply / Low Bus Share</span>
+                <span class="qline c-red">→ Invisible supply</span>
+                <span class="qline c-red">→ Buses not spatially embedded in street fabric</span>
+              </div>
+
+              <div class="small-muted">
+                Field used in interactive map: <code>quad_bus_supply_busshare</code>
+              </div>
+            </div>
+
+            <div class="map-wrap">
+              <div id="mapBusShare" class="map" aria-label="Public transport supply vs bus share"></div>
+              <div class="legend-box">
+                <div class="legend-title">Supply × Bus Share</div>
+                <div class="legend-sub">Field: <span class="muted">quad_bus_supply_busshare</span></div>
+
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#4c78a8"></span><span class="legend-k">Q1_highX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#2ca02c"></span><span class="legend-k">Q2_lowX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f2a654"></span><span class="legend-k">Q3_lowX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#e53935"></span><span class="legend-k">Q4_highX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#bdbdbd"></span><span class="legend-k">low_confidence</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight" id="supply-congestion">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="analysis-layout">
+            <div class="analysis-text">
+              <h2 class="h2" style="margin-top:0;">Public Transport Supply vs Congestion Index</h2>
+
+              <div class="qblock">
+                <span class="qtitle">Q1 – High Supply / High Congestion</span>
+                <span class="qline">→ Supply insufficient relative to demand</span>
+                <span class="qline">→ Structural bottleneck</span>
+                <span class="qline">→ Need network redesign</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle c-red">Q2 – Low Supply / High Congestion</span>
+                <span class="qline c-red">→ Under-served congested zone</span>
+                <span class="qline c-red">→ Priority intervention area</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle">Q3 – Low Supply / Low Congestion</span>
+                <span class="qline">→ Low activity / low pressure zone</span>
+              </div>
+
+              <div class="qblock">
+                <span class="qtitle c-green">Q4 – High Supply / Low Congestion</span>
+                <span class="qline c-green">→ Effective transit support</span>
+                <span class="qline c-green">→ Potential model corridor</span>
+              </div>
+
+              <div class="small-muted">
+                Field used in interactive map: <code>quad_bus_supply_congestion</code>
+              </div>
+            </div>
+
+            <div class="map-wrap">
+              <div id="mapCongestion" class="map" aria-label="Public transport supply vs congestion index"></div>
+              <div class="legend-box">
+                <div class="legend-title">Supply × Congestion</div>
+                <div class="legend-sub">Field: <span class="muted">quad_bus_supply_congestion</span></div>
+
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#4c78a8"></span><span class="legend-k">Q1_highX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#2ca02c"></span><span class="legend-k">Q2_lowX_highY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f2a654"></span><span class="legend-k">Q3_lowX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#e53935"></span><span class="legend-k">Q4_highX_lowY</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#bdbdbd"></span><span class="legend-k">low_confidence</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight" id="kmeans">
+      <div class="container">
+        <div class="analysis-card">
+          <div class="analysis-layout">
+            <div class="analysis-text">
+              <div class="analysis-pill" style="display:inline-block; margin-bottom:16px;">
+                K-Means:<br/>
+                Public Transport Supply × Motorcycle share<br/>
+                × Congestion Index
+              </div>
+
+              <div class="cluster-list">
+                <div class="cluster-item">
+                  <div class="cluster-swatch" style="background:#4c78a8;"></div>
+                  <div>
+                    <p class="cluster-name">Motorcycle-Dependent Areas</p>
+                    <p class="cluster-desc">High motorcycle use and congestion</p>
+                  </div>
+                </div>
+
+                <div class="cluster-item">
+                  <div class="cluster-swatch" style="background:#e53935;"></div>
+                  <div>
+                    <p class="cluster-name">Transit-Strained Core</p>
+                    <p class="cluster-desc">High public transport and motorcycle use, with congestion</p>
+                  </div>
+                </div>
+
+                <div class="cluster-item">
+                  <div class="cluster-swatch" style="background:#f2a654;"></div>
+                  <div>
+                    <p class="cluster-name">Car-Oriented Districts</p>
+                    <p class="cluster-desc">High car usage</p>
+                  </div>
+                </div>
+
+                <div class="cluster-item">
+                  <div class="cluster-swatch" style="background:#23a455;"></div>
+                  <div>
+                    <p class="cluster-name">Transit-Effective Zones</p>
+                    <p class="cluster-desc">High public transport use, low motorcycle dependence</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="small-muted">
+                Field used in interactive map: <code>cluster_k4</code><br/>
+                0 = Motorcycle-Dependent Areas<br/>
+                1 = Transit-Strained Core<br/>
+                2 = Car-Oriented Districts<br/>
+                3 = Transit-Effective Zones
+              </div>
+            </div>
+
+            <div class="map-wrap cluster">
+              <div id="mapCluster" class="map" aria-label="K-means cluster map"></div>
+              <div class="legend-box">
+                <div class="legend-title">K-Means Cluster</div>
+                <div class="legend-sub">Field: <span class="muted">cluster_k4</span></div>
+
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#4c78a8"></span><span class="legend-k">0 — Motorcycle-Dependent Areas</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#e53935"></span><span class="legend-k">1 — Transit-Strained Core</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f2a654"></span><span class="legend-k">2 — Car-Oriented Districts</span></div></div>
+                <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#23a455"></span><span class="legend-k">3 — Transit-Effective Zones</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footerbar" style="margin-top:16px;">
+          <div class="muted">HCMC Mobility — Integrated Interpretation</div>
+          <a class="btn small" href="#top">Back to top</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
+
+  <script>
+    mapboxgl.accessToken = "pk.eyJ1IjoiZGVmZmllIiwiYSI6ImNtZTl1MTBvcjBvZGkyanFhdmwydHp0aTUifQ.vACEuAMjlPb7JoRrNbtKQg";
+    const MAP_STYLE = "mapbox://styles/mapbox/light-v11";
+
+    const QUAD_GEOJSON = "./assets/grid_250m_merged_all_features_with_quadrants_2.geojson";
+    const CLUSTER_GEOJSON = "./assets/grid_cluster_k4_final.geojson";
+    const BOUNDARY_GEOJSON = "./assets/hcmc_boundary.geojson";
+    const WARDS_GEOJSON = "./assets/hcmc_wards.geojson";
+
+    const QUAD_COLORS = {
+      Q1: "#4c78a8",
+      Q2: "#2ca02c",
+      Q3: "#f2a654",
+      Q4: "#e53935",
+      LOW: "#bdbdbd",
+      NONE: "rgba(0,0,0,0)"
+    };
+
+    const CLUSTER_COLORS = {
+      "0": "#4c78a8",
+      "1": "#e53935",
+      "2": "#f2a654",
+      "3": "#23a455",
+      "default": "rgba(0,0,0,0)"
+    };
+
+    async function loadJSON(url){
+      const r = await fetch(url);
+      if(!r.ok) throw new Error(`Failed to load ${url}: ${r.status}`);
+      return await r.json();
+    }
+
+    function bboxFromFeatureCollection(fc){
+      let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+
+      function scan(coords){
+        for(const c of coords){
+          if(typeof c[0] === "number" && typeof c[1] === "number"){
+            minX = Math.min(minX, c[0]);
+            minY = Math.min(minY, c[1]);
+            maxX = Math.max(maxX, c[0]);
+            maxY = Math.max(maxY, c[1]);
+          }else{
+            scan(c);
+          }
+        }
+      }
+
+      (fc.features || []).forEach(f => {
+        if(f.geometry && f.geometry.coordinates) scan(f.geometry.coordinates);
+      });
+
+      if(!isFinite(minX)) return [[106.25,10.55],[107.1,11.1]];
+      return [[minX,minY],[maxX,maxY]];
+    }
+
+    function addContextLayers(map, boundaryGeo, wardsGeo){
+      if(boundaryGeo){
+        map.addSource("boundary", { type:"geojson", data: boundaryGeo });
+      }
+      if(wardsGeo){
+        map.addSource("wards", { type:"geojson", data: wardsGeo });
+      }
+
+      if(wardsGeo){
+        map.addLayer({
+          id: "wards-line",
+          type: "line",
+          source: "wards",
+          paint: {
+            "line-color": "rgba(0,0,0,.22)",
+            "line-width": 0.6,
+            "line-opacity": 0.55
+          }
+        });
+      }
+
+      if(boundaryGeo){
+        map.addLayer({
+          id: "boundary-line",
+          type: "line",
+          source: "boundary",
+          paint: {
+            "line-color": "#ff4d4d",
+            "line-width": 2.0,
+            "line-opacity": 0.95
+          }
+        });
+      }
+    }
+
+    function quadMatchExpr(field){
+      return [
+        "match",
+        ["to-string", ["coalesce", ["get", field], ""]],
+        "Q1_highX_highY", QUAD_COLORS.Q1,
+        "q1_highx_highy", QUAD_COLORS.Q1,
+        "Q1", QUAD_COLORS.Q1,
+        "1", QUAD_COLORS.Q1,
+
+        "Q2_lowX_highY", QUAD_COLORS.Q2,
+        "q2_lowx_highy", QUAD_COLORS.Q2,
+        "Q2", QUAD_COLORS.Q2,
+        "2", QUAD_COLORS.Q2,
+
+        "Q3_lowX_lowY", QUAD_COLORS.Q3,
+        "q3_lowx_lowy", QUAD_COLORS.Q3,
+        "Q3", QUAD_COLORS.Q3,
+        "3", QUAD_COLORS.Q3,
+
+        "Q4_highX_lowY", QUAD_COLORS.Q4,
+        "q4_highx_lowy", QUAD_COLORS.Q4,
+        "Q4", QUAD_COLORS.Q4,
+        "4", QUAD_COLORS.Q4,
+
+        "low_confidence", QUAD_COLORS.LOW,
+        "Low Confidence", QUAD_COLORS.LOW,
+        "low-confidence", QUAD_COLORS.LOW,
+
+        "no_data", QUAD_COLORS.NONE,
+        "", QUAD_COLORS.NONE,
+        QUAD_COLORS.NONE
+      ];
+    }
+
+    function clusterMatchExpr(field){
+      return [
+        "match",
+        ["to-string", ["coalesce", ["get", field], ""]],
+        "0", CLUSTER_COLORS["0"],
+        "1", CLUSTER_COLORS["1"],
+        "2", CLUSTER_COLORS["2"],
+        "3", CLUSTER_COLORS["3"],
+        CLUSTER_COLORS.default
+      ];
+    }
+
+    function prettyQuadLabel(v){
+      const s = String(v ?? "");
+      if(s === "Q1_highX_highY" || s === "1" || s === "Q1") return "Q1_highX_highY";
+      if(s === "Q2_lowX_highY" || s === "2" || s === "Q2") return "Q2_lowX_highY";
+      if(s === "Q3_lowX_lowY" || s === "3" || s === "Q3") return "Q3_lowX_lowY";
+      if(s === "Q4_highX_lowY" || s === "4" || s === "Q4") return "Q4_highX_lowY";
+      if(s.toLowerCase().includes("low_conf")) return "low_confidence";
+      if(!s) return "no_data";
+      return s;
+    }
+
+    function prettyClusterLabel(v){
+      const s = String(v ?? "");
+      if(s === "0") return "Motorcycle-Dependent Areas";
+      if(s === "1") return "Transit-Strained Core";
+      if(s === "2") return "Car-Oriented Districts";
+      if(s === "3") return "Transit-Effective Zones";
+      return "NA";
+    }
+
+    function createBaseMap(containerId, bounds){
+      const map = new mapboxgl.Map({
+        container: containerId,
+        style: MAP_STYLE,
+        center: [106.7, 10.78],
+        zoom: 9.4,
+        attributionControl: true
+      });
+
+      map.addControl(new mapboxgl.NavigationControl({ showCompass:false }), "top-left");
+
+      map.on("load", () => {
+        map.fitBounds(bounds, { padding: 34, duration: 0 });
+      });
+
+      return map;
+    }
+
+    function addPopupHover(map, fillLayerId, htmlFn){
+      const popup = new mapboxgl.Popup({ closeButton:false, closeOnClick:false, offset: 8 });
+
+      map.on("mousemove", fillLayerId, (e) => {
+        map.getCanvas().style.cursor = "pointer";
+        const f = e.features && e.features[0];
+        if(!f) return;
+        popup.setLngLat(e.lngLat).setHTML(htmlFn(f)).addTo(map);
+      });
+
+      map.on("mouseleave", fillLayerId, () => {
+        map.getCanvas().style.cursor = "";
+        popup.remove();
+      });
+    }
+
+    async function buildQuadMap(containerId, boundaryGeo, wardsGeo, quadGeo, field){
+      const bounds = boundaryGeo ? bboxFromFeatureCollection(boundaryGeo) : bboxFromFeatureCollection(quadGeo);
+      const map = createBaseMap(containerId, bounds);
+
+      map.on("load", () => {
+        addContextLayers(map, boundaryGeo, wardsGeo);
+
+        map.addSource(containerId + "_src", { type:"geojson", data: quadGeo });
+
+        map.addLayer({
+          id: containerId + "_fill",
+          type: "fill",
+          source: containerId + "_src",
+          paint: {
+            "fill-color": quadMatchExpr(field),
+            "fill-opacity": 0.92
+          }
+        });
+
+        map.addLayer({
+          id: containerId + "_line",
+          type: "line",
+          source: containerId + "_src",
+          paint: {
+            "line-color": "rgba(0,0,0,.18)",
+            "line-width": 0.18,
+            "line-opacity": 0.35
+          }
+        });
+
+        addPopupHover(map, containerId + "_fill", (f) => {
+          const raw = f.properties?.[field];
+          const label = prettyQuadLabel(raw);
+          return `
+            <div style="font-size:12.5px; line-height:1.4;">
+              <div style="font-weight:800; margin-bottom:4px;">${label}</div>
+              <div style="opacity:.86;">Field: <b>${field}</b></div>
+              <div style="opacity:.86;">Value: <b>${raw ?? "NA"}</b></div>
+            </div>
+          `;
+        });
+      });
+
+      return map;
+    }
+
+    async function buildClusterMap(containerId, boundaryGeo, wardsGeo, clusterGeo){
+      const bounds = boundaryGeo ? bboxFromFeatureCollection(boundaryGeo) : bboxFromFeatureCollection(clusterGeo);
+      const map = createBaseMap(containerId, bounds);
+
+      map.on("load", () => {
+        addContextLayers(map, boundaryGeo, wardsGeo);
+
+        map.addSource(containerId + "_src", { type:"geojson", data: clusterGeo });
+
+        map.addLayer({
+          id: containerId + "_fill",
+          type: "fill",
+          source: containerId + "_src",
+          paint: {
+            "fill-color": clusterMatchExpr("cluster_k4"),
+            "fill-opacity": 0.92
+          }
+        });
+
+        map.addLayer({
+          id: containerId + "_line",
+          type: "line",
+          source: containerId + "_src",
+          paint: {
+            "line-color": "rgba(0,0,0,.18)",
+            "line-width": 0.18,
+            "line-opacity": 0.35
+          }
+        });
+
+        addPopupHover(map, containerId + "_fill", (f) => {
+          const raw = f.properties?.cluster_k4;
+          const label = prettyClusterLabel(raw);
+          return `
+            <div style="font-size:12.5px; line-height:1.4;">
+              <div style="font-weight:800; margin-bottom:4px;">${label}</div>
+              <div style="opacity:.86;">Field: <b>cluster_k4</b></div>
+              <div style="opacity:.86;">Value: <b>${raw ?? "NA"}</b></div>
+            </div>
+          `;
+        });
+      });
+
+      return map;
+    }
+
+    (async function initInterpretation(){
+      try{
+        const quadGeo = await loadJSON(QUAD_GEOJSON);
+        const clusterGeo = await loadJSON(CLUSTER_GEOJSON);
+
+        let boundaryGeo = null;
+        let wardsGeo = null;
+
+        try { boundaryGeo = await loadJSON(BOUNDARY_GEOJSON); } catch(e) {}
+        try { wardsGeo = await loadJSON(WARDS_GEOJSON); } catch(e) {}
+
+        await buildQuadMap("mapMotorcycle", boundaryGeo, wardsGeo, quadGeo, "quad_bus_supply_motorcycle");
+        await buildQuadMap("mapBusShare", boundaryGeo, wardsGeo, quadGeo, "quad_bus_supply_busshare");
+        await buildQuadMap("mapCongestion", boundaryGeo, wardsGeo, quadGeo, "quad_bus_supply_congestion");
+        await buildClusterMap("mapCluster", boundaryGeo, wardsGeo, clusterGeo);
+
+      }catch(err){
+        console.error(err);
+        ["mapMotorcycle","mapBusShare","mapCongestion","mapCluster"].forEach(id => {
+          const el = document.getElementById(id);
+          if(el){
+            el.innerHTML = `
+              <div style="padding:16px; color:rgba(255,255,255,.9); font-weight:700;">
+                Map failed to load.<br/>
+                <span style="opacity:.72; font-weight:500;">Open DevTools Console for details.</span>
+              </div>
+            `;
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

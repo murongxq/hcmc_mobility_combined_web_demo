@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>HCMC Mobility — Part III</title>
 
-  <!-- Keep the same global style as Part I/II -->
   <link rel="stylesheet" href="style.css"/>
 
   <!-- Mapbox GL -->
@@ -13,76 +12,222 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
   <style>
-    /* Part III specific layout helpers (keeps the same aesthetic) */
-   .page-wrap{max-width: 1200px; margin: 0 auto; padding: 110px 18px 64px;}
-    .kicker{letter-spacing:.14em; text-transform:uppercase; opacity:.75; font-weight:700; font-size:12px;}
-    .page-title{font-size:56px; line-height:1.02; margin:10px 0 10px;}
-    .page-subtitle{opacity:.86; max-width: 880px;}
-    .card{border-radius: 18px; padding: 18px; background: rgba(20,20,22,.66); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 10px 30px rgba(0,0,0,.25);}
-    .card + .card{margin-top: 18px;}
-    .card h2{margin: 0 0 10px; font-size: 22px;}
-    .card p{margin: 8px 0; opacity:.9;}
-    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap: 16px;}
-    .grid3{display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;}
-    @media (max-width: 980px){ .grid2,.grid3{grid-template-columns: 1fr;} .page-title{font-size:42px;} }
+    .page-wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 110px 18px 64px;
+    }
 
-    .bullet{margin: 0; padding-left: 18px;}
-    .bullet li{margin: 6px 0; opacity:.9;}
+    .kicker{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      opacity:.75;
+      font-weight:700;
+      font-size:12px;
+    }
 
-    /* Full-width embed cards */
-    .embed-card{padding: 18px;}
-    .embed-head{display:flex; align-items:flex-start; justify-content:space-between; gap: 12px; margin-bottom: 12px;}
-    .embed-title{font-size: 20px; margin: 0;}
-    .embed-note{opacity:.8; margin: 4px 0 0; font-size: 13px;}
-    .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px;}
+    .page-title{
+      font-size:56px;
+      line-height:1.02;
+      margin:10px 0 10px;
+    }
+
+    .page-subtitle{
+      opacity:.86;
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .card{
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(20,20,22,.66);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .card + .card{ margin-top: 18px; }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .card p{
+      margin: 8px 0;
+      opacity:.9;
+      line-height: 1.58;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 980px){
+      .grid2,.grid3{ grid-template-columns: 1fr; }
+      .page-title{ font-size:42px; }
+    }
+
+    .bullet{
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .bullet li{
+      margin: 6px 0;
+      opacity:.9;
+      line-height: 1.55;
+    }
+
+    .embed-card{ padding: 18px; }
+
+    .embed-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .embed-title{
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .embed-note{
+      opacity:.8;
+      margin: 4px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+
     .btn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 10px 12px; border-radius: 999px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: rgba(255,255,255,.92);
-      text-decoration: none; font-weight: 700; font-size: 13px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
     }
-    .btn:hover{background: rgba(255,255,255,.10);}
+
+    .btn:hover{
+      background: rgba(255,255,255,.10);
+    }
+
+    .btn.is-active{
+      background: rgba(255,255,255,.92);
+      color: #111;
+    }
 
     .embed-frame{
       width: 100%;
-      height: min(72vh, 820px);
+      height: min(82vh, 980px);
       border: 0;
       border-radius: 16px;
       background: rgba(0,0,0,.25);
       overflow:hidden;
     }
 
-    /* Maps */
+    .embed-frame.tall{
+      height: min(86vh, 1080px);
+    }
+
     .map-wrap{
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
-      height: 560px;
+      height: 700px;
       position: relative;
     }
-    .map{width:100%; height:100%;}
+
+    .map-wrap.taller{
+      height: 760px;
+    }
+
+    .map{
+      width:100%;
+      height:100%;
+    }
+
     .legend{
-      position:absolute; left:14px; bottom:14px;
-      width: 260px;
+      position:absolute;
+      left:14px;
+      bottom:14px;
+      width: 280px;
       border-radius: 14px;
       padding: 12px;
-      background: rgba(22,22,24,.86);
+      background: rgba(22,22,24,.88);
       border: 1px solid rgba(255,255,255,.10);
       box-shadow: 0 14px 36px rgba(0,0,0,.35);
       font-size: 12px;
+      z-index: 5;
     }
-    .legend h3{margin:0 0 6px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; opacity:.9;}
-    .legend .field{opacity:.75; margin-bottom: 8px;}
-    .legend .row{display:flex; align-items:center; justify-content:space-between; gap: 10px; margin: 5px 0;}
-    .swatch{width: 14px; height: 10px; border-radius: 3px; border: 1px solid rgba(255,255,255,.14);}
-    .row-left{display:flex; align-items:center; gap: 10px;}
-    .row label{opacity:.9;}
-    .legend small{opacity:.65;}
 
-    /* Part III header image row */
+    .legend h3{
+      margin:0 0 6px;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      opacity:.9;
+    }
+
+    .legend .field{
+      opacity:.75;
+      margin-bottom: 8px;
+    }
+
+    .legend .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin: 5px 0;
+    }
+
+    .swatch{
+      width: 14px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .row-left{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .row label{ opacity:.9; }
+
+    .legend small{
+      opacity:.65;
+      display:block;
+      margin-top:8px;
+      line-height:1.45;
+    }
+
     .hero-img{
       width:100%;
       border-radius: 16px;
@@ -90,39 +235,62 @@
       background: rgba(0,0,0,.18);
       overflow:hidden;
     }
-    .hero-img img{display:block; width:100%; height:auto;}
+
+    .hero-img img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .subcard{
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .small-title{
+      font-size:16px;
+      font-weight:800;
+      margin:0 0 8px;
+    }
+
+    .muted-note{
+      opacity:.75;
+      margin-top:10px;
+      line-height:1.5;
+    }
   </style>
 </head>
 
 <body class="theme-dark">
-  <!-- Topbar (match Part II UI) -->
-<header class="topbar glass" role="banner">
-  <div class="topbar-left">
-    <div class="brand">
-      <div class="brand-title">HCMC Mobility</div>
-      <div class="brand-sub">Analysis for Mobility</div>
-    </div>
-  </div>
-
-  <nav class="topbar-nav" aria-label="Primary">
-    <a class="pill" href="index.html">Home</a>
-    <a class="pill" href="content.html">Content</a>
-    <a class="pill" href="motivation.html">Motivation</a>
-    <a class="pill" href="framework.html">Framework</a>
-
-    <div class="pill dropdown" tabindex="0" aria-label="Parts">
-      <span>Parts</span>
-      <div class="dropdown-menu" role="menu">
-        <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-        <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-        <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+  <header class="topbar glass" role="banner">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-title">HCMC Mobility</div>
+        <div class="brand-sub">Analysis for Mobility</div>
       </div>
     </div>
 
-    <a class="pill" href="interpretation.html">Interpretation</a>
-    <a class="pill" href="conclusion.html">Conclusion</a>
-  </nav>
-</header>
+    <nav class="topbar-nav" aria-label="Primary">
+      <a class="pill" href="index.html">Home</a>
+      <a class="pill" href="content.html">Content</a>
+      <a class="pill" href="motivation.html">Motivation</a>
+      <a class="pill" href="framework.html">Framework</a>
+
+      <div class="pill dropdown" tabindex="0" aria-label="Parts">
+        <span>Parts</span>
+        <div class="dropdown-menu" role="menu">
+          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        </div>
+      </div>
+
+      <a class="pill" href="interpretation.html">Interpretation</a>
+      <a class="pill" href="conclusion.html">Conclusion</a>
+    </nav>
+  </header>
 
   <main class="page-wrap">
     <div class="kicker">PART III</div>
@@ -130,10 +298,10 @@
     <p class="page-subtitle">
       This part reconstructs public transport <b>supply</b> from schedule data, then compares how supply
       varies across <b>space</b> (250m grid) and <b>time</b> (hourly, weekday vs weekend). It also introduces a
-      network-based accessibility lens (30/60 min reachable stops).
+      <b>network-based accessibility</b> lens (30/60 min reachable stops).
     </p>
 
-    <!-- 1) Building the Bus Network (static visual) -->
+    <!-- 1) Building the Bus Network -->
     <section class="card">
       <div class="grid2">
         <div>
@@ -162,19 +330,20 @@
       </div>
     </section>
 
-    <!-- 2) Schedule-Based Bus Simulation (FULL-WIDTH) -->
+    <!-- 2) Schedule-Based Bus Simulation -->
     <section class="card embed-card">
       <div class="embed-head">
         <div>
           <h2 class="embed-title">Schedule-Based Bus Simulation</h2>
-          <p class="embed-note">Interactive demo showing schedule-based vehicle movement across the city.</p>
+          <p class="embed-note">
+            Interactive demo showing schedule-based vehicle movement across the city.
+          </p>
         </div>
         <div class="btn-row">
           <a class="btn" href="https://defy-6.github.io/HCMC-bus/" target="_blank" rel="noopener">Open demo site ↗</a>
         </div>
       </div>
 
-      <!-- Full-width iframe -->
       <iframe
         class="embed-frame"
         src="https://defy-6.github.io/HCMC-bus/"
@@ -185,12 +354,13 @@
       ></iframe>
 
       <div class="grid2" style="margin-top:14px;">
-        <div class="card" style="background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <h2 style="font-size:16px; margin:0 0 8px;">Objective</h2>
+        <div class="subcard">
+          <div class="small-title">Objective</div>
           <ul class="bullet">
             <li>Reconstruct <b>ideal</b> vehicle positions based on schedule.</li>
           </ul>
-          <h2 style="font-size:16px; margin:14px 0 8px;">Method</h2>
+
+          <div class="small-title" style="margin-top:14px;">Method</div>
           <ul class="bullet">
             <li>Simulate vehicle progression along routes.</li>
             <li>Generate <b>time-dependent</b> vehicle positions.</li>
@@ -198,20 +368,20 @@
           </ul>
         </div>
 
-        <div class="card" style="background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <h2 style="font-size:16px; margin:0 0 8px;">Why it matters</h2>
+        <div class="subcard">
+          <div class="small-title">Why it matters</div>
           <ul class="bullet">
             <li>Represents <b>planned supply</b> (independent from demand).</li>
             <li>Provides a baseline for supply–demand comparison.</li>
           </ul>
-          <p style="opacity:.75; margin-top:10px;">
+          <p class="muted-note">
             If your browser blocks embedding, use the “Open demo site” button above.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 3) Weekday / Weekend supply videos (auto-play, no click) -->
+    <!-- 3) Weekday / Weekend supply videos -->
     <section class="card">
       <h2>Public Transport Supply Analysis (Weekday vs Weekend)</h2>
       <p>
@@ -220,8 +390,8 @@
       </p>
 
       <div class="grid2" style="margin-top:14px;">
-        <div class="card" style="background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <h2 style="font-size:16px; margin:0 0 8px;">Weekday pattern</h2>
+        <div class="subcard">
+          <div class="small-title">Weekday pattern</div>
           <ul class="bullet">
             <li>6–9 AM → <b>Morning peak</b></li>
             <li>9–12 → <b>Clear drop</b></li>
@@ -232,8 +402,8 @@
           </ul>
         </div>
 
-        <div class="card" style="background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <h2 style="font-size:16px; margin:0 0 8px;">Weekend pattern</h2>
+        <div class="subcard">
+          <div class="small-title">Weekend pattern</div>
           <ul class="bullet">
             <li>9 AM → <b>Rising</b></li>
             <li>9–12 → <b>High level</b></li>
@@ -245,33 +415,46 @@
       </div>
 
       <div class="grid2" style="margin-top:14px;">
-        <div class="card" style="padding:12px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <div style="font-weight:800; margin: 4px 0 10px;">Weekday mean bus count (per min)</div>
+        <div class="subcard">
+          <div class="small-title">Weekday mean bus count (per min)</div>
           <video src="assets/bus_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
         </div>
-        <div class="card" style="padding:12px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <div style="font-weight:800; margin: 4px 0 10px;">Weekday mean seat count (per min)</div>
+        <div class="subcard">
+          <div class="small-title">Weekday mean seat count (per min)</div>
           <video src="assets/seat_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
         </div>
       </div>
 
       <div class="grid2" style="margin-top:14px;">
-        <div class="card" style="padding:12px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <div style="font-weight:800; margin: 4px 0 10px;">Weekend mean bus count (per min)</div>
+        <div class="subcard">
+          <div class="small-title">Weekend mean bus count (per min)</div>
           <video src="assets/bus_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
         </div>
-        <div class="card" style="padding:12px; background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.08);">
-          <div style="font-weight:800; margin: 4px 0 10px;">Weekend mean seat count (per min)</div>
+        <div class="subcard">
+          <div class="small-title">Weekend mean seat count (per min)</div>
           <video src="assets/seat_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
         </div>
       </div>
     </section>
 
-    <!-- 4) Network-based accessibility (two interactive maps) -->
+    <!-- 4) Network-based accessibility -->
     <section class="card">
-      <h2>Network-Based Accessibility (Grid Level)</h2>
+      <div class="embed-head">
+        <div>
+          <h2 class="embed-title">Network-Based Accessibility (Grid Level)</h2>
+          <p class="embed-note">
+            Accessibility is measured at each 250m grid by the number of stops that can reach the grid within
+            a given travel time threshold.
+          </p>
+        </div>
 
-      <div class="grid2">
+        <div class="btn-row">
+          <button class="btn is-active" id="btnAcc30" type="button">30 min</button>
+          <button class="btn" id="btnAcc60" type="button">60 min</button>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-bottom:14px;">
         <div>
           <p><b>Method overview</b><br/>
             Each grid cell measures: number of bus stops that can reach it.
@@ -280,56 +463,64 @@
           <ul class="bullet">
             <li>Dwell time: 20 sec</li>
             <li>Waiting time: headway / 2</li>
-            <li>Route-specific speed (time of trip based)</li>
+            <li>Route-specific speed (time-of-trip based)</li>
             <li>Transfer radius: 150 m</li>
             <li>Walking speed: 1.3 m/s</li>
             <li>30 min and 60 min computed independently</li>
           </ul>
-
-          <p><b>Output</b><br/>Grid-level accessibility intensity (30 min / 60 min).</p>
         </div>
 
-        <div class="grid2">
-          <!-- 30 min map -->
-          <div class="map-wrap">
-            <div id="map_acc_30" class="map" aria-label="30 min accessible map"></div>
-            <div class="legend" aria-hidden="false">
-              <h3>Accessibility (30 min)</h3>
-              <div class="field">Field: <span style="opacity:.9">bus_access_score_30min</span></div>
+        <div>
+          <p><b>Fields used from geojson</b></p>
+          <ul class="bullet">
+            <li><code>acc_cnt_30min</code></li>
+            <li><code>acc_cnt_60min</code></li>
+          </ul>
+          <p><b>Source file</b><br/>
+            <code>grid_250m_merged_all_features_with_quadrants.geojson</code>
+          </p>
+          <p><b>Output</b><br/>
+            Grid-level accessibility intensity (30 min / 60 min).
+          </p>
+        </div>
+      </div>
 
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 30</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>30 – 92</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>92 – 165</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>165 – 269</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>269 – 419</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>419 – 729</label></div></div>
+      <div class="map-wrap taller">
+        <div id="mapAccessibility" class="map" aria-label="Accessibility map"></div>
 
-              <small>Higher value → more stops can reach the grid within 30 minutes.</small>
-            </div>
-          </div>
+        <!-- 30 min legend -->
+        <div class="legend" id="legend30">
+          <h3>Accessibility (30 min)</h3>
+          <div class="field">Field: <span style="opacity:.9">acc_cnt_30min</span></div>
 
-          <!-- 60 min map -->
-          <div class="map-wrap">
-            <div id="map_acc_60" class="map" aria-label="60 min accessible map"></div>
-            <div class="legend" aria-hidden="false">
-              <h3>Accessibility (60 min)</h3>
-              <div class="field">Field: <span style="opacity:.9">bus_access_score_60min</span></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 30</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>30 – 92</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>92 – 165</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>165 – 269</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>269 – 419</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>419 – 729</label></div></div>
 
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 167</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>167 – 543</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>543 – 944</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>944 – 1353</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>1353 – 1814</label></div></div>
-              <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>1814 – 2532</label></div></div>
+          <small>Higher value → more stops can reach the grid within 30 minutes.</small>
+        </div>
 
-              <small>Higher value → more stops can reach the grid within 60 minutes.</small>
-            </div>
-          </div>
+        <!-- 60 min legend -->
+        <div class="legend" id="legend60" style="display:none;">
+          <h3>Accessibility (60 min)</h3>
+          <div class="field">Field: <span style="opacity:.9">acc_cnt_60min</span></div>
+
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 167</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>167 – 543</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>543 – 944</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>944 – 1353</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>1353 – 1814</label></div></div>
+          <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>1814 – 2532</label></div></div>
+
+          <small>Higher value → more stops can reach the grid within 60 minutes.</small>
         </div>
       </div>
     </section>
 
-    <!-- 5) Reachability web tool (FULL-WIDTH) -->
+    <!-- 5) Reachability web tool -->
     <section class="card embed-card">
       <div class="embed-head">
         <div>
@@ -345,7 +536,7 @@
       </div>
 
       <iframe
-        class="embed-frame"
+        class="embed-frame tall"
         src="https://hcmc-bus-reachability-xmurong.streamlit.app/?embedded=true"
         title="HCMC Bus Reachability (Interactive Demo)"
         loading="lazy"
@@ -353,7 +544,7 @@
         allow="fullscreen"
       ></iframe>
 
-      <p style="opacity:.75; margin-top:10px;">
+      <p class="muted-note">
         If embedding is blocked, use the “Open web tool” button above.
       </p>
     </section>
@@ -366,11 +557,8 @@
 
   <script>
     // ========= Mapbox token =========
-    // If your project already sets mapboxgl.accessToken in script.js / other pages, you can delete this block.
-    // Otherwise, set it here:
     if (!mapboxgl.accessToken) {
-      // Replace with your token if needed:
-      mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN || "";
+      mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN || "pk.eyJ1IjoiZGVmZmllIiwiYSI6ImNtZTl1MTBvcjBvZGkyanFhdmwydHp0aTUifQ.vACEuAMjlPb7JoRrNbtKQg";
     }
 
     const STYLE_LIGHT = "mapbox://styles/mapbox/light-v11";
@@ -383,132 +571,161 @@
 
     function bboxOfFeatureCollection(fc){
       let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+
       const walk = (coords) => {
         if(typeof coords[0] === "number"){
           const x = coords[0], y = coords[1];
-          minX = Math.min(minX, x); minY = Math.min(minY, y);
-          maxX = Math.max(maxX, x); maxY = Math.max(maxY, y);
+          minX = Math.min(minX, x);
+          minY = Math.min(minY, y);
+          maxX = Math.max(maxX, x);
+          maxY = Math.max(maxY, y);
         }else{
           coords.forEach(walk);
         }
       };
+
       fc.features.forEach(f => walk(f.geometry.coordinates));
       return [[minX, minY],[maxX, maxY]];
     }
 
-    function initAccessibilityMap(mapId, geojson, field, steps){
-      // steps: [{t: threshold, c: color}, ...] in ascending threshold order
-      const map = new mapboxgl.Map({
-        container: mapId,
-        style: STYLE_LIGHT,
-        center: [106.7, 10.78],
-        zoom: 9.5,
-        attributionControl: true
-      });
+    function buildStepExpr(field, steps){
+      const expr = ["step", ["coalesce", ["to-number", ["get", field]], 0], steps[0].c];
+      for(let i=1; i<steps.length; i++){
+        expr.push(steps[i].t);
+        expr.push(steps[i].c);
+      }
+      return expr;
+    }
 
-      map.addControl(new mapboxgl.NavigationControl({showCompass:false}), "top-left");
+    let accessibilityMap = null;
+    let accessibilityGeojson = null;
+    let accessibilityPopup = null;
 
-      map.on("load", () => {
-        map.addSource(mapId + "_src", { type: "geojson", data: geojson });
+    const ACC_STEPS_30 = [
+      { t: 0,   c: "#f3f7ff" },
+      { t: 30,  c: "#dbe8ff" },
+      { t: 92,  c: "#bfd7ff" },
+      { t: 165, c: "#8fb8ff" },
+      { t: 269, c: "#5f92ff" },
+      { t: 419, c: "#2e66ff" }
+    ];
 
-        // Build a step expression with explicit bins
-        // Default color = first color, then thresholds
-        const stepExpr = ["step", ["coalesce", ["to-number", ["get", field]], 0], steps[0].c];
-        for (let i=1; i<steps.length; i++){
-          stepExpr.push(steps[i].t);
-          stepExpr.push(steps[i].c);
-        }
+    const ACC_STEPS_60 = [
+      { t: 0,    c: "#f3f7ff" },
+      { t: 167,  c: "#dbe8ff" },
+      { t: 543,  c: "#bfd7ff" },
+      { t: 944,  c: "#8fb8ff" },
+      { t: 1353, c: "#5f92ff" },
+      { t: 1814, c: "#2e66ff" }
+    ];
 
-        map.addLayer({
-          id: mapId + "_fill",
-          type: "fill",
-          source: mapId + "_src",
-          paint: {
-            "fill-color": stepExpr,
-            "fill-opacity": 0.78
-          }
-        });
+    function updateAccessibilityMode(mode){
+      if(!accessibilityMap || !accessibilityMap.getLayer("acc_fill")) return;
 
-        map.addLayer({
-          id: mapId + "_outline",
-          type: "line",
-          source: mapId + "_src",
-          paint: {
-            "line-color": "rgba(0,0,0,.18)",
-            "line-width": 0.2
-          }
-        });
+      const field = mode === "30" ? "acc_cnt_30min" : "acc_cnt_60min";
+      const steps = mode === "30" ? ACC_STEPS_30 : ACC_STEPS_60;
+      const expr = buildStepExpr(field, steps);
 
-        // Fit to bounds so you always see the whole HCMC boundary
-        const b = bboxOfFeatureCollection(geojson);
-        map.fitBounds(b, { padding: 30, duration: 0 });
+      accessibilityMap.setPaintProperty("acc_fill", "fill-color", expr);
 
-        // Hover tooltip (simple)
-        const popup = new mapboxgl.Popup({ closeButton:false, closeOnClick:false });
-        map.on("mousemove", mapId + "_fill", (e) => {
-          map.getCanvas().style.cursor = "pointer";
-          const f = e.features && e.features[0];
-          if(!f) return;
-          const v = f.properties?.[field];
-          popup
-            .setLngLat(e.lngLat)
-            .setHTML(`<div style="font-weight:800; margin-bottom:4px;">${field}</div><div>${(v===null||v===undefined) ? "NA" : v}</div>`)
-            .addTo(map);
-        });
-        map.on("mouseleave", mapId + "_fill", () => {
-          map.getCanvas().style.cursor = "";
-          popup.remove();
-        });
-      });
+      document.getElementById("btnAcc30").classList.toggle("is-active", mode === "30");
+      document.getElementById("btnAcc60").classList.toggle("is-active", mode === "60");
+      document.getElementById("legend30").style.display = mode === "30" ? "block" : "none";
+      document.getElementById("legend60").style.display = mode === "60" ? "block" : "none";
 
-      return map;
+      accessibilityMap.off("mousemove", "acc_fill", accessibilityMap.__hoverHandler);
+      accessibilityMap.off("mouseleave", "acc_fill", accessibilityMap.__leaveHandler);
+
+      const hoverHandler = (e) => {
+        accessibilityMap.getCanvas().style.cursor = "pointer";
+        const f = e.features && e.features[0];
+        if(!f) return;
+        const v = f.properties?.[field];
+
+        accessibilityPopup
+          .setLngLat(e.lngLat)
+          .setHTML(
+            `<div style="font-weight:800; margin-bottom:4px;">${field}</div>
+             <div>${(v===null||v===undefined) ? "NA" : v}</div>`
+          )
+          .addTo(accessibilityMap);
+      };
+
+      const leaveHandler = () => {
+        accessibilityMap.getCanvas().style.cursor = "";
+        accessibilityPopup.remove();
+      };
+
+      accessibilityMap.__hoverHandler = hoverHandler;
+      accessibilityMap.__leaveHandler = leaveHandler;
+
+      accessibilityMap.on("mousemove", "acc_fill", hoverHandler);
+      accessibilityMap.on("mouseleave", "acc_fill", leaveHandler);
     }
 
     (async () => {
       try{
-        const g30 = await fetchGeoJSON("assets/FINAL_bus_access_grid_v2_with_stops_30min.geojson");
-        const g60 = await fetchGeoJSON("assets/FINAL_bus_access_grid_v2_with_stops_60min.geojson");
+        accessibilityGeojson = await fetchGeoJSON("assets/grid_250m_merged_all_features_with_quadrants.geojson");
 
-        // Colors (light → dark), thresholds match PPT legend
-        initAccessibilityMap(
-          "map_acc_30",
-          g30,
-          "bus_access_score_30min",
-          [
-            { t: 0,   c: "#f3f7ff" }, // default
-            { t: 30,  c: "#dbe8ff" },
-            { t: 92,  c: "#bfd7ff" },
-            { t: 165, c: "#8fb8ff" },
-            { t: 269, c: "#5f92ff" },
-            { t: 419, c: "#2e66ff" }
-          ]
-        );
+        accessibilityMap = new mapboxgl.Map({
+          container: "mapAccessibility",
+          style: STYLE_LIGHT,
+          center: [106.7, 10.78],
+          zoom: 9.5,
+          attributionControl: true
+        });
 
-        initAccessibilityMap(
-          "map_acc_60",
-          g60,
-          "bus_access_score_60min",
-          [
-            { t: 0,    c: "#f3f7ff" },
-            { t: 167,  c: "#dbe8ff" },
-            { t: 543,  c: "#bfd7ff" },
-            { t: 944,  c: "#8fb8ff" },
-            { t: 1353, c: "#5f92ff" },
-            { t: 1814, c: "#2e66ff" }
-          ]
-        );
+        accessibilityMap.addControl(new mapboxgl.NavigationControl({showCompass:false}), "top-left");
+
+        accessibilityMap.on("load", () => {
+          accessibilityMap.addSource("acc_src", {
+            type: "geojson",
+            data: accessibilityGeojson
+          });
+
+          accessibilityMap.addLayer({
+            id: "acc_fill",
+            type: "fill",
+            source: "acc_src",
+            paint: {
+              "fill-color": buildStepExpr("acc_cnt_30min", ACC_STEPS_30),
+              "fill-opacity": 0.80
+            }
+          });
+
+          accessibilityMap.addLayer({
+            id: "acc_outline",
+            type: "line",
+            source: "acc_src",
+            paint: {
+              "line-color": "rgba(0,0,0,.18)",
+              "line-width": 0.18
+            }
+          });
+
+          const b = bboxOfFeatureCollection(accessibilityGeojson);
+          accessibilityMap.fitBounds(b, { padding: 36, duration: 0 });
+
+          accessibilityPopup = new mapboxgl.Popup({
+            closeButton:false,
+            closeOnClick:false
+          });
+
+          updateAccessibilityMode("30");
+        });
+
+        document.getElementById("btnAcc30").addEventListener("click", () => updateAccessibilityMode("30"));
+        document.getElementById("btnAcc60").addEventListener("click", () => updateAccessibilityMode("60"));
 
       }catch(err){
         console.error(err);
-        // If something fails, show a hint in the map containers
-        const el30 = document.getElementById("map_acc_30");
-        const el60 = document.getElementById("map_acc_60");
-        [el30, el60].forEach(el => {
-          if(!el) return;
+        const el = document.getElementById("mapAccessibility");
+        if(el){
           el.innerHTML = `<div style="padding:14px; color:rgba(255,255,255,.85); font-weight:700;">
-            Map failed to load.<br/><span style="opacity:.75; font-weight:500;">Open DevTools Console for details.</span>
+            Map failed to load.<br/>
+            <span style="opacity:.75; font-weight:500;">Open DevTools Console for details.</span>
           </div>`;
-        });
+        }
       }
     })();
   </script>

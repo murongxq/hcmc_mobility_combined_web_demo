@@ -8,170 +8,192 @@
 </head>
 
 <body class="theme-dark">
+
+  <!-- ✅ NEW TOPBAR（统一版本） -->
   <header class="topbar glass">
-    <div class="topbar-left">
-      <div class="brand">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
     </div>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill active" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
-      <a class="pill" href="part1.html">Part I</a>
-      <a class="pill" href="part2.html">Part II</a>
-      <a class="pill" href="part3.html">Part III</a>
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+    <nav class="topbar-nav">
+
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill active" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
+
+        <div class="pill dropdown">
+          <span>Parts</span>
+          <div class="dropdown-menu">
+            <a href="part1.html">Part I — Traffic Distribution</a>
+            <a href="part2.html">Part II — Measuring Congestion</a>
+            <a href="part3.html">Part III — Public Transport Supply</a>
+          </div>
+        </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
+      </div>
+
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
+
     </nav>
   </header>
 
+  <!-- ========================= -->
+
   <main class="section">
     <div class="container">
-      <div class="kicker">TABLE OF CONTENTS</div>
-      <h1>Macro-Level Mobility Assessment</h1>
+
+      <div class="kicker">STRUCTURE</div>
+
+      <h1>From Analysis to System Understanding</h1>
+
       <p class="muted">
-        This macro section links <b>traffic distribution</b>, <b>congestion</b>, and <b>public transport supply</b>
+        This project is structured as a multi-layer mobility analysis, progressing from
+        <b>data-driven pattern identification</b> to <b>system-level interpretation</b>,
+        and further into <b>interactive exploration and planning application</b>.
+      </p>
+
+      <!-- ========================= -->
+      <!-- MACRO -->
+      <!-- ========================= -->
+
+      <h2 class="section-title">Macro-Level Mobility Analysis</h2>
+
+      <p class="muted">
+        The macro analysis investigates how mobility patterns emerge from the interaction between
+        <b>traffic distribution</b>, <b>congestion dynamics</b>, and <b>transport supply</b>,
         using a unified <b>250m grid + time</b> framework.
       </p>
 
       <div class="grid grid-2">
+
         <a class="card card-link" href="motivation.html">
           <div class="card-title">1. Research Motivation & Core Question</div>
           <div class="card-desc">
-            Data gap: limited high-resolution, mode-specific traffic evidence. Planning gap: many studies overlook temporal dynamics and modal differences.
+            Mobility is often treated as an infrastructure problem. This study reframes it as a
+            <b>system interaction problem</b>, highlighting the need for integrated analysis across modes and time.
           </div>
         </a>
 
         <a class="card card-link" href="framework.html">
           <div class="card-title">2. Analytical Framework</div>
           <div class="card-desc">
-            Unified spatiotemporal unit (250m grid + time) to link distribution, congestion, and supply for integrated interpretation.
+            A unified spatiotemporal framework linking distribution, congestion, and supply,
+            enabling cross-dimensional interpretation at the city scale.
           </div>
         </a>
 
         <a class="card card-link" href="part1.html">
-          <div class="card-title">3. Part I — Traffic Distribution</div>
+          <div class="card-title">3. Traffic Distribution</div>
           <div class="card-desc">
-            Mode-specific vehicle intensity across space, based on object detection from street-view images (motorcycles, cars, buses).
+            Mode-specific spatial patterns derived from street-view detection,
+            revealing the dominance and variation of different transport modes.
           </div>
         </a>
 
         <a class="card card-link" href="part2.html">
-          <div class="card-title">4. Part II — Measuring Traffic Congestion</div>
+          <div class="card-title">4. Congestion Measurement</div>
           <div class="card-desc">
-            Construct congestion indicators and compare patterns across space and time (placeholder visuals if maps are not embedded yet).
+            Spatiotemporal congestion indicators capturing dynamic pressure across the city,
+            highlighting mismatches between demand and infrastructure.
           </div>
         </a>
 
         <a class="card card-link" href="part3.html">
-          <div class="card-title">5. Part III — Public Transport Supply</div>
+          <div class="card-title">5. Public Transport Supply</div>
           <div class="card-desc">
-            Schedule-based bus simulation, reachable-stop analysis, and weekday/weekend supply pattern videos (250m grid aggregation).
+            Schedule-based bus simulation and accessibility analysis,
+            evaluating how supply interacts with existing mobility demand.
           </div>
         </a>
 
         <a class="card card-link" href="interpretation.html">
-          <div class="card-title">6. Integrated Interpretation</div>
+          <div class="card-title">6. Interpretation</div>
           <div class="card-desc">
-            Integrating distribution, congestion, and public transport (quadrants + clustering) to identify typologies and priority intervention zones.
+            Integrated reading across datasets to identify spatial typologies,
+            priority zones, and underlying system mechanisms.
+          </div>
+        </a>
+
+        <a class="card card-link" href="synthesis.html">
+          <div class="card-title">7. Synthesis</div>
+          <div class="card-desc">
+            Linking macro patterns with micro observations to form a coherent understanding
+            of mobility challenges and opportunities.
+          </div>
+        </a>
+
+        <a class="card card-link" href="analyzer.html">
+          <div class="card-title">8. Mobility Analyzer</div>
+          <div class="card-desc">
+            An interactive diagnostic tool that connects spatial indicators,
+            congestion types, and AI-assisted planning insights.
           </div>
         </a>
 
         <a class="card card-link" href="conclusion.html">
-          <div class="card-title">7. Conclusion</div>
+          <div class="card-title">9. Conclusion</div>
           <div class="card-desc">
-            Key takeaways, limitations, and next steps (to be finalized).
+            Final synthesis of findings, strategic implications,
+            and directions for future mobility transformation.
           </div>
         </a>
+
       </div>
 
       <hr class="sep"/>
 
-      <h1>Micro-Level Site Investigation</h1>
+      <!-- ========================= -->
+      <!-- MICRO -->
+      <!-- ========================= -->
+
+      <h2 class="section-title">Micro-Level Investigation</h2>
+
       <p class="muted">
-        This micro section documents on-the-ground public transport experience and corridor observations (visual story panels will be added).
+        The micro-level study complements macro analysis by examining
+        <b>real-world transport experience</b> and <b>corridor conditions</b>,
+        providing qualitative validation of system-level findings.
       </p>
 
       <div class="grid grid-2">
+
         <div class="card">
-          <div class="card-title">A. Public Transport Experience Mapping</div>
+          <div class="card-title">Public Transport Experience</div>
           <div class="card-desc">
-            On-site documentation of bus and metro travel experience, including transfers, waiting, stop conditions, and passenger behavior.
-          </div>
-          <div class="placeholder">
-            <div class="ph-title">Placeholder — Micro A panels</div>
-            <div class="ph-sub">Insert: StoryMap / photos / annotated route diary</div>
+            On-site observation of bus and metro usage, including waiting, transfers,
+            and passenger behavior, revealing operational realities beyond data.
           </div>
         </div>
 
         <div class="card">
-          <div class="card-title">B. Metro Development Planning</div>
+          <div class="card-title">Metro & Corridor Context</div>
           <div class="card-desc">
-            Interpretation of metro planning context and station-area integration issues (to be paired with planning diagrams).
-          </div>
-          <div class="placeholder">
-            <div class="ph-title">Placeholder — Micro B diagrams</div>
-            <div class="ph-sub">Insert: metro network, phases, station-area notes</div>
+            Analysis of metro development and surrounding street conditions,
+            highlighting integration challenges and spatial constraints.
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-title">C. Corridor Observation Along Metro Line 1 & Line 2</div>
-          <div class="card-desc">
-            Traffic observation and street interface along Line 1 & Line 2 corridors, focusing on operational conditions and urban context.
-          </div>
-          <div class="placeholder">
-            <div class="ph-title">Placeholder — Micro C corridor visuals</div>
-            <div class="ph-sub">Insert: corridor snapshots, key junctions, street sections</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Team</div>
-          <div class="card-desc">
-            <b>Le Duc Minh</b> · <b>Nguyen Truong Khoi</b> · <b>Mai Lương Anh Kiệt</b>
-          </div>
-          <div class="card-note">
-            Names appear on the final deck; this site mirrors the studio structure.
-          </div>
-        </div>
       </div>
 
       <div class="footer-row">
         <div class="foot-left">HCMC Mobility — Analysis for Mobility</div>
         <a class="btn small" href="index.html">Back to Home</a>
       </div>
+
     </div>
   </main>
 
   <script src="script.js"></script>
 
-  <style>
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    .section{padding:72px 0}
-    .kicker{letter-spacing:.18em;font-size:12px;opacity:.75;margin-bottom:10px}
-    h1{font-size:42px;margin:6px 0 10px}
-    .muted{opacity:.86;line-height:1.6;max-width:900px}
-    .grid{display:grid;gap:16px}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
-    .card{border-radius:20px;padding:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px)}
-    .card-link{display:block;text-decoration:none;color:inherit;transition:transform .15s ease,border-color .15s ease}
-    .card-link:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.16)}
-    .card-title{font-weight:800;margin-bottom:6px}
-    .card-desc{opacity:.86;line-height:1.55}
-    .card-note{opacity:.7;font-size:13px;margin-top:10px}
-    .placeholder{margin-top:12px;border-radius:16px;padding:14px;border:1px dashed rgba(255,255,255,.2);background:rgba(0,0,0,.18)}
-    .ph-title{font-weight:800}
-    .ph-sub{opacity:.8;font-size:13px;margin-top:4px}
-    .sep{border:0;border-top:1px solid rgba(255,255,255,.10);margin:26px 0}
-    .footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:18px;opacity:.9}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
-    .btn.small{padding:8px 12px;font-size:13px}
-  </style>
 </body>
 </html>

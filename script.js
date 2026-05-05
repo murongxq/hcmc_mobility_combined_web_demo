@@ -149,3 +149,34 @@ window.MAPBOX_TOKEN = "pk.eyJ1IjoiZGVmZmllIiwiYSI6ImNtZTl1MTBvcjBvZGkyanFhdmwydH
   labelEl.textContent = "—";
   valueEl.textContent = "—";
 })();
+/* ========= TOPBAR ACTIVE STATE + SCROLL EFFECT ========= */
+(function enhanceTopbar(){
+  const topbar = document.querySelector(".topbar");
+  const links = Array.from(document.querySelectorAll(".topbar-nav a[href]"));
+  if (!topbar) return;
+
+  function normalizePath(path){
+    const clean = path.split("#")[0].split("?")[0].split("/").pop();
+    return clean || "index.html";
+  }
+
+  const current = normalizePath(window.location.pathname);
+
+  links.forEach(link => {
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("http")) return;
+
+    const target = normalizePath(href);
+
+    if (target === current) {
+      link.classList.add("active");
+    }
+  });
+
+  function onScroll(){
+    topbar.classList.toggle("is-scrolled", window.scrollY > 24);
+  }
+
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive:true });
+})();

@@ -7,11 +7,80 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    .page-pad{padding-top:110px;}
-    .page-head{margin-bottom:22px;}
-    .h1{font-size:56px;line-height:1.03;margin:0 0 12px;}
-    .sublead{color:rgba(255,255,255,.74);max-width:92ch;line-height:1.6;margin:0;}
+    .page-pad{padding-top:112px;}
     .section-tight{padding:42px 0 56px;}
+    .page-head{margin-bottom:22px;}
+
+    .h1{
+      font-size:56px;
+      line-height:1.03;
+      margin:0 0 12px;
+      max-width:980px;
+    }
+
+    .sublead{
+      color:rgba(255,255,255,.74);
+      max-width:96ch;
+      line-height:1.6;
+      margin:0;
+    }
+
+    .hero-conclusion{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    .statement-card{
+      padding:26px;
+      border-radius:26px;
+      background:
+        radial-gradient(circle at top left, rgba(141,183,255,.18), transparent 38%),
+        linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.035));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 20px 70px rgba(0,0,0,.42);
+    }
+
+    .statement-card .quote{
+      margin:0;
+      font-size:30px;
+      line-height:1.26;
+      font-weight:900;
+      letter-spacing:-.02em;
+      color:rgba(255,255,255,.96);
+      max-width:24ch;
+    }
+
+    .statement-card .note{
+      margin:18px 0 0;
+      color:rgba(255,255,255,.74);
+      line-height:1.65;
+      max-width:76ch;
+    }
+
+    .answer-card{
+      padding:24px;
+      border-radius:24px;
+      background:rgba(20,20,22,.66);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 14px 45px rgba(0,0,0,.35);
+    }
+
+    .answer-card h2{
+      margin:0 0 12px;
+      font-size:22px;
+      line-height:1.25;
+    }
+
+    .answer-card p{
+      margin:8px 0;
+      color:rgba(255,255,255,.84);
+      line-height:1.62;
+      font-size:15px;
+    }
+
     .conclusion-card{
       border-radius:22px;
       padding:22px;
@@ -19,59 +88,149 @@
       border:1px solid rgba(255,255,255,.08);
       box-shadow:0 14px 45px rgba(0,0,0,.35);
     }
+
     .conclusion-card + .conclusion-card{margin-top:18px;}
-    .conclusion-card h2{margin:0 0 12px;font-size:26px;line-height:1.2;}
-    .conclusion-card h3{margin:18px 0 8px;font-size:18px;}
-    .conclusion-card p{margin:8px 0;color:rgba(255,255,255,.86);line-height:1.62;font-size:15px;}
-    .conclusion-card ul{margin:10px 0 0;padding-left:20px;color:rgba(255,255,255,.86);}
-    .conclusion-card li{margin:8px 0;line-height:1.55;}
-    .highlight-card{
-      margin-top:20px;
-      padding:22px;
-      border-radius:24px;
-      background:linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.04));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 18px 60px rgba(0,0,0,.42);
+
+    .conclusion-card h2{
+      margin:0 0 12px;
+      font-size:26px;
+      line-height:1.2;
     }
-    .highlight-card .quote{
-      font-size:28px;
-      line-height:1.3;
-      font-weight:800;
-      max-width:30ch;
-      margin:0;
-      color:rgba(255,255,255,.96);
+
+    .conclusion-card h3{
+      margin:18px 0 8px;
+      font-size:18px;
     }
-    .highlight-card .note{margin-top:14px;max-width:82ch;color:rgba(255,255,255,.74);line-height:1.6;}
-    .finding-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;}
+
+    .conclusion-card p{
+      margin:8px 0;
+      color:rgba(255,255,255,.86);
+      line-height:1.62;
+      font-size:15px;
+    }
+
+    .finding-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
     .finding{
       border-radius:18px;
       padding:16px;
       border:1px solid rgba(255,255,255,.09);
       background:rgba(255,255,255,.045);
     }
-    .finding-num{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:rgba(255,255,255,.48);margin-bottom:8px;}
-    .finding-title{font-size:17px;font-weight:800;margin-bottom:6px;color:rgba(255,255,255,.95);}
-    .finding-text{font-size:14px;line-height:1.55;color:rgba(255,255,255,.76);}
-    .strategy-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px;}
+
+    .finding-num{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size:12px;
+      color:rgba(255,255,255,.48);
+      margin-bottom:8px;
+    }
+
+    .finding-title{
+      font-size:17px;
+      font-weight:850;
+      margin-bottom:6px;
+      color:rgba(255,255,255,.95);
+    }
+
+    .finding-text{
+      font-size:14px;
+      line-height:1.55;
+      color:rgba(255,255,255,.76);
+    }
+
+    .strategy-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+
     .strategy{
       border-radius:16px;
       padding:14px;
       border:1px solid rgba(255,255,255,.09);
       background:rgba(0,0,0,.18);
-      min-height:118px;
+      min-height:128px;
     }
-    .strategy-title{font-weight:800;font-size:14px;line-height:1.35;margin-bottom:8px;}
-    .strategy-desc{font-size:12.5px;line-height:1.48;color:rgba(255,255,255,.70);}
-    .phase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px;}
+
+    .strategy-title{
+      font-weight:850;
+      font-size:14px;
+      line-height:1.35;
+      margin-bottom:8px;
+      color:rgba(255,255,255,.95);
+    }
+
+    .strategy-desc{
+      font-size:12.5px;
+      line-height:1.5;
+      color:rgba(255,255,255,.70);
+    }
+
+    .phase-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
     .phase{
       border-radius:18px;
       padding:16px;
       background:rgba(255,255,255,.045);
       border:1px solid rgba(255,255,255,.09);
     }
-    .phase-k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:7px;font-weight:800;}
-    .phase-title{font-size:17px;font-weight:800;margin-bottom:7px;}
-    .phase-text{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.76);}
+
+    .phase-k{
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.55);
+      margin-bottom:7px;
+      font-weight:800;
+    }
+
+    .phase-title{
+      font-size:17px;
+      font-weight:850;
+      margin-bottom:7px;
+      color:rgba(255,255,255,.94);
+    }
+
+    .phase-text{
+      font-size:13.5px;
+      line-height:1.55;
+      color:rgba(255,255,255,.76);
+    }
+
+    .final-message{
+      margin-top:20px;
+      padding:24px;
+      border-radius:26px;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(141,183,255,.16), transparent 40%),
+        rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 18px 60px rgba(0,0,0,.38);
+    }
+
+    .final-message h2{
+      margin:0 0 10px;
+      font-size:28px;
+      line-height:1.2;
+    }
+
+    .final-message p{
+      color:rgba(255,255,255,.82);
+      line-height:1.65;
+      max-width:98ch;
+    }
+
     .nav-next{
       display:flex;
       align-items:center;
@@ -81,42 +240,54 @@
       padding-top:18px;
       border-top:1px solid rgba(255,255,255,.08);
     }
+
+    @media (max-width:1100px){
+      .hero-conclusion{grid-template-columns:1fr;}
+      .strategy-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+
     @media (max-width:980px){
       .h1{font-size:42px;}
       .finding-grid,.strategy-grid,.phase-grid{grid-template-columns:1fr;}
-      .highlight-card .quote{font-size:24px;}
+      .statement-card .quote{font-size:24px;}
     }
   </style>
 </head>
 
 <body class="theme-dark">
   <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
 
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
-        <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        <div class="pill dropdown" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
         </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
       </div>
 
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="synthesis.html">Synthesis</a>
-      <a class="pill" href="analyzer.html">Analyzer</a>
-      <a class="pill active" href="conclusion.html">Conclusion</a>
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output active" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
@@ -126,19 +297,26 @@
         <div class="kicker">CONCLUSION</div>
         <h1 class="h1">From Metro Project to System Transition</h1>
         <p class="sublead">
-          This project examined how Ho Chi Minh City can use metro development and smart mobility planning
-          to support a broader transition toward a more integrated, sustainable, and adaptive urban transport system.
-          The conclusion is clear: metro investment is necessary, but it is not sufficient on its own.
+          This project asked how Ho Chi Minh City can use metro development and smart mobility planning to support a broader transition toward a more integrated and sustainable urban transport system. The answer is not a single infrastructure solution, but a coordinated system transition built around public transport, walkability, first/last-mile access, traffic management, and data-driven governance.
         </p>
 
-        <div class="highlight-card">
-          <p class="quote">Metro alone cannot transform urban mobility.</p>
-          <p class="note">
-            A realistic transition requires the coordinated improvement of public transport operations,
-            first- and last-mile connections, walkability, traffic management, and data-driven governance.
-            The goal is not to remove motorcycles immediately, but to create conditions where more trips can
-            gradually shift toward reliable, connected, and sustainable alternatives.
-          </p>
+        <div class="hero-conclusion">
+          <div class="statement-card">
+            <p class="quote">Metro alone cannot transform urban mobility.</p>
+            <p class="note">
+              Metro investment provides an important backbone, but the evidence shows that its impact remains limited if it is not supported by reliable bus operations, safe pedestrian access, first/last-mile services, and adaptive traffic management. The goal is not to immediately remove motorcycles, but to make alternative modes reliable enough for a gradual and realistic modal transition.
+            </p>
+          </div>
+
+          <div class="answer-card">
+            <h2>Answer to the research question</h2>
+            <p>
+              HCMC can use metro development as a catalyst, not as a standalone solution. Metro corridors should become anchors for integrated mobility reform: bus–metro coordination, station-area walkability, shared mobility nodes, mixed traffic management, and real-time data feedback.
+            </p>
+            <p>
+              The shift should therefore be framed as <b>rebalancing urban mobility</b>: reducing unnecessary road-space pressure, improving public transport attractiveness, and gradually changing travel behavior through coordinated system design.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -148,10 +326,7 @@
         <div class="conclusion-card">
           <h2>1. Key Findings</h2>
           <p>
-            The analysis shows that Ho Chi Minh City's mobility challenge is structural rather than temporary.
-            Motorcycles remain dominant because they provide flexibility, door-to-door convenience, and reliable
-            short-distance access in a city where public transport service, walking conditions, and last-mile connections
-            remain uneven.
+            The analysis shows that HCMC's mobility challenge is structural rather than temporary. Motorcycles dominate because they provide flexible, door-to-door, short-distance mobility in a city where public transport reliability, walking conditions, transfer quality, and first/last-mile access remain uneven.
           </p>
 
           <div class="finding-grid">
@@ -159,145 +334,122 @@
               <div class="finding-num">01</div>
               <div class="finding-title">Metro effects are visible but localized</div>
               <div class="finding-text">
-                Metro operation can redistribute some travel pressure and improve corridor-level conditions,
-                but it does not automatically change the overall mobility structure.
+                The comparison between Line 1 and Line 2 shows early signs of traffic redistribution and congestion relief near operational metro corridors, but these effects are not strong enough to alter the wider motorcycle-dominant mobility structure.
               </div>
             </div>
 
             <div class="finding">
               <div class="finding-num">02</div>
-              <div class="finding-title">Motorcycle dominance is system-based</div>
+              <div class="finding-title">Motorcycle dependence is system-based</div>
               <div class="finding-text">
-                Motorcycle use is sustained by convenience, flexible routing, weak feeder systems,
-                limited public transport reliability, and uneven pedestrian access.
+                Motorcycle use remains attractive because it solves practical gaps left by the current system: uncertain waiting times, weak feeder connections, inadequate stop conditions, limited passenger information, and poor station access.
               </div>
             </div>
 
             <div class="finding">
               <div class="finding-num">03</div>
-              <div class="finding-title">Transit supply alone has limited impact</div>
+              <div class="finding-title">Transit supply alone has limited effect</div>
               <div class="finding-text">
-                Increasing bus or metro supply without improving access, reliability, walkability,
-                and land-use integration produces only modest modal change.
+                Scenario testing confirms that increasing transit supply alone produces only marginal modal shift. Stronger impacts require coordinated improvements in walkability, accessibility, land-use integration, and TOD-oriented development.
               </div>
             </div>
 
             <div class="finding">
               <div class="finding-num">04</div>
-              <div class="finding-title">Congestion is a multi-factor mismatch</div>
+              <div class="finding-title">Congestion reflects multi-factor mismatch</div>
               <div class="finding-text">
-                Congestion reflects the interaction between travel demand, road supply,
-                public transport accessibility, spatial structure, and time-specific mobility pressure.
+                Congestion is not simply high traffic volume. It emerges from the interaction between demand pressure, road supply, transit accessibility, land use, motorcycle intensity, and time-specific movement patterns.
               </div>
             </div>
           </div>
         </div>
 
         <div class="conclusion-card">
-          <h2>2. Understanding the Mobility System</h2>
+          <h2>2. What This Means for HCMC</h2>
           <p>
-            The project reframes HCMC's mobility issue from an infrastructure problem to a system problem.
-            Public transport investment can only become transformative when it is connected to the everyday
-            conditions that shape travel behavior: walking comfort, transfer quality, service reliability,
-            information availability, and first- and last-mile accessibility.
+            The central planning implication is that mobility improvement should move beyond the idea of building isolated transport infrastructure. HCMC's challenge is to convert metro corridor potential into a functioning mobility system that people can actually use in everyday travel.
           </p>
           <p>
-            This explains why the comparison between metro corridors is important. Line 1 indicates that metro operation
-            can create early improvements, but Line 2 shows that future benefits will depend on whether supporting systems
-            are planned before and alongside metro implementation.
+            This means improving the whole chain of movement: getting to stations, transferring between modes, waiting comfortably, receiving reliable service information, and moving safely through mixed-traffic streets. Without these supporting systems, metro development will remain an infrastructure upgrade rather than a full mobility transition.
           </p>
         </div>
 
         <div class="conclusion-card">
           <h2>3. Strategic Direction</h2>
           <p>
-            The strategic direction is not to replace motorcycles in a single step. Instead, HCMC should use metro expansion
-            as the backbone of a gradual modal transition, supported by four complementary strategy loops.
+            The proposed strategy is not to replace motorcycles immediately. A more realistic approach is to use metro expansion as the backbone of a gradual transition, supported by four complementary strategy loops.
           </p>
 
           <div class="strategy-grid">
             <div class="strategy">
               <div class="strategy-title">Bus / Metro Operation</div>
-              <div class="strategy-desc">Improve frequency, reliability, dispatching, and bus–metro coordination.</div>
+              <div class="strategy-desc">Increase service frequency, improve reliability, support dynamic dispatch, and coordinate bus feeder routes with metro corridors.</div>
             </div>
             <div class="strategy">
               <div class="strategy-title">Walkability and Station Access</div>
-              <div class="strategy-desc">Improve sidewalks, crossings, station access, shading, and barrier-free movement.</div>
+              <div class="strategy-desc">Improve sidewalks, safe crossings, shaded routes, station-area walking zones, and barrier-free access for daily users.</div>
             </div>
             <div class="strategy">
               <div class="strategy-title">First / Last Mile Connection</div>
-              <div class="strategy-desc">Integrate shared mobility, feeder services, micro-mobility hubs, and unified trip planning.</div>
+              <div class="strategy-desc">Organize shared electric motorcycles, micro-mobility hubs, feeder services, and integrated mobility systems around transit nodes.</div>
             </div>
             <div class="strategy">
               <div class="strategy-title">Traffic Management</div>
-              <div class="strategy-desc">Organize mixed traffic, manage intersections, improve lane use, and support adaptive control.</div>
+              <div class="strategy-desc">Manage mixed traffic through motorcycle lane organization, intersection management, one-way circulation, and adaptive signal control.</div>
             </div>
           </div>
         </div>
 
         <div class="conclusion-card">
-          <h2>4. From Planning Strategy to Adaptive System</h2>
+          <h2>4. From Strategy to Adaptive Governance</h2>
           <p>
-            A static strategy framework is not enough. Because travel demand, congestion, and service performance vary
-            across space and time, HCMC needs a data-driven platform that can monitor conditions, diagnose problems,
-            evaluate interventions, and update strategies continuously.
+            The project also demonstrates that mobility planning should not stop at static recommendations. Because demand, congestion, and transport performance vary across space and time, HCMC needs a data-driven platform that can continuously monitor, diagnose, evaluate, and update interventions.
           </p>
           <p>
-            The Mobility Analyzer developed in this project demonstrates this direction. It connects grid-level indicators,
-            congestion patterns, land-use context, street-view evidence, and AI-assisted interpretation into an exploratory
-            planning interface. This turns analysis from a one-time assessment into a repeatable decision-support workflow.
+            The Mobility Analyzer developed in this project points toward this future. It connects grid-level indicators, congestion mechanisms, land-use context, street-view evidence, and AI-assisted interpretation into a planning interface. This turns mobility analysis from a one-time study into a repeatable decision-support workflow for transport agencies and urban planners.
           </p>
         </div>
 
         <div class="conclusion-card">
           <h2>5. Path Toward Implementation</h2>
           <p>
-            The transition should be phased. HCMC does not need to redesign the whole mobility system at once.
-            A more realistic pathway is to begin with focused corridor pilots, then expand toward network coordination
-            and citywide smart mobility governance.
+            The transition should be phased. HCMC does not need to redesign the entire mobility system at once. A more realistic pathway is to begin with corridor-level pilots, then scale toward network coordination and citywide smart mobility governance.
           </p>
 
           <div class="phase-grid">
             <div class="phase">
-              <div class="phase-k">Phase 1</div>
-              <div class="phase-title">Corridor Pilot</div>
+              <div class="phase-k">Phase 1 · 2026–2030</div>
+              <div class="phase-title">Metro Line 2 Pilot Integration</div>
               <div class="phase-text">
-                Use Metro Line 2 and high-demand station areas to test bus coordination,
-                station access upgrades, walkability improvements, and first/last-mile services.
+                Focus on Line 2 and high-demand station areas. Test bus coordination, station access upgrades, walkability improvements, and first/last-mile services.
               </div>
             </div>
 
             <div class="phase">
-              <div class="phase-k">Phase 2</div>
-              <div class="phase-title">Network Expansion</div>
+              <div class="phase-k">Phase 2 · 2028–2040</div>
+              <div class="phase-title">Network Expansion and Coordination</div>
               <div class="phase-text">
-                Extend the strategy to multiple metro corridors, optimize bus networks,
-                improve interchanges, and coordinate traffic management across districts.
+                Extend strategies to multiple metro corridors, optimize bus networks and interchanges, and strengthen coordination between metro, bus, motorcycle, and traffic systems.
               </div>
             </div>
 
             <div class="phase">
-              <div class="phase-k">Phase 3</div>
+              <div class="phase-k">Phase 3 · 2035–2050</div>
               <div class="phase-title">Citywide Transformation</div>
               <div class="phase-text">
-                Build a long-term smart mobility governance system linking AI-supported planning,
-                real-time data, TOD development, and adaptive policy implementation.
+                Move toward full mobility integration through AI-supported planning, real-time data governance, TOD development, land-use restructuring, and long-term urban regeneration.
               </div>
             </div>
           </div>
         </div>
 
-        <div class="conclusion-card">
+        <div class="final-message">
           <h2>Final Message</h2>
           <p>
-            HCMC's mobility future should not be framed as a simple shift from motorcycles to metro.
-            It should be understood as a broader rebalancing process: improving public transport attractiveness,
-            reducing unnecessary road-space pressure, supporting realistic mode shift, and using data to continuously
-            adjust planning decisions.
+            HCMC's mobility future should not be framed as a simple replacement of motorcycles by metro. It should be understood as a broader rebalancing process: strengthening public transport attractiveness, reducing road-space pressure, improving access to stations, organizing mixed traffic, and using data feedback to continuously refine decisions.
           </p>
           <p>
-            The most important opportunity is therefore not only the construction of new metro lines,
-            but the creation of a coordinated mobility system around them.
+            The most important opportunity is therefore not only the construction of new metro lines, but the creation of a coordinated mobility system around them.
           </p>
 
           <div class="nav-next">
@@ -308,5 +460,7 @@
       </div>
     </section>
   </main>
+
+  <script src="script.js"></script>
 </body>
 </html>

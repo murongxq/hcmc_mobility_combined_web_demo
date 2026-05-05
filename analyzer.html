@@ -7,30 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    .page-pad{
-      padding-top:110px;
-    }
+    .page-pad{ padding-top:110px; }
 
-    .section-tight{
-      padding:40px 0 56px;
-    }
+    .section-tight{ padding:40px 0 56px; }
 
-    .h1{
-      font-size:56px;
-      line-height:1.03;
-      margin:0 0 12px;
-    }
+    .h1{ font-size:56px; line-height:1.03; margin:0 0 12px; }
 
     .sublead{
       color:rgba(255,255,255,.74);
       max-width:92ch;
-      line-height:1.58;
-      margin:0;
+      line-height:1.6;
     }
 
     .analyzer-card{
       border-radius:22px;
-      padding:18px;
+      padding:20px;
       background:rgba(20,20,22,.66);
       border:1px solid rgba(255,255,255,.08);
       box-shadow:0 18px 50px rgba(0,0,0,.42);
@@ -38,10 +29,9 @@
 
     .embed-head{
       display:flex;
-      align-items:flex-start;
       justify-content:space-between;
-      gap:14px;
-      margin-bottom:14px;
+      gap:16px;
+      margin-bottom:16px;
     }
 
     .embed-title{
@@ -51,41 +41,30 @@
 
     .embed-note{
       color:rgba(255,255,255,.72);
-      margin:0;
       max-width:78ch;
       line-height:1.55;
       font-size:13.5px;
-    }
-
-    .btn-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      flex-shrink:0;
     }
 
     .embed-frame{
       width:100%;
       height:min(86vh,1080px);
       min-height:760px;
-      border:0;
       border-radius:18px;
-      background:rgba(0,0,0,.25);
-      overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       box-shadow:0 20px 60px rgba(0,0,0,.35);
     }
 
     .note-grid{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(3,1fr);
       gap:14px;
       margin-top:18px;
     }
 
     .note-card{
       border-radius:18px;
-      padding:14px 15px;
+      padding:14px;
       background:rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.08);
     }
@@ -96,137 +75,138 @@
     }
 
     .note-card p{
-      margin:0;
       color:rgba(255,255,255,.72);
       font-size:13px;
-      line-height:1.52;
+      line-height:1.5;
     }
 
-    .footerbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top:20px;
-      padding-top:16px;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-
-    @media (max-width:980px){
+    @media (max-width:900px){
       .h1{font-size:42px;}
-      .embed-head{flex-direction:column;}
       .note-grid{grid-template-columns:1fr;}
-      .embed-frame{min-height:680px;}
     }
   </style>
 </head>
 
 <body class="theme-dark">
-  <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
-        <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
-      </div>
-    </div>
 
-    <nav class="topbar-nav" aria-label="Primary">
+<!-- ✅ 统一新版 header -->
+<header class="topbar glass">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    <div>
+      <div class="brand-title">HCMC Mobility</div>
+      <div class="brand-sub">More Than Movement</div>
+    </div>
+  </div>
+
+  <nav class="topbar-nav">
+    <div class="nav-group nav-main">
       <a class="pill" href="index.html">Home</a>
       <a class="pill" href="content.html">Content</a>
       <a class="pill" href="motivation.html">Motivation</a>
       <a class="pill" href="framework.html">Framework</a>
 
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
+      <div class="pill dropdown">
         <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        <div class="dropdown-menu">
+          <a href="part1.html">Part I</a>
+          <a href="part2.html">Part II</a>
+          <a href="part3.html">Part III</a>
         </div>
       </div>
 
       <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="synthesis.html">Synthesis</a>
-      <a class="pill active" href="analyzer.html">Analyzer</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
-    </nav>
-  </header>
+    </div>
 
-  <main class="page-pad">
-    <section class="section-tight" id="top">
-      <div class="container">
-        <div class="kicker">INTERACTIVE MODULE</div>
-        <h1 class="h1">Mobility Analyzer</h1>
-        <p class="sublead">
-          This module extends the grid-level mobility analysis into an interactive diagnostic system.
-          It integrates spatial indicators, congestion patterns, land-use composition, street-view context,
-          and AI-assisted planning interpretation for selected areas in Ho Chi Minh City.
-        </p>
-      </div>
-    </section>
+    <div class="nav-group nav-output">
+      <a class="pill output" href="synthesis.html">Synthesis</a>
+      <a class="pill output strong active" href="analyzer.html">Analyzer</a>
+      <a class="pill output" href="conclusion.html">Conclusion</a>
+    </div>
+  </nav>
+</header>
 
-    <section class="section-tight">
-      <div class="container">
-        <div class="analyzer-card glass">
-          <div class="embed-head">
-            <div>
-              <h2 class="embed-title">HCMC Urban Mobility Analyzer</h2>
-              <p class="embed-note">
-                Explore grid-level mobility clusters, inspect local urban conditions, review AI-supported diagnosis,
-                and connect observed problems with planning strategy options. The module is deployed separately because
-                it connects to an external AI backend and large datasets.
-              </p>
-            </div>
+<!-- ========================= -->
 
-            <div class="btn-row">
-              <a class="btn" href="https://defy-6.github.io/hcmc_ai_frontend/" target="_blank" rel="noopener">
-                Open full-screen version ↗
-              </a>
-            </div>
+<main class="page-pad">
+
+  <!-- TITLE -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="kicker">FROM ANALYSIS TO SYSTEM</div>
+      <h1 class="h1">Mobility Analyzer</h1>
+
+      <p class="sublead">
+        The Mobility Analyzer translates the analytical framework into an interactive system.
+        It allows users to explore how <b>transport supply</b>, <b>mobility demand</b>,
+        <b>congestion pressure</b>, and <b>urban structure</b> interact at the grid level,
+        bridging data-driven analysis with planning-oriented decision support.
+      </p>
+    </div>
+  </section>
+
+  <!-- EMBED -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="analyzer-card">
+
+        <div class="embed-head">
+          <div>
+            <h2 class="embed-title">HCMC Urban Mobility Analyzer</h2>
+            <p class="embed-note">
+              This module extends the synthesis stage into an operational interface.
+              It integrates spatial indicators, congestion typologies, and AI-assisted interpretation,
+              enabling dynamic exploration of urban mobility conditions.
+            </p>
           </div>
 
-          <iframe
-            class="embed-frame"
-            src="https://defy-6.github.io/hcmc_ai_frontend/"
-            title="HCMC Urban Mobility Analyzer"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allow="fullscreen; clipboard-read; clipboard-write"
-          ></iframe>
+          <a class="btn" href="https://defy-6.github.io/hcmc_ai_frontend/" target="_blank">
+            Open full-screen ↗
+          </a>
+        </div>
 
-          <div class="note-grid">
-            <div class="note-card">
-              <h3>Grid-level diagnosis</h3>
-              <p>
-                Click spatial grids to examine mobility clusters, indicator profiles, congestion types,
-                and land-use context.
-              </p>
-            </div>
+        <iframe
+          class="embed-frame"
+          src="https://defy-6.github.io/hcmc_ai_frontend/"
+          loading="lazy"
+        ></iframe>
 
-            <div class="note-card">
-              <h3>Street-view evidence</h3>
-              <p>
-                Use street-view points to relate quantitative patterns to observed road space,
-                pedestrian conditions, and local mobility conflicts.
-              </p>
-            </div>
+        <!-- FEATURES -->
+        <div class="note-grid">
 
-            <div class="note-card">
-              <h3>Planning interpretation</h3>
-              <p>
-                Generate AI-assisted diagnosis and strategy suggestions as an exploratory extension
-                of the synthesis and interpretation sections.
-              </p>
-            </div>
+          <div class="note-card">
+            <h3>Spatial Diagnosis</h3>
+            <p>
+              Explore grid-level mobility conditions and identify mismatch between demand,
+              transport supply, and congestion pressure.
+            </p>
           </div>
+
+          <div class="note-card">
+            <h3>Street-Level Evidence</h3>
+            <p>
+              Link analytical results with street-view observations to understand real-world
+              transport behavior and spatial conditions.
+            </p>
+          </div>
+
+          <div class="note-card">
+            <h3>AI-Assisted Strategy</h3>
+            <p>
+              Generate planning-oriented insights and strategy suggestions as an extension
+              of the synthesis framework.
+            </p>
+          </div>
+
         </div>
 
-        <div class="footerbar">
-          <div class="muted">HCMC Mobility — Mobility Analyzer</div>
-          <a class="btn small" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
-        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+
 </body>
 </html>

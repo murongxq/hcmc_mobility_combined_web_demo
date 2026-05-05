@@ -12,227 +12,278 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
   <style>
-    .page-pad{ padding-top: 110px; }
+    .page-pad{ padding-top:110px; }
 
+    .page-head{ margin-bottom:18px; }
     .part-kicker{
       letter-spacing:.16em;
       font-size:12px;
-      color: rgba(255,255,255,.55);
-      margin: 0 0 10px;
+      color:rgba(255,255,255,.58);
+      margin:0 0 10px;
+      text-transform:uppercase;
+      font-weight:750;
     }
     .part-title{
       font-size:56px;
       line-height:1.02;
-      margin: 0 0 12px;
+      margin:0 0 12px;
+      letter-spacing:-.035em;
     }
     .part-sub{
-      color: rgba(255,255,255,.78);
-      max-width: 86ch;
-      line-height:1.55;
-      margin: 0 0 18px;
+      color:rgba(255,255,255,.76);
+      max-width:92ch;
+      line-height:1.6;
+      margin:0;
+      font-size:16px;
     }
 
+    .intro-band{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:16px;
+      margin:22px 0 18px;
+    }
+    .intro-card,
     .metric-card{
-      border-radius: var(--radius2);
-      padding: 18px;
-      background: rgba(18,22,28,.55);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 14px 50px rgba(0,0,0,.45);
-      margin: 0 0 18px;
-      position: relative;
-      overflow: hidden;
+      border-radius:var(--radius2);
+      padding:18px;
+      background:rgba(18,22,28,.58);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 14px 50px rgba(0,0,0,.42);
+      position:relative;
+      overflow:hidden;
+    }
+    .intro-card h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+    .intro-card p{
+      margin:0;
+      color:rgba(255,255,255,.78);
+      line-height:1.55;
+    }
+    .method-steps{
+      display:grid;
+      gap:8px;
+      margin-top:12px;
+    }
+    .step-pill{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .step-no{
+      flex:0 0 auto;
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      font-weight:900;
+      background:rgba(255,255,255,.90);
+      color:#11161c;
+    }
+    .step-text{
+      color:rgba(255,255,255,.82);
+      line-height:1.45;
+      font-size:13.5px;
     }
 
+    .metric-card{ margin:0 0 18px; }
     .metric-head{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
-      margin-bottom: 10px;
+      gap:14px;
+      margin-bottom:12px;
     }
     .metric-title{
       margin:0;
-      font-size:18px;
-      font-weight:750;
+      font-size:20px;
+      font-weight:850;
       line-height:1.2;
+      letter-spacing:-.01em;
     }
     .metric-sub{
-      margin:4px 0 0;
-      color: rgba(255,255,255,.68);
-      font-size: 13.5px;
-      line-height:1.45;
-      max-width: 74ch;
+      margin:6px 0 0;
+      color:rgba(255,255,255,.68);
+      font-size:13.5px;
+      line-height:1.5;
+      max-width:78ch;
     }
 
     .toggles{
       display:inline-flex;
       gap:8px;
-      padding: 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      flex-shrink: 0;
+      padding:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.20);
+      flex-shrink:0;
       align-items:center;
     }
     .tbtn{
-      border: 0;
-      background: transparent;
-      color: rgba(255,255,255,.85);
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      cursor: pointer;
-      transition: background .15s ease, transform .15s ease, color .15s ease;
+      border:0;
+      background:transparent;
+      color:rgba(255,255,255,.84);
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12.5px;
+      cursor:pointer;
+      transition:background .15s ease, transform .15s ease, color .15s ease;
       user-select:none;
     }
-    .tbtn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.08);
-    }
-    .tbtn.is-active{
-      background: rgba(255,255,255,.90);
-      color: #12161c;
-    }
+    .tbtn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.08); }
+    .tbtn.is-active{ background:rgba(255,255,255,.90); color:#12161c; }
 
     .metric-narr{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 10px 0 12px;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin:10px 0 12px;
     }
-
     .narr-card{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      padding: 12px 12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      padding:13px 13px;
     }
     .narr-card h4{
       margin:0 0 8px;
-      font-size: 13.5px;
-      letter-spacing: .02em;
+      font-size:13.5px;
+      letter-spacing:.02em;
     }
     .narr-card ul{
       margin:0;
-      padding-left: 18px;
-      color: rgba(255,255,255,.82);
+      padding-left:18px;
+      color:rgba(255,255,255,.82);
     }
     .narr-card li{
-      margin: 7px 0;
+      margin:7px 0;
       line-height:1.45;
-      font-size: 13px;
+      font-size:13px;
     }
     .narr-card p{
-      margin: 7px 0;
-      color: rgba(255,255,255,.82);
+      margin:7px 0;
+      color:rgba(255,255,255,.82);
       line-height:1.5;
-      font-size: 13px;
+      font-size:13px;
     }
-
     .formula{
       display:block;
-      margin: 8px 0 8px;
-      font-size: 15px;
-      line-height: 1.6;
-      color: rgba(255,255,255,.92);
-      font-weight: 700;
-      word-break: break-word;
+      margin:8px 0;
+      font-size:15px;
+      line-height:1.6;
+      color:rgba(255,255,255,.92);
+      font-weight:750;
+      word-break:break-word;
     }
     .formula-note{
-      font-size: 12px;
-      line-height: 1.45;
-      color: rgba(255,255,255,.68);
-      margin-top: 2px;
+      font-size:12px;
+      line-height:1.45;
+      color:rgba(255,255,255,.68);
+      margin-top:2px;
     }
 
     .map-wrap{
-      position: relative;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      overflow: hidden;
-      background: rgba(255,255,255,.03);
-      height: 460px;
+      position:relative;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      background:rgba(255,255,255,.03);
+      height:460px;
     }
-    .map-wrap.tall{
-      height: 560px;
-    }
-    .map{
-      position:absolute;
-      inset:0;
-    }
+    .map-wrap.tall{ height:560px; }
+    .map{ position:absolute; inset:0; }
 
     .legend{
       position:absolute;
-      left: 14px;
-      bottom: 14px;
-      width: 280px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(18,22,28,.82);
-      box-shadow: 0 18px 60px rgba(0,0,0,.55);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 12px 12px;
-      color: rgba(255,255,255,.90);
-      z-index: 5;
+      left:14px;
+      bottom:14px;
+      width:280px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(18,22,28,.84);
+      box-shadow:0 18px 60px rgba(0,0,0,.55);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      padding:12px;
+      color:rgba(255,255,255,.90);
+      z-index:5;
     }
     .legend .k{
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.70);
-      margin: 0 0 6px;
-      font-weight: 750;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.70);
+      margin:0 0 6px;
+      font-weight:800;
     }
     .legend .field{
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      margin: 0 0 10px;
+      font-size:12px;
+      color:rgba(255,255,255,.72);
+      margin:0 0 10px;
     }
     .legend-row{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 10px;
-      margin: 6px 0;
-      font-size: 12.5px;
-      color: rgba(255,255,255,.82);
+      gap:10px;
+      margin:6px 0;
+      font-size:12.5px;
+      color:rgba(255,255,255,.82);
     }
     .swatch{
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      border: 1px solid rgba(255,255,255,.14);
-      flex-shrink: 0;
+      width:12px;
+      height:12px;
+      border-radius:3px;
+      border:1px solid rgba(255,255,255,.14);
+      flex-shrink:0;
     }
     .legend-left{
       display:flex;
       align-items:center;
-      gap: 8px;
-      min-width: 0;
-    }
-    .legend-right{
-      color: rgba(255,255,255,.78);
-      text-align:right;
-      flex-shrink:0;
+      gap:8px;
+      min-width:0;
     }
 
     .metric-note{
-      margin-top: 10px;
-      color: rgba(255,255,255,.55);
-      font-size: 12.5px;
-      line-height: 1.45;
+      margin-top:10px;
+      color:rgba(255,255,255,.58);
+      font-size:12.5px;
+      line-height:1.48;
     }
+    .takeaway-card{
+      margin-top:14px;
+      border-radius:var(--radius2);
+      padding:18px;
+      background:rgba(255,255,255,.065);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 14px 50px rgba(0,0,0,.36);
+    }
+    .takeaway-card h3{ margin:0 0 8px; }
+    .takeaway-card p{ margin:0; color:rgba(255,255,255,.76); line-height:1.58; }
 
-    .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-logo{ opacity: .95; }
+    .topbar .brand-link{ color:inherit; text-decoration:none; }
+    .topbar .brand-mark{ flex:0 0 auto; }
+    .dropdown-menu a.active{ background:rgba(255,255,255,.10); color:rgba(255,255,255,.98); }
 
-    @media (max-width: 980px){
+    .mapboxgl-ctrl-attrib, .mapboxgl-ctrl-logo{ opacity:.95; }
+
+    @media (max-width:980px){
       .part-title{ font-size:44px; }
+      .intro-band{ grid-template-columns:1fr; }
       .metric-head{ flex-direction:column; align-items:flex-start; }
-      .metric-narr{ grid-template-columns: 1fr; }
-      .map-wrap{ height: 420px; }
-      .map-wrap.tall{ height: 500px; }
-      .legend{ width: 240px; }
+      .metric-narr{ grid-template-columns:1fr; }
+      .map-wrap{ height:420px; }
+      .map-wrap.tall{ height:500px; }
+      .legend{ width:240px; }
     }
   </style>
 </head>
@@ -240,65 +291,85 @@
 <body class="theme-dark">
 
   <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
 
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
-        <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        <div class="pill dropdown active" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a class="active" role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
         </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
       </div>
 
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
   <main class="page-pad">
-    <section class="section" style="padding-top: 22px;">
+    <section class="section" style="padding-top:22px;">
       <div class="container">
 
-        <div class="part-kicker">PART I</div>
-        <h1 class="part-title">Traffic Distribution</h1>
-        <p class="part-sub">
-          Mode-specific vehicle intensity across space. We begin with <b>street-view detections</b> of motorcycles, cars, and buses,
-          then compare them through three grid-based readings: <b>detection count</b>, <b>all-time mean traffic intensity</b>,
-          and <b>observed mode share</b>. Finally, we translate relative traffic composition into a typology of
-          <b>motorcycle baseline</b>, <b>car-oriented</b>, <b>bus-influenced</b>, <b>mixed</b>, and <b>low confidence</b>.
-        </p>
-
-        <div class="card glass" style="padding:16px 16px; margin: 0 0 18px;">
-          <h3 class="h3" style="margin:0 0 8px;">What this part shows</h3>
-          <p class="muted" style="margin:0; line-height:1.55;">
-            We start from <b>street-view image detections</b> (motorcycles, cars, buses), then aggregate them into a consistent
-            <b>250m × 250m grid</b> to enable citywide comparison. The same grid is visualized through three lenses:
-            <b>(1) Detection Count</b> for total observed exposure, <b>(2) Grid Mean Intensity</b> for typical mode-specific intensity,
-            and <b>(3) Mode Share</b> for relative composition within each grid cell. The last step further summarizes this composition
-            into a <b>traffic composition typology</b> based on deviation from the citywide baseline.
+        <div class="page-head">
+          <div class="part-kicker">PART I · DESKTOP ANALYSIS</div>
+          <h1 class="part-title">Traffic Distribution</h1>
+          <p class="part-sub">
+            This part examines how different transport modes appear across Ho Chi Minh City using
+            street-view traffic detection. It does not treat mobility as a single traffic volume problem;
+            instead, it separates <b>motorcycles</b>, <b>cars</b>, and <b>buses</b> to reveal the spatial structure
+            of a motorcycle-dominant urban system.
           </p>
+        </div>
+
+        <div class="intro-band">
+          <article class="intro-card">
+            <h3>Why this layer matters</h3>
+            <p>
+              Ho Chi Minh City is widely characterized as a “motorcycle city”. Motorcycles account for the
+              largest share of daily travel, while public transport remains marginal in the current modal structure.
+              Part I therefore starts from observed street-level evidence: where each mode is visible, where it is
+              concentrated, and where local traffic composition deviates from the citywide baseline.
+            </p>
+          </article>
+
+          <article class="intro-card">
+            <h3>Analytical flow</h3>
+            <div class="method-steps">
+              <div class="step-pill"><span class="step-no">1</span><span class="step-text">Detect motorcycles, cars, and buses from street-view images.</span></div>
+              <div class="step-pill"><span class="step-no">2</span><span class="step-text">Aggregate detections into a unified 250m grid to support citywide comparison.</span></div>
+              <div class="step-pill"><span class="step-no">3</span><span class="step-text">Compare count, mean intensity, observed mode share, and traffic composition typology.</span></div>
+            </div>
+          </article>
         </div>
 
         <!-- 1 -->
         <div class="metric-card" id="sec-count">
           <div class="metric-head">
             <div>
-              <h2 class="metric-title">1) Object Detection from Street-View Images</h2>
+              <h2 class="metric-title">1) Street-View Detection by Mode</h2>
               <p class="metric-sub">
-                Street-Level Detection of <b>Motorcycles</b>, <b>Cars</b>, and <b>Buses</b>.
-                This first layer shows the point-level spatial distribution of captured SVI detections after grid aggregation.
+                This first layer maps where motorcycles, cars, and buses are captured in street-view images.
+                It provides the observational base for understanding spatial exposure before moving into normalized grid indicators.
               </p>
             </div>
 
@@ -311,29 +382,25 @@
 
           <div class="metric-narr">
             <div class="narr-card">
-              <h4>Detection result from each SVI</h4>
+              <h4>Data source and object classes</h4>
               <ul>
-                <li>Motorcycle</li>
-                <li>Car</li>
-                <li>Bus</li>
+                <li>Street-view images with timestamp and location metadata</li>
+                <li>Detected object classes: motorcycle, car, and bus</li>
+                <li>Grid-level aggregation used to reduce point-level noise</li>
               </ul>
-              <p>
-                The map summarizes the <b>point-level spatial distribution</b> of captured street-view detections.
-              </p>
             </div>
             <div class="narr-card">
-              <h4>How to read</h4>
+              <h4>How to read this map</h4>
               <ul>
-                <li><b>Count (n)</b> summarizes total detected vehicles aggregated into each 250m grid cell.</li>
-                <li>Higher values indicate <b>stronger street-level exposure</b> captured by SVI samples.</li>
-                <li>Use the toggle to compare <b>Motorcycle / Car / Bus</b> under the same spatial unit.</li>
+                <li><b>Count</b> indicates total detected vehicles aggregated into each 250m grid cell.</li>
+                <li>Higher values indicate stronger street-level exposure captured by available SVI samples.</li>
+                <li>This layer should be interpreted with mean intensity because count is also affected by image sampling density.</li>
               </ul>
             </div>
           </div>
 
           <div class="map-wrap">
             <div id="mapCount" class="map"></div>
-
             <div class="legend" id="legendCount">
               <div class="k" id="legendCountTitle">COUNT · MOTORCYCLE</div>
               <div class="field" id="legendCountField">Field: n_motorcycle</div>
@@ -342,8 +409,8 @@
           </div>
 
           <div class="metric-note">
-            Detection count is useful for identifying <b>where each mode is observed most frequently</b>, but it should be interpreted
-            together with mean intensity because count also reflects SVI observation density.
+            Detection count identifies where each mode is frequently observed, but it is not a direct travel-volume estimate.
+            It is best used as the first descriptive layer in the traffic distribution analysis.
           </div>
         </div>
 
@@ -353,8 +420,8 @@
             <div>
               <h2 class="metric-title">2) Grid-Based Mean Traffic Intensity</h2>
               <p class="metric-sub">
-                Grid-Level Average Traffic Intensity (All-Time Mean). This second step moves from total detections to
-                <b>typical intensity</b> in each grid.
+                This step moves from raw detections to typical mode-specific intensity. By averaging observations within each grid and time unit,
+                the analysis better captures persistent traffic presence rather than isolated image-level spikes.
               </p>
             </div>
 
@@ -367,39 +434,37 @@
 
           <div class="metric-narr">
             <div class="narr-card">
-              <h4>Step 1 — Hourly Grid Mean</h4>
+              <h4>Step 1 — Hourly grid mean</h4>
               <span class="formula">
                 I<sub>g,h,d</sub><sup>(m)</sup> =
                 (1 / N<sub>g,h,d</sub>) × Σ<sub>i ∈ (g,h,d)</sub> n<sub>i</sub><sup>(m)</sup>
               </span>
               <div class="formula-note">
-                where: g = grid, h = hour, d = day type, m = mode,
-                and n<sub>i</sub><sup>(m)</sup> = detected count per image
+                where g = grid, h = hour, d = weekday/weekend, m = mode, and n is detected count per image.
               </div>
 
-              <h4 style="margin-top:12px;">Step 2 — All-Time Mean per Grid</h4>
+              <h4 style="margin-top:12px;">Step 2 — all-time mean per grid</h4>
               <span class="formula">
                 Ī<sub>g</sub><sup>(m)</sup> =
                 (1 / T<sub>g</sub>) × Σ<sub>h,d</sub> I<sub>g,h,d</sub><sup>(m)</sup>
               </span>
               <div class="formula-note">
-                where T<sub>g</sub> = number of observed time slices in grid g
+                This produces one comparable intensity value per grid and mode.
               </div>
             </div>
 
             <div class="narr-card">
               <h4>Interpretation</h4>
               <ul>
-                <li>Mean intensity highlights <b>persistent hotspots</b> rather than one-off spikes.</li>
-                <li>It enables fairer comparison when SVI sampling density varies.</li>
-                <li>Comparing modes shows where the city is more <b>motorcycle-dominant</b>, <b>car-heavy</b>, or <b>bus-present</b>.</li>
+                <li>Mean intensity highlights persistent mode-specific hotspots.</li>
+                <li>It supports comparison between motorcycles, cars, and buses under the same spatial unit.</li>
+                <li>For HCMC, this is especially useful for distinguishing motorcycle-dominant areas from car-oriented or bus-visible corridors.</li>
               </ul>
             </div>
           </div>
 
           <div class="map-wrap">
             <div id="mapMean" class="map"></div>
-
             <div class="legend" id="legendMean">
               <div class="k" id="legendMeanTitle">MEAN · MOTORCYCLE</div>
               <div class="field" id="legendMeanField">Field: n_motorcycle_mean_all</div>
@@ -408,7 +473,7 @@
           </div>
 
           <div class="metric-note">
-            Mean bins follow your PPT legend ranges, so the webpage and slides use the same fixed breaks for mode-specific interpretation.
+            This map supports the first major analytical goal of the project: identifying mode-specific vehicle intensity across space.
           </div>
         </div>
 
@@ -416,9 +481,10 @@
         <div class="metric-card" id="sec-share">
           <div class="metric-head">
             <div>
-              <h2 class="metric-title">3) Mode Composition (Observed Share)</h2>
+              <h2 class="metric-title">3) Mode Composition: Observed Share</h2>
               <p class="metric-sub">
-                Observed Mode Share by Grid. This layer focuses on <b>relative composition</b> rather than absolute intensity.
+                Observed mode share shifts the focus from total intensity to relative composition. This helps identify where local street exposure
+                is disproportionately shaped by motorcycles, cars, or buses.
               </p>
             </div>
 
@@ -433,28 +499,29 @@
             <div class="narr-card">
               <h4>Definition</h4>
               <span class="formula">
+                Share = mode mean / total mean
+              </span>
+              <span class="formula">
                 S<sub>g</sub><sup>(m)</sup> =
                 Ī<sub>g</sub><sup>(m)</sup> / Σ<sub>k</sub> Ī<sub>g</sub><sup>(k)</sup>
               </span>
               <div class="formula-note">
-                where k ∈ {motorcycle, car, bus}
+                where k ∈ {motorcycle, car, bus}.
               </div>
-              <p>Share = <b>mode mean / total mean</b></p>
             </div>
 
             <div class="narr-card">
-              <h4>What it means</h4>
+              <h4>What it represents</h4>
               <ul>
-                <li><b>Relative composition within each grid</b></li>
-                <li>Represents <b>street-level exposure structure</b></li>
-                <li><b>Not equivalent</b> to travel survey modal split</li>
+                <li>Relative composition within each grid cell</li>
+                <li>Street-level exposure structure, not household travel behavior</li>
+                <li>Not equivalent to travel survey modal split</li>
               </ul>
             </div>
           </div>
 
           <div class="map-wrap">
             <div id="mapShare" class="map"></div>
-
             <div class="legend" id="legendShare">
               <div class="k" id="legendShareTitle">SHARE · MOTORCYCLE</div>
               <div class="field" id="legendShareField">Field: share_motorcycle_all</div>
@@ -463,8 +530,8 @@
           </div>
 
           <div class="metric-note">
-            Share separates “busy places” from “mode-dominant places”. Even where total traffic is not highest, a high local share can still reveal
-            strong <b>car orientation</b> or visible <b>bus influence</b>.
+            Mode share separates “busy places” from “mode-dominant places”. This is important in HCMC because motorcycle dominance can be structural
+            even where total detected traffic is not the highest.
           </div>
         </div>
 
@@ -474,39 +541,24 @@
             <div>
               <h2 class="metric-title">4) Traffic Composition Typology</h2>
               <p class="metric-sub">
-                Traffic Composition Types (Top 20% Deviation Classification). This final map translates local composition into interpretable traffic types.
+                The final layer translates observed composition into interpretable traffic types by measuring each grid’s deviation from the citywide baseline.
               </p>
             </div>
           </div>
 
           <div class="metric-narr">
             <div class="narr-card">
-              <h4>Step 1 — Baseline</h4>
-              <span class="formula">
-                S̄<sup>(m)</sup> = (1 / G) × Σ<sub>g</sub> S<sub>g</sub><sup>(m)</sup>
-              </span>
-
-              <h4 style="margin-top:12px;">Step 2 — Deviation</h4>
-              <span class="formula">
-                Δ<sub>g</sub><sup>(m)</sup> = S<sub>g</sub><sup>(m)</sup> − S̄<sup>(m)</sup>
-              </span>
-
-              <h4 style="margin-top:12px;">Step 3 — Classification (Top 20%)</h4>
-              <span class="formula">
-                Δ<sub>g</sub><sup>(m)</sup> ≥ Q<sub>0.8</sub>(Δ<sup>(m)</sup>)
-              </span>
-
+              <h4>Classification logic</h4>
+              <span class="formula">Step 1 — Baseline: citywide average share by mode</span>
+              <span class="formula">Step 2 — Deviation: local share − city baseline</span>
+              <span class="formula">Step 3 — Classification: top 20% deviation</span>
               <div class="formula-note">
-                g = grid cell (250m × 250m), m = traffic mode (motorcycle, car, bus),
-                S<sub>g</sub><sup>(m)</sup> = observed mode share in grid g,
-                S̄<sup>(m)</sup> = city-level baseline share,
-                Δ<sub>g</sub><sup>(m)</sup> = deviation from baseline,
-                Q<sub>0.8</sub> = 80th percentile threshold
+                This follows the PDF logic: baseline, deviation, and top-20% classification.
               </div>
             </div>
 
             <div class="narr-card">
-              <h4>Classification based on deviation from city baseline</h4>
+              <h4>Traffic types</h4>
               <ul>
                 <li><b>Motorcycle Baseline</b></li>
                 <li><b>Car-Oriented</b></li>
@@ -515,48 +567,35 @@
                 <li><b>Low Confidence</b></li>
               </ul>
               <p>
-                This typology does not measure total magnitude directly. Instead, it shows which grids deviate most strongly from the citywide composition baseline.
+                These categories summarize how local traffic composition differs from the HCMC-wide pattern.
               </p>
             </div>
           </div>
 
           <div class="map-wrap tall">
             <div id="mapTypology" class="map"></div>
-
             <div class="legend" id="legendTypology">
               <div class="k">TRAFFIC TYPE</div>
               <div class="field">Field: traffic_type</div>
-
-              <div class="legend-row">
-                <div class="legend-left"><span class="swatch" style="background:#f4b76a"></span><span>Motorcycle Baseline</span></div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-left"><span class="swatch" style="background:#e31a1c"></span><span>Car-Oriented</span></div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-left"><span class="swatch" style="background:#33a02c"></span><span>Bus-Influenced</span></div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-left"><span class="swatch" style="background:#8e44ad"></span><span>Mixed</span></div>
-              </div>
-              <div class="legend-row">
-                <div class="legend-left"><span class="swatch" style="background:#9e9e9e"></span><span>Low Confidence</span></div>
-              </div>
+              <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f4b76a"></span><span>Motorcycle Baseline</span></div></div>
+              <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#e31a1c"></span><span>Car-Oriented</span></div></div>
+              <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#33a02c"></span><span>Bus-Influenced</span></div></div>
+              <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#8e44ad"></span><span>Mixed</span></div></div>
+              <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#9e9e9e"></span><span>Low Confidence</span></div></div>
             </div>
           </div>
 
           <div class="metric-note">
-            This interactive typology map reads from <b>traffic_distribution_grid_summary_typed.geojson</b> and uses the
-            <b>traffic_type</b> field. Hover each grid to inspect its classified type.
+            The typology does not directly rank total traffic magnitude. It identifies which grids deviate most strongly from the citywide traffic composition baseline.
           </div>
         </div>
 
-        <div class="card glass" style="padding:16px 16px; margin-top: 14px;">
-          <h3 class="h3" style="margin:0 0 8px;">Takeaway from Part I</h3>
-          <p class="muted" style="margin:0; line-height:1.55;">
-            Together, <b>count</b>, <b>mean intensity</b>, <b>observed share</b>, and <b>traffic composition typology</b>
-            provide a layered picture of where each mode concentrates and how street-level mobility structure varies across HCMC.
-            Part II then builds on these spatial patterns to measure congestion across space and time.
+        <div class="takeaway-card">
+          <h3 class="h3">Takeaway from Part I</h3>
+          <p>
+            Part I establishes the baseline spatial evidence for HCMC’s mobility structure. It shows not only where traffic is concentrated,
+            but also how the balance between motorcycles, cars, and buses varies across the city. This provides the first analytical foundation
+            for Part II, where traffic pressure is compared with road supply to diagnose congestion mechanisms.
           </p>
         </div>
 
@@ -564,6 +603,7 @@
     </section>
   </main>
 
+  <script src="script.js"></script>
   <script>
     const GRID_GEOJSON   = "./assets/grid_250m_merged_all_features_with_quadrants.geojson";
     const TYPE_GEOJSON   = "./assets/traffic_distribution_grid_summary_typed.geojson";

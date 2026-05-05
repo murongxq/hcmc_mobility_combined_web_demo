@@ -4,233 +4,136 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Motivation | HCMC Mobility</title>
-
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    .page-pad{ padding-top:110px; }
-
-    .page-head{ margin-bottom:18px; }
-    .h1{
-      font-size:56px;
-      line-height:1.03;
-      margin:0 0 10px;
-    }
-    .sublead{
-      color: rgba(255,255,255,.74);
-      max-width: 88ch;
-      line-height: 1.58;
-      margin: 0;
-    }
-
-    .section-tight{ padding: 40px 0 56px; }
+    .page-pad{padding-top:112px;}
+    .section-tight{padding:42px 0 58px;}
+    .page-head{margin-bottom:20px;}
+    .h1{font-size:56px;line-height:1.03;margin:0 0 12px;letter-spacing:-.03em;}
+    .sublead{color:rgba(255,255,255,.74);max-width:92ch;line-height:1.62;margin:0;}
 
     .motivation-card{
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(20,20,22,.66);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      border-radius:22px;
+      padding:20px;
+      background:rgba(20,20,22,.66);
+      border:1px solid rgba(255,255,255,.09);
+      box-shadow:0 14px 42px rgba(0,0,0,.32);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
+    .motivation-card h2,.motivation-card h3{margin-top:0;}
+    .motivation-card p{margin:8px 0;line-height:1.62;color:rgba(255,255,255,.88);}
+    .motivation-card ul{margin:10px 0 0;padding-left:20px;color:rgba(255,255,255,.88);}
+    .motivation-card li{margin:7px 0;line-height:1.52;}
 
-    .motivation-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items:start;
+    .motivation-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start;}
+    .context-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px;}
+    .logic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px;}
+
+    .mini-card{
+      border-radius:18px;
+      padding:15px;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(255,255,255,.09);
     }
+    .mini-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:8px;font-weight:800;}
+    .mini-title{font-size:16px;font-weight:850;margin-bottom:7px;color:rgba(255,255,255,.95);}
+    .mini-text{font-size:13.5px;line-height:1.52;color:rgba(255,255,255,.73);}
 
-    .motivation-card h2,
-    .motivation-card h3{
-      margin-top:0;
+    .question-box{
+      margin-top:18px;
+      border-radius:22px;
+      padding:20px;
+      background:linear-gradient(135deg,rgba(141,183,255,.13),rgba(255,255,255,.045));
+      border:1px solid rgba(141,183,255,.24);
+      box-shadow:0 16px 45px rgba(0,0,0,.28);
     }
+    .question-box .q-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(220,234,255,.72);font-weight:850;margin-bottom:8px;}
+    .question-box .q-text{font-size:24px;line-height:1.35;font-weight:850;letter-spacing:-.015em;color:rgba(255,255,255,.96);margin:0;}
 
-    .motivation-card p{
-      margin: 8px 0;
-      line-height:1.58;
-      color: rgba(255,255,255,.9);
-    }
-
-    .motivation-card ul{
-      margin: 10px 0 0;
-      padding-left: 20px;
-      color: rgba(255,255,255,.9);
-    }
-
-    .motivation-card li{
-      margin: 6px 0;
-      line-height: 1.5;
-    }
-
-    .note-box{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 14px 14px;
-    }
-
-    .pie-panel{
-      display:grid;
-      grid-template-columns: minmax(280px, 420px) 1fr;
-      gap: 18px;
-      align-items:center;
-    }
-
-    .pie-wrap{
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-      aspect-ratio: 1 / 1;
-    }
-
-    .pie{
-      width:100%;
-      height:100%;
-      display:block;
-      overflow: visible;
-    }
-
+    .pie-panel{display:grid;grid-template-columns:minmax(270px,410px) 1fr;gap:18px;align-items:center;}
+    .pie-wrap{position:relative;width:100%;max-width:410px;margin:0 auto;aspect-ratio:1/1;}
+    .pie{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 18px 36px rgba(0,0,0,.42));}
     .pie-center{
-      position:absolute;
-      inset:50% auto auto 50%;
-      transform: translate(-50%, -50%);
-      width: 38%;
-      aspect-ratio:1/1;
-      border-radius:50%;
-      background: rgba(10,12,18,.95);
-      border: 1px solid rgba(255,255,255,.08);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      pointer-events:none;
-      box-shadow: inset 0 0 18px rgba(255,255,255,.04);
-      padding: 8px;
+      position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);
+      width:38%;aspect-ratio:1/1;border-radius:50%;
+      background:rgba(10,12,18,.96);border:1px solid rgba(255,255,255,.10);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+      pointer-events:none;box-shadow:inset 0 0 18px rgba(255,255,255,.04);padding:8px;
     }
-
-    .pie-center .center-label{
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.58);
-      margin-bottom: 4px;
-    }
-
-    .pie-center .center-value{
-      font-size: 22px;
-      font-weight: 900;
-      color: rgba(255,255,255,.96);
-      line-height: 1.1;
-    }
-
-    .pie-center .center-sub{
-      font-size: 11px;
-      color: rgba(255,255,255,.62);
-      margin-top: 2px;
-    }
-
-    .pie-legend{
-      display:grid;
-      gap: 10px;
-    }
-
+    .center-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.58);margin-bottom:4px;}
+    .center-value{font-size:25px;font-weight:950;color:rgba(255,255,255,.97);line-height:1.05;}
+    .center-sub{font-size:11px;color:rgba(255,255,255,.64);margin-top:3px;}
+    .pie-legend{display:grid;gap:10px;}
     .legend-item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      cursor: pointer;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.035);transition:transform .15s ease,background .15s ease,border-color .15s ease;cursor:pointer;
     }
+    .legend-item:hover,.legend-item.is-active{transform:translateY(-1px);background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.18);}
+    .legend-left{display:flex;align-items:center;gap:10px;min-width:0;}
+    .legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,.2);flex:0 0 auto;}
+    .legend-name{color:rgba(255,255,255,.92);font-weight:750;}
+    .legend-value{color:rgba(255,255,255,.78);font-weight:800;white-space:nowrap;}
+    .pie-caption{margin-top:12px;color:rgba(255,255,255,.67);font-size:13px;line-height:1.52;}
 
-    .legend-item:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.06);
+    .highlight-list{display:grid;gap:10px;margin-top:14px;}
+    .highlight-item{border-radius:16px;padding:12px 14px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);}
+    .highlight-title{font-weight:850;margin-bottom:4px;}
+    .highlight-desc{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.72);}
+
+    .footerbar{margin-top:18px;}
+
+    @media (max-width:1100px){
+      .context-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .logic-grid{grid-template-columns:1fr;}
+      .motivation-grid{grid-template-columns:1fr;}
+      .pie-panel{grid-template-columns:1fr;}
     }
-
-    .legend-item.is-active{
-      background: rgba(255,255,255,.09);
-      border-color: rgba(255,255,255,.18);
-    }
-
-    .legend-left{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .legend-swatch{
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,.18);
-      flex: 0 0 auto;
-    }
-
-    .legend-name{
-      color: rgba(255,255,255,.92);
-      font-weight: 700;
-    }
-
-    .legend-value{
-      color: rgba(255,255,255,.78);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .pie-caption{
-      margin-top: 12px;
-      color: rgba(255,255,255,.68);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .deliver-card{
-      margin-top: 18px;
-    }
-
-    @media (max-width: 980px){
-      .h1{ font-size:42px; }
-      .motivation-grid{ grid-template-columns: 1fr; }
-      .pie-panel{ grid-template-columns: 1fr; }
-      .pie-wrap{ max-width: 340px; }
+    @media (max-width:760px){
+      .page-pad{padding-top:92px;}
+      .h1{font-size:40px;}
+      .context-grid{grid-template-columns:1fr;}
+      .question-box .q-text{font-size:20px;}
     }
   </style>
 </head>
 
 <body class="theme-dark">
   <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill active" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
 
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
-        <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        <div class="pill dropdown" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
         </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
       </div>
 
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
@@ -238,51 +141,73 @@
     <section class="section-tight" id="top">
       <div class="container page-head">
         <div class="kicker">MOTIVATION</div>
-        <h1 class="h1">Research Motivation &amp; Core Question</h1>
+        <h1 class="h1">Why HCMC Needs More Than a Metro Project</h1>
         <p class="sublead">
-          Why do we need a combined reading of <b>distribution</b>, <b>congestion</b>, and <b>public transport supply</b> in Ho Chi Minh City?
-          This section explains the data gap, the modal context, and the project’s core logic before moving into the analytical framework.
+          Ho Chi Minh City is entering a major mobility transition. Metro Line 1 is already operational, Line 2 is under construction,
+          and the city is moving toward smarter, data-driven transport governance. The central question is whether metro development
+          can become the backbone of a broader system transition rather than remain an isolated infrastructure project.
         </p>
       </div>
     </section>
 
     <section class="section-tight">
       <div class="container">
-        <div class="motivation-grid">
+        <div class="context-grid">
+          <div class="mini-card">
+            <div class="mini-label">Context</div>
+            <div class="mini-title">Motorcycle-dominant city</div>
+            <div class="mini-text">Motorcycles remain the dominant mode of everyday travel, offering door-to-door convenience but contributing to mixed traffic and low road efficiency.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">Pressure</div>
+            <div class="mini-title">Rapid growth and congestion</div>
+            <div class="mini-text">Urbanization and rising travel demand create severe congestion and safety challenges across the city.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">Transition</div>
+            <div class="mini-title">Emerging metro system</div>
+            <div class="mini-text">Metro investment creates a window of opportunity to reduce dependence on motorcycles and reorganize urban mobility around public transport corridors.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">Governance</div>
+            <div class="mini-title">Data-driven planning</div>
+            <div class="mini-text">Smart traffic management and mobility data systems are becoming essential for monitoring, evaluation, and adaptive decision-making.</div>
+          </div>
+        </div>
+
+        <div class="motivation-grid" style="margin-top:18px;">
           <article class="motivation-card">
-            <h2 class="h2">Key Motivation</h2>
-
+            <h2 class="h2">The Core Mobility Challenge</h2>
             <p>
-              Mobility in Ho Chi Minh City is dominated by motorcycles, while public transport remains limited but potentially critical.
-              However, <b>high-resolution, mode-specific traffic datasets</b> are often unavailable or inconsistent, making it difficult
-              to compare different transport modes fairly across <b>space</b> and <b>time</b>.
+              HCMC is often described as a motorcycle city. Motorcycles account for about <b>74% of daily trips</b>, while public transport accounts for only a small share of urban travel.
+              This structure is not simply a matter of vehicle preference; it reflects the interaction between travel behavior, street conditions, public transport reliability, land use, and first/last-mile access.
             </p>
 
-            <p>
-              We therefore build a workflow that connects <b>street-view object detection</b>, <b>road network structure</b>, and
-              <b>schedule-based public transport supply</b>, and then interpret them under one unified framework.
-            </p>
-
-            <div class="note-box" style="margin-top:14px;">
-              <h3 class="h3" style="margin-bottom:8px;">Why this matters</h3>
-              <ul>
-                <li>Limited availability of high-resolution, mode-specific traffic data</li>
-                <li>Existing studies often overlook temporal dynamics and modal differences</li>
-                <li>Public transport plays a limited but potentially critical role in mobility restructuring</li>
-              </ul>
+            <div class="highlight-list">
+              <div class="highlight-item">
+                <div class="highlight-title">Motorcycles are effective but structurally dominant</div>
+                <div class="highlight-desc">They provide flexibility, short-distance speed, and easy parking, but also reinforce mixed traffic conflicts and road-space inefficiency.</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-title">Public transport is not yet competitive enough</div>
+                <div class="highlight-desc">Long or uncertain waiting time, limited passenger information, inadequate stop conditions, and first/last-mile gaps reduce willingness to shift modes.</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-title">Metro alone cannot reshape the system</div>
+                <div class="highlight-desc">Field observations and corridor comparison suggest that metro operation can bring localized improvement, but broader modal change requires coordinated support systems.</div>
+              </div>
             </div>
           </article>
 
           <article class="motivation-card">
-            <h2 class="h2">Modal Share Snapshot</h2>
-            <p class="sublead" style="margin-bottom:14px; max-width:none;">
-              Hover a slice or the legend to inspect the modal structure.
+            <h2 class="h2">Existing Modal Structure</h2>
+            <p class="sublead" style="margin-bottom:14px;max-width:none;">
+              The baseline modal structure shows why the transition challenge is not simply about adding infrastructure, but about shifting the conditions that make motorcycles the default choice.
             </p>
 
             <div class="pie-panel">
               <div class="pie-wrap">
-                <svg id="modalPie" class="pie" viewBox="0 0 420 420" role="img" aria-label="Modal share pie chart"></svg>
-
+                <svg id="motivationPie" class="pie" viewBox="0 0 420 420" role="img" aria-label="HCMC modal share donut chart"></svg>
                 <div class="pie-center">
                   <div class="center-label">Selected</div>
                   <div id="pieCenterValue" class="center-value">74%</div>
@@ -291,137 +216,143 @@
               </div>
 
               <div>
-                <div id="pieLegend" class="pie-legend"></div>
+                <div id="motivationPieLegend" class="pie-legend"></div>
                 <div class="pie-caption">
                   Baseline modal shares used here: <b>Motorcycles 74%</b>, <b>Active Mobility 19%</b>,
-                  <b>Public Transport 4%</b>, <b>Private Cars 1%</b>, <b>Other 2%</b>.
+                  <b>Public Transport 4%</b>, <b>Other 2%</b>, and <b>Private Cars 1%</b>.
                 </div>
               </div>
             </div>
           </article>
         </div>
 
-        <article class="motivation-card deliver-card">
-          <h2 class="h2">What This Project Aims to Deliver</h2>
-          <p>
-            The goal is not to claim exact “ground truth” traffic counts, but to build a <b>comparable and interpretable view</b>
-            of mobility dynamics:
-            <b>distribution (where)</b>, <b>congestion (how intense)</b>, and <b>supply (when and how much)</b>.
-          </p>
-          <p>
-            By placing these dimensions under one shared grid and temporal logic, the project makes it possible to compare
-            <b>demand pressure</b>, <b>road/network support</b>, and <b>public transport provision</b> within the same analytical system.
+        <article class="question-box">
+          <div class="q-label">Research Question</div>
+          <p class="q-text">
+            How can HCMC use metro development and smart mobility planning to drive a broader transition toward a more integrated and sustainable urban transport system?
           </p>
         </article>
 
-        <div class="footerbar" style="margin-top:16px;">
+        <div class="logic-grid">
+          <div class="motivation-card">
+            <h3 class="h3">From Infrastructure to System Transition</h3>
+            <p>
+              The project starts from a simple premise: improving mobility is not only about building more transport infrastructure.
+              It requires understanding how demand, supply, accessibility, walkability, and user behavior interact across space and time.
+            </p>
+          </div>
+
+          <div class="motivation-card">
+            <h3 class="h3">From Data Gap to Integrated Evidence</h3>
+            <p>
+              Because high-resolution, mode-specific traffic evidence is limited, the analysis combines street-view detection,
+              road network indicators, public transport schedules, accessibility modelling, and field observation under a shared grid-based framework.
+            </p>
+          </div>
+
+          <div class="motivation-card">
+            <h3 class="h3">From Analysis to Planning Action</h3>
+            <p>
+              The final goal is to translate mobility evidence into strategy: improving public transport operations, station access,
+              first/last-mile connections, traffic management, and data-driven governance.
+            </p>
+          </div>
+        </div>
+
+        <div class="footerbar" style="margin-top:18px;">
           <div class="muted">Motivation — HCMC Mobility</div>
-          <a class="btn small" href="framework.html">Continue →</a>
+          <a class="btn small" href="framework.html">Continue to Framework →</a>
         </div>
       </div>
     </section>
   </main>
 
   <script src="script.js"></script>
-
   <script>
-    const modalData = [
-      { label: "Motorcycles", value: 74, color: "#4c78a8" },
-      { label: "Active Mobility", value: 19, color: "#54a24b" },
-      { label: "Public Transport", value: 4, color: "#f2a654" },
-      { label: "Private Cars", value: 1, color: "#e45756" },
-      { label: "Other", value: 2, color: "#b279a2" }
-    ];
+    (function renderMotivationPie(){
+      const data = [
+        { label: "Motorcycles", value: 74, color: "#4c78a8" },
+        { label: "Active Mobility", value: 19, color: "#54a24b" },
+        { label: "Public Transport", value: 4, color: "#f2a654" },
+        { label: "Other", value: 2, color: "#b279a2" },
+        { label: "Private Cars", value: 1, color: "#e45756" }
+      ];
 
-    const svg = document.getElementById("modalPie");
-    const legendWrap = document.getElementById("pieLegend");
-    const centerValue = document.getElementById("pieCenterValue");
-    const centerSub = document.getElementById("pieCenterSub");
+      const svg = document.getElementById("motivationPie");
+      const legendWrap = document.getElementById("motivationPieLegend");
+      const centerValue = document.getElementById("pieCenterValue");
+      const centerSub = document.getElementById("pieCenterSub");
+      if (!svg || !legendWrap || !centerValue || !centerSub) return;
 
-    const cx = 210, cy = 210;
-    const outerR = 155;
-    const innerR = 82;
+      const cx = 210, cy = 210;
+      const outerR = 155;
+      const innerR = 82;
 
-    let activeIndex = 0;
+      function polarToCartesian(cx, cy, r, angleDeg){
+        const rad = (angleDeg - 90) * Math.PI / 180.0;
+        return { x: cx + (r * Math.cos(rad)), y: cy + (r * Math.sin(rad)) };
+      }
 
-    function polarToCartesian(cx, cy, r, angleDeg){
-      const rad = (angleDeg - 90) * Math.PI / 180.0;
-      return {
-        x: cx + (r * Math.cos(rad)),
-        y: cy + (r * Math.sin(rad))
-      };
-    }
+      function describeArc(cx, cy, outerR, innerR, startAngle, endAngle){
+        const startOuter = polarToCartesian(cx, cy, outerR, endAngle);
+        const endOuter = polarToCartesian(cx, cy, outerR, startAngle);
+        const startInner = polarToCartesian(cx, cy, innerR, startAngle);
+        const endInner = polarToCartesian(cx, cy, innerR, endAngle);
+        const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
 
-    function describeArc(cx, cy, outerR, innerR, startAngle, endAngle){
-      const startOuter = polarToCartesian(cx, cy, outerR, endAngle);
-      const endOuter = polarToCartesian(cx, cy, outerR, startAngle);
-      const startInner = polarToCartesian(cx, cy, innerR, startAngle);
-      const endInner = polarToCartesian(cx, cy, innerR, endAngle);
+        return [
+          "M", startOuter.x, startOuter.y,
+          "A", outerR, outerR, 0, largeArcFlag, 0, endOuter.x, endOuter.y,
+          "L", startInner.x, startInner.y,
+          "A", innerR, innerR, 0, largeArcFlag, 1, endInner.x, endInner.y,
+          "Z"
+        ].join(" ");
+      }
 
-      const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+      function render(activeIdx = 0){
+        svg.innerHTML = "";
+        legendWrap.innerHTML = "";
+        const total = data.reduce((sum, d) => sum + d.value, 0);
+        let startAngle = 0;
 
-      return [
-        "M", startOuter.x, startOuter.y,
-        "A", outerR, outerR, 0, largeArcFlag, 0, endOuter.x, endOuter.y,
-        "L", startInner.x, startInner.y,
-        "A", innerR, innerR, 0, largeArcFlag, 1, endInner.x, endInner.y,
-        "Z"
-      ].join(" ");
-    }
+        data.forEach((d, i) => {
+          const sliceAngle = (d.value / total) * 360;
+          const endAngle = startAngle + sliceAngle;
+          const isActive = i === activeIdx;
 
-    function renderPie(activeIdx = 0){
-      svg.innerHTML = "";
-      legendWrap.innerHTML = "";
-      activeIndex = activeIdx;
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", describeArc(cx, cy, isActive ? outerR + 10 : outerR, innerR, startAngle, endAngle));
+          path.setAttribute("fill", d.color);
+          path.setAttribute("stroke", "rgba(255,255,255,.16)");
+          path.setAttribute("stroke-width", isActive ? "3" : "1.5");
+          path.style.cursor = "pointer";
+          path.style.opacity = isActive ? "1" : ".9";
+          path.addEventListener("mouseenter", () => render(i));
+          path.addEventListener("click", () => render(i));
+          svg.appendChild(path);
 
-      const total = modalData.reduce((sum, d) => sum + d.value, 0);
-      let startAngle = 0;
+          const legendItem = document.createElement("div");
+          legendItem.className = "legend-item" + (isActive ? " is-active" : "");
+          legendItem.innerHTML = `
+            <div class="legend-left">
+              <span class="legend-swatch" style="background:${d.color}"></span>
+              <span class="legend-name">${d.label}</span>
+            </div>
+            <div class="legend-value">${d.value}%</div>
+          `;
+          legendItem.addEventListener("mouseenter", () => render(i));
+          legendItem.addEventListener("click", () => render(i));
+          legendWrap.appendChild(legendItem);
 
-      modalData.forEach((d, i) => {
-        const sliceAngle = (d.value / total) * 360;
-        const endAngle = startAngle + sliceAngle;
-        const isActive = i === activeIdx;
+          startAngle = endAngle;
+        });
 
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", describeArc(cx, cy, isActive ? outerR + 10 : outerR, innerR, startAngle, endAngle));
-        path.setAttribute("fill", d.color);
-        path.setAttribute("stroke", "rgba(255,255,255,.16)");
-        path.setAttribute("stroke-width", isActive ? "3" : "1.5");
-        path.style.cursor = "pointer";
-        path.style.transition = "transform .18s ease, opacity .18s ease";
-        path.style.opacity = isActive ? "1" : ".92";
+        centerValue.textContent = data[activeIdx].value + "%";
+        centerSub.textContent = data[activeIdx].label;
+      }
 
-        path.addEventListener("mouseenter", () => updateActive(i));
-        path.addEventListener("click", () => updateActive(i));
-
-        svg.appendChild(path);
-
-        const legendItem = document.createElement("div");
-        legendItem.className = "legend-item" + (isActive ? " is-active" : "");
-        legendItem.addEventListener("mouseenter", () => updateActive(i));
-        legendItem.addEventListener("click", () => updateActive(i));
-
-        legendItem.innerHTML = `
-          <div class="legend-left">
-            <span class="legend-swatch" style="background:${d.color}"></span>
-            <span class="legend-name">${d.label}</span>
-          </div>
-          <div class="legend-value">${d.value}%</div>
-        `;
-        legendWrap.appendChild(legendItem);
-
-        startAngle = endAngle;
-      });
-
-      centerValue.textContent = modalData[activeIdx].value + "%";
-      centerSub.textContent = modalData[activeIdx].label;
-    }
-
-    function updateActive(idx){
-      renderPie(idx);
-    }
-
-    renderPie(0);
+      render(0);
+    })();
   </script>
 </body>
 </html>

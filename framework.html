@@ -5,164 +5,397 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Framework — HCMC Mobility</title>
   <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    .page-pad{padding-top:118px;}
+    .framework-page{padding-bottom:68px;}
+    .page-head{margin-bottom:22px;}
+    .h1{
+      font-size:56px;
+      line-height:1.03;
+      margin:0 0 12px;
+      max-width:980px;
+    }
+    .sublead{
+      color:rgba(255,255,255,.74);
+      max-width:94ch;
+      line-height:1.62;
+      margin:0;
+      font-size:16px;
+    }
+    .section-block{padding:34px 0 24px;}
+    .section-title{
+      font-size:34px;
+      line-height:1.08;
+      margin:0 0 10px;
+    }
+    .section-intro{
+      color:rgba(255,255,255,.72);
+      line-height:1.58;
+      max-width:92ch;
+      margin:0 0 18px;
+    }
+    .framework-grid{
+      display:grid;
+      gap:16px;
+    }
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+    .fw-card{
+      border-radius:22px;
+      padding:18px;
+      background:rgba(20,24,31,.62);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 14px 44px rgba(0,0,0,.36);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    .fw-card.emph{
+      background:linear-gradient(180deg,rgba(141,183,255,.13),rgba(20,24,31,.62));
+      border-color:rgba(141,183,255,.22);
+    }
+    .fw-card h3{
+      margin:0 0 8px;
+      font-size:18px;
+      line-height:1.25;
+    }
+    .fw-card p,
+    .fw-card li{
+      color:rgba(255,255,255,.84);
+      line-height:1.55;
+      font-size:14px;
+    }
+    .fw-card p{margin:7px 0;}
+    .fw-card ul{margin:9px 0 0 18px;padding:0;}
+    .fw-card li{margin:6px 0;}
+    .small-label{
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.52);
+      margin-bottom:8px;
+      font-weight:800;
+    }
+    .metric-row{
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:12px;
+      padding:10px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .metric-row:first-of-type{border-top:0;}
+    .metric-k{
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .metric-v{
+      color:rgba(255,255,255,.88);
+      line-height:1.5;
+      font-size:14px;
+    }
+    .media{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      margin-top:12px;
+      box-shadow:0 14px 34px rgba(0,0,0,.35);
+    }
+    .media img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .media.fixed img{
+      height:188px;
+      object-fit:cover;
+    }
+    .process-strip{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .process-step{
+      position:relative;
+      border-radius:18px;
+      padding:16px 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      min-height:132px;
+    }
+    .step-num{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:rgba(255,255,255,.90);
+      color:#11161d;
+      font-weight:900;
+      font-size:12px;
+      margin-bottom:10px;
+    }
+    .step-title{font-weight:850;margin-bottom:6px;}
+    .step-desc{color:rgba(255,255,255,.74);font-size:13px;line-height:1.46;}
+    .pill-note{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      padding:8px 12px;
+      background:rgba(141,183,255,.10);
+      border:1px solid rgba(141,183,255,.22);
+      color:rgba(220,234,255,.96);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin:4px 0 14px;
+    }
+    .link-card{
+      display:block;
+      color:inherit;
+      text-decoration:none;
+      transition:transform .16s ease,border-color .16s ease,background .16s ease;
+    }
+    .link-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.20);
+      background:rgba(255,255,255,.075);
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:28px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    @media (max-width:1100px){
+      .grid-4,.process-strip{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .grid-3{grid-template-columns:1fr;}
+    }
+    @media (max-width:860px){
+      .page-pad{padding-top:96px;}
+      .h1{font-size:42px;}
+      .section-title{font-size:28px;}
+      .grid-2,.grid-4,.process-strip{grid-template-columns:1fr;}
+      .metric-row{grid-template-columns:1fr;gap:4px;}
+      .footer-row{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
 </head>
 
 <body class="theme-dark">
-  <header class="topbar glass">
-    <div class="topbar-left">
-      <div class="brand">
+  <header class="topbar glass" role="banner">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill active" href="framework.html">Framework</a>
-      <a class="pill" href="part1.html">Part I</a>
-      <a class="pill" href="part2.html">Part II</a>
-      <a class="pill" href="part3.html">Part III</a>
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill active" href="framework.html">Framework</a>
+
+        <div class="pill dropdown" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
+        </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
+      </div>
+
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
-  <main class="section">
-    <div class="container">
-      <div class="kicker">FRAMEWORK</div>
-      <h1>Unified logic linking distribution, congestion, and supply</h1>
-      <p class="muted">
-        We build an integrated framework that moves from <b>traffic state</b> to <b>demand dynamics</b> and
-        <b>public transport supply</b>. The key is a unified spatiotemporal unit:
-        <b>250m × 250m grid</b> plus <b>time</b> (weekday/weekend + time-of-day), enabling consistent comparison across layers.
-      </p>
+  <main class="page-pad framework-page">
+    <section class="section-block" id="top">
+      <div class="container page-head">
+        <div class="kicker">ANALYTICAL FRAMEWORK</div>
+        <h1 class="h1">A unified framework for reading HCMC’s mobility system</h1>
+        <p class="sublead">
+          The project translates multi-source urban mobility data into a shared spatial and temporal structure. Rather than treating traffic, congestion, and public transport as separate topics, the framework connects them through a consistent <b>250m × 250m grid</b> and <b>weekday/weekend time logic</b>, allowing citywide patterns to be compared and interpreted as one mobility system.
+        </p>
+      </div>
+    </section>
 
-      <!-- Diagram -->
-      <div class="card">
-        <div class="card-title">Framework diagram</div>
-        <div class="media">
-          <img src="assets/framework_diagram.png" alt="Framework diagram"/>
-        </div>
-        <div class="card-note">
-          The diagram summarizes how data inputs are processed into comparable indicators under one 250m grid + time unit.
+    <section class="section-block">
+      <div class="container">
+        <div class="pill-note">Step 1 · Desktop Analysis</div>
+        <h2 class="section-title">From multi-source data to comparable indicators</h2>
+        <p class="section-intro">
+          The framework begins with three complementary datasets: street-view traffic detection, road network structure, and public transport data. Together, they describe observed traffic presence, infrastructure capacity, and planned transit supply.
+        </p>
+
+        <div class="framework-grid grid-3">
+          <article class="fw-card">
+            <div class="small-label">Input 1</div>
+            <h3>Street-view traffic detection</h3>
+            <p>
+              Mapillary images provide timestamped and geolocated observations of <b>motorcycles</b>, <b>cars</b>, and <b>buses</b>. These detections are used to estimate mode-specific street-level traffic presence.
+            </p>
+            <div class="media fixed"><img src="assets/mapillary.png" alt="Mapillary street-view input"/></div>
+          </article>
+
+          <article class="fw-card">
+            <div class="small-label">Input 2</div>
+            <h3>Road network data</h3>
+            <p>
+              OpenStreetMap road categories and network geometry are used to estimate road supply, including road length density and road area density across the urban grid.
+            </p>
+            <div class="media fixed"><img src="assets/road_network_data.png" alt="Road network data"/></div>
+          </article>
+
+          <article class="fw-card">
+            <div class="small-label">Input 3</div>
+            <h3>Public transport data</h3>
+            <p>
+              Bus routes, stops, schedules, vehicle capacity, and fare information support schedule-based bus simulation, supply measurement, and network-based accessibility analysis.
+            </p>
+            <div class="media fixed"><img src="assets/public_transport_data.png" alt="Public transport data"/></div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <!-- Inputs -->
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-title">Input 1 — Street-view images (Mapillary)</div>
-          <div class="card-desc">
-            Timestamp + location + object detection for <b>motorcycles</b>, <b>cars</b>, and <b>buses</b>, used to represent observed street-level traffic presence.
-          </div>
-          <div class="media media--sm">
-            <img src="assets/mapillary.png" alt="Mapillary street-view input"/>
-          </div>
+    <section class="section-block">
+      <div class="container">
+        <h2 class="section-title">Unified spatiotemporal analysis unit</h2>
+        <p class="section-intro">
+          The key methodological move is to align all indicators under one common unit. This allows the project to compare observed traffic pressure, road supply, public transport provision, and accessibility without switching between incompatible spatial scales.
+        </p>
+
+        <div class="framework-grid grid-2">
+          <article class="fw-card emph">
+            <h3>Core unit</h3>
+            <div class="metric-row">
+              <div class="metric-k">Spatial</div>
+              <div class="metric-v"><b>250m × 250m grid</b> covering the HCMC study area.</div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-k">Temporal</div>
+              <div class="metric-v"><b>Hourly intervals from 6:00 to 23:00</b>, separated into weekday and weekend patterns.</div>
+            </div>
+            <div class="metric-row">
+              <div class="metric-k">Purpose</div>
+              <div class="metric-v">Create comparable indicators for traffic distribution, congestion, public transport supply, and accessibility.</div>
+            </div>
+          </article>
+
+          <article class="fw-card">
+            <h3>Why this structure matters</h3>
+            <p>
+              HCMC’s mobility challenges are not explained by a single map or indicator. The shared grid-time structure makes it possible to identify where motorcycle dominance, congestion pressure, weak road supply, and limited public transport service overlap.
+            </p>
+            <p>
+              This is the basis for moving from visual pattern recognition to a more systematic diagnosis of mobility mismatches.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <h2 class="section-title">Three analytical components</h2>
+        <p class="section-intro">
+          The analysis is organized into three linked components. Each component produces a different reading of the same urban mobility system, and each feeds into the final interpretation.
+        </p>
+
+        <div class="process-strip">
+          <a class="process-step link-card" href="part1.html">
+            <div class="step-num">1</div>
+            <div class="step-title">Traffic Distribution</div>
+            <div class="step-desc">Mode-specific vehicle intensity across space and time, based on street-view detection of motorcycles, cars, and buses.</div>
+          </a>
+
+          <a class="process-step link-card" href="part2.html">
+            <div class="step-num">2</div>
+            <div class="step-title">Traffic Congestion</div>
+            <div class="step-desc">Congestion as the relationship between visual traffic pressure and road supply, with reasons classified by demand and supply mechanisms.</div>
+          </a>
+
+          <a class="process-step link-card" href="part3.html">
+            <div class="step-num">3</div>
+            <div class="step-title">Public Transport Supply</div>
+            <div class="step-desc">Schedule-based bus simulation, seat supply, and network-based accessibility under 30-minute and 60-minute thresholds.</div>
+          </a>
+
+          <a class="process-step link-card" href="interpretation.html">
+            <div class="step-num">4</div>
+            <div class="step-title">Integrated Interpretation</div>
+            <div class="step-desc">Cross-reading mobility clusters, congestion reasons, motorcycle dependence, walkability, and public transport accessibility.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <h2 class="section-title">How the framework supports strategy</h2>
+        <p class="section-intro">
+          The framework is designed not only to describe mobility conditions, but to support spatial strategy. By linking traffic demand, road supply, accessibility, and transport service, it prepares the ground for targeted interventions and the later Mobility Analyzer module.
+        </p>
+
+        <div class="framework-grid grid-4">
+          <article class="fw-card">
+            <div class="small-label">Strategy Loop</div>
+            <h3>Bus / Metro Operation</h3>
+            <p>Improves public transport reliability, frequency, dispatch, and bus–metro coordination.</p>
+          </article>
+
+          <article class="fw-card">
+            <div class="small-label">Strategy Loop</div>
+            <h3>Walkability & Station Access</h3>
+            <p>Improves pedestrian access, safe crossings, station-area design, and inclusive accessibility.</p>
+          </article>
+
+          <article class="fw-card">
+            <div class="small-label">Strategy Loop</div>
+            <h3>First / Last Mile Connection</h3>
+            <p>Responds to motorcycle dependence through shared mobility, micro-mobility hubs, and integrated feeder systems.</p>
+          </article>
+
+          <article class="fw-card">
+            <div class="small-label">Strategy Loop</div>
+            <h3>Traffic Management</h3>
+            <p>Addresses mixed traffic, bottlenecks, motorcycle lane organization, intersections, and real-time control.</p>
+          </article>
         </div>
 
-        <div class="card">
-          <div class="card-title">Input 2 — Road network data</div>
-          <div class="card-desc">
-            Functional road categories and network density used as a proxy for transport structure and supply capacity in the street system.
-          </div>
-          <div class="media media--sm">
-            <img src="assets/road_network_data.png" alt="Road network data"/>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Input 3 — Public transport data</div>
-          <div class="card-desc">
-            Bus routes, stops, schedules, vehicle capacity, and fares. This supports schedule-based simulation and supply indicators.
-          </div>
-          <div class="media media--sm">
-            <img src="assets/public_transport_data.png" alt="Public transport data"/>
+        <div class="footer-row">
+          <div class="muted">Framework — HCMC Mobility</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="btn small" href="motivation.html">Back to Motivation</a>
+            <a class="btn small" href="part1.html">Continue to Part I</a>
           </div>
         </div>
       </div>
-
-      <!-- Core unit -->
-      <div class="card">
-        <div class="card-title">Unified spatiotemporal unit</div>
-        <div class="card-desc">
-          All indicators are aggregated into a consistent unit so layers can be compared directly:
-        </div>
-        <ul class="bullets">
-          <li><b>Spatial unit:</b> 250m × 250m grid covering the study area</li>
-          <li><b>Time unit:</b> weekday vs weekend, plus time-of-day slices (e.g., hourly / key periods)</li>
-          <li><b>Outputs:</b> comparable grid-level indicators for distribution, congestion, and public transport supply</li>
-        </ul>
-
-        <div class="placeholder">
-          <div class="ph-title">Placeholder — 250m grid schematic</div>
-          <div class="ph-sub">Insert: grid overlay figure / legend explaining aggregation</div>
-        </div>
-      </div>
-
-      <!-- How it links to parts -->
-      <div class="grid grid-2">
-        <div class="card">
-          <div class="card-title">How the framework connects to Part I–III</div>
-          <ul class="bullets">
-            <li><b>Part I (Traffic Distribution):</b> object-detected motorcycles/cars/buses from SVI → aggregated into 250m grid → mode-specific intensity maps</li>
-            <li><b>Part II (Congestion):</b> congestion indicators built under the same grid + time unit → comparative congestion patterns</li>
-            <li><b>Part III (Public Transport Supply):</b> schedule-based bus simulation → minute-level vehicle positions → aggregated into 250m grid → supply intensity (bus count & seat count)</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Integrated interpretation</div>
-          <div class="card-desc">
-            With all layers aligned (same grid + time), we can compare:
-          </div>
-          <ul class="bullets">
-            <li><b>Supply vs motorcycle distribution</b> to identify underserved, high-dependence zones</li>
-            <li><b>Supply vs bus share (street visibility)</b> to interpret “visible vs invisible” transit presence</li>
-            <li><b>Supply vs congestion</b> to spot bottlenecks and priority intervention areas</li>
-          </ul>
-          <div class="card-actions">
-            <a class="btn" href="interpretation.html">Go to Interpretation</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-row">
-        <div class="foot-left">HCMC Mobility — Analysis for Mobility</div>
-        <a class="btn small" href="index.html">Back to Home</a>
-      </div>
-    </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
-
-  <style>
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    .section{padding:72px 0}
-    .kicker{letter-spacing:.18em;font-size:12px;opacity:.75;margin-bottom:10px}
-    h1{font-size:44px;line-height:1.15;margin:6px 0 12px}
-    .muted{opacity:.86;line-height:1.6;max-width:980px}
-    .grid{display:grid;gap:16px}
-    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-    @media (max-width:1000px){.grid-3{grid-template-columns:1fr}}
-    @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
-    .card{border-radius:20px;padding:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px)}
-    .card-title{font-weight:800;margin-bottom:8px}
-    .card-desc{opacity:.86;line-height:1.55}
-    .card-note{opacity:.7;font-size:13px;margin-top:10px}
-    .media{border-radius:16px;overflow:hidden;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);margin-top:10px}
-    .media--sm{height:170px}
-    .media img{width:100%;height:100%;object-fit:cover;display:block}
-    .bullets{margin:10px 0 0 18px;line-height:1.7}
-    .placeholder{margin-top:12px;border-radius:16px;padding:14px;border:1px dashed rgba(255,255,255,.2);background:rgba(0,0,0,.18)}
-    .ph-title{font-weight:800}
-    .ph-sub{opacity:.8;font-size:13px;margin-top:4px}
-    .footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:18px;opacity:.9}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
-    .btn.small{padding:8px 12px;font-size:13px}
-    .card-actions{margin-top:12px}
-  </style>
 </body>
 </html>

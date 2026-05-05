@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>HCMC Mobility — Part III</title>
+  <title>Part III — Public Transport Supply | HCMC Mobility</title>
 
   <link rel="stylesheet" href="style.css"/>
 
@@ -15,546 +15,521 @@
     .page-wrap{
       max-width: 1200px;
       margin: 0 auto;
-      padding: 110px 18px 64px;
-    }
-
-    .kicker{
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      opacity:.75;
-      font-weight:700;
-      font-size:12px;
+      padding: 118px 18px 68px;
     }
 
     .page-title{
       font-size:56px;
       line-height:1.02;
       margin:10px 0 10px;
+      letter-spacing:-.03em;
     }
 
     .page-subtitle{
-      opacity:.86;
-      max-width: 900px;
-      line-height: 1.6;
+      color:rgba(255,255,255,.76);
+      max-width: 940px;
+      line-height:1.62;
+      margin:0;
     }
+
+    .section-stack{display:grid;gap:18px;margin-top:26px;}
 
     .card{
-      border-radius: 18px;
-      padding: 18px;
-      background: rgba(20,20,22,.66);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      border-radius:22px;
+      padding:18px;
+      background:rgba(18,22,28,.58);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 14px 50px rgba(0,0,0,.42);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
 
-    .card + .card{ margin-top: 18px; }
+    .card h2{margin:0 0 10px;font-size:23px;line-height:1.2;}
+    .card p{margin:8px 0;color:rgba(255,255,255,.86);line-height:1.6;}
 
-    .card h2{
-      margin: 0 0 10px;
-      font-size: 22px;
-    }
-
-    .card p{
-      margin: 8px 0;
-      opacity:.9;
-      line-height: 1.58;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-    }
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
 
     @media (max-width: 980px){
-      .grid2,.grid3{ grid-template-columns: 1fr; }
-      .page-title{ font-size:42px; }
+      .grid2,.grid3{grid-template-columns:1fr;}
+      .page-title{font-size:42px;}
+      .embed-head{flex-direction:column;align-items:flex-start;}
     }
 
-    .bullet{
-      margin: 0;
-      padding-left: 18px;
+    .bullet{margin:0;padding-left:18px;}
+    .bullet li{margin:6px 0;color:rgba(255,255,255,.86);line-height:1.55;}
+
+    .intro-strip{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:20px;
     }
+    @media (max-width: 900px){.intro-strip{grid-template-columns:1fr;}}
 
-    .bullet li{
-      margin: 6px 0;
-      opacity:.9;
-      line-height: 1.55;
+    .mini-card{
+      border-radius:18px;
+      padding:14px;
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.09);
     }
+    .mini-k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.58);font-weight:800;margin-bottom:6px;}
+    .mini-v{font-size:15px;font-weight:800;color:rgba(255,255,255,.94);line-height:1.35;}
+    .mini-d{font-size:13px;color:rgba(255,255,255,.70);line-height:1.5;margin-top:5px;}
 
-    .embed-card{ padding: 18px; }
+    .hero-img{
+      width:100%;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,.36);
+    }
+    .hero-img img{display:block;width:100%;height:auto;}
 
+    .subcard{
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
+    }
+    .small-title{font-size:16px;font-weight:850;margin:0 0 8px;color:rgba(255,255,255,.94);}
+    .muted-note{color:rgba(255,255,255,.70);margin-top:10px;line-height:1.55;font-size:13.5px;}
+
+    .embed-card{padding:18px;}
     .embed-head{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap:16px;
+      margin-bottom:12px;
     }
-
-    .embed-title{
-      font-size: 20px;
-      margin: 0;
-    }
-
-    .embed-note{
-      opacity:.8;
-      margin: 4px 0 0;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .btn-row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
+    .embed-title{font-size:22px;margin:0 0 5px;}
+    .embed-note{color:rgba(255,255,255,.76);margin:4px 0 0;font-size:13.5px;line-height:1.55;max-width:82ch;}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
 
     .btn{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.92);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
+      padding:10px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.92);
+      text-decoration:none;
+      font-weight:750;
+      font-size:13px;
+      cursor:pointer;
+      transition:background .16s ease,border-color .16s ease,transform .16s ease;
     }
-
-    .btn:hover{
-      background: rgba(255,255,255,.10);
-    }
-
-    .btn.is-active{
-      background: rgba(255,255,255,.92);
-      color: #111;
-    }
+    .btn:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.24);transform:translateY(-1px);}
+    .btn.is-active{background:rgba(255,255,255,.92);color:#111;}
 
     .embed-frame{
-      width: 100%;
-      height: min(82vh, 980px);
-      border: 0;
-      border-radius: 16px;
-      background: rgba(0,0,0,.25);
+      width:100%;
+      height:min(82vh,980px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      background:rgba(0,0,0,.25);
       overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.40);
+    }
+    .embed-frame.tall{height:min(86vh,1080px);}
+
+    .module-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(141,183,255,.24);
+      background:rgba(141,183,255,.09);
+      color:rgba(220,234,255,.88);
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
-    .embed-frame.tall{
-      height: min(86vh, 1080px);
+    .external-note{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.035);
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      line-height:1.5;
     }
 
     .map-wrap{
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height: 700px;
-      position: relative;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      height:700px;
+      position:relative;
+      box-shadow:0 18px 50px rgba(0,0,0,.36);
     }
-
-    .map-wrap.taller{
-      height: 760px;
-    }
-
-    .map{
-      width:100%;
-      height:100%;
-    }
+    .map-wrap.taller{height:760px;}
+    .map{width:100%;height:100%;}
 
     .legend{
       position:absolute;
       left:14px;
       bottom:14px;
-      width: 280px;
-      border-radius: 14px;
-      padding: 12px;
-      background: rgba(22,22,24,.88);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 14px 36px rgba(0,0,0,.35);
-      font-size: 12px;
-      z-index: 5;
-    }
-
-    .legend h3{
-      margin:0 0 6px;
+      width:280px;
+      border-radius:14px;
+      padding:12px;
+      background:rgba(22,22,24,.88);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 14px 36px rgba(0,0,0,.35);
       font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      opacity:.9;
+      z-index:5;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
+    .legend h3{margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;}
+    .legend .field{opacity:.75;margin-bottom:8px;}
+    .legend .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0;}
+    .swatch{width:14px;height:10px;border-radius:3px;border:1px solid rgba(255,255,255,.14);}
+    .row-left{display:flex;align-items:center;gap:10px;}
+    .row label{opacity:.9;}
+    .legend small{opacity:.65;display:block;margin-top:8px;line-height:1.45;}
 
-    .legend .field{
-      opacity:.75;
-      margin-bottom: 8px;
-    }
-
-    .legend .row{
+    .footerbar-local{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap: 10px;
-      margin: 5px 0;
-    }
-
-    .swatch{
-      width: 14px;
-      height: 10px;
-      border-radius: 3px;
-      border: 1px solid rgba(255,255,255,.14);
-    }
-
-    .row-left{
-      display:flex;
       align-items:center;
-      gap: 10px;
-    }
-
-    .row label{ opacity:.9; }
-
-    .legend small{
-      opacity:.65;
-      display:block;
-      margin-top:8px;
-      line-height:1.45;
-    }
-
-    .hero-img{
-      width:100%;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      overflow:hidden;
-    }
-
-    .hero-img img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-
-    .subcard{
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      padding: 14px;
-    }
-
-    .small-title{
-      font-size:16px;
-      font-weight:800;
-      margin:0 0 8px;
-    }
-
-    .muted-note{
-      opacity:.75;
-      margin-top:10px;
-      line-height:1.5;
+      gap:12px;
+      margin-top:18px;
+      color:rgba(255,255,255,.70);
     }
   </style>
 </head>
 
 <body class="theme-dark">
   <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
 
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
-        <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+        <div class="pill dropdown" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
         </div>
+
+        <a class="pill" href="interpretation.html">Interpretation</a>
       </div>
 
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
   <main class="page-wrap">
     <div class="kicker">PART III</div>
-    <h1 class="page-title">Public Transport Supply</h1>
+    <h1 class="page-title">Public Transport Supply & Accessibility</h1>
     <p class="page-subtitle">
-      This part reconstructs public transport <b>supply</b> from schedule data, then compares how supply
-      varies across <b>space</b> (250m grid) and <b>time</b> (hourly, weekday vs weekend). It also introduces a
-      <b>network-based accessibility</b> lens (30/60 min reachable stops).
+      This part reconstructs public transport supply from bus route, stop, schedule, capacity, and fare data.
+      It then converts planned services into time-dependent vehicle positions, aggregates them into the shared
+      <b>250m grid</b>, and evaluates both <b>supply intensity</b> and <b>network-based accessibility</b> under 30- and 60-minute thresholds.
     </p>
 
-    <!-- 1) Building the Bus Network -->
-    <section class="card">
-      <div class="grid2">
-        <div>
-          <h2>Building the HCMC Bus Network</h2>
-          <p><b>Data source</b><br/>BusMap Vietnam (public transport app)</p>
-
-          <p><b>Collected information</b></p>
-          <ul class="bullet">
-            <li>Bus routes (geometry)</li>
-            <li>Stop locations</li>
-            <li>Schedules (time of trip, headway)</li>
-            <li>Vehicle capacity</li>
-            <li>Fare information</li>
-          </ul>
-
-          <p><b>Output</b></p>
-          <ul class="bullet">
-            <li>Full city-scale bus network</li>
-            <li>Structured stop–route–schedule dataset</li>
-          </ul>
-        </div>
-
-        <div class="hero-img">
-          <img src="assets/public_transport_network.png" alt="Complete HCMC Public Transport network map"/>
-        </div>
+    <div class="intro-strip">
+      <div class="mini-card">
+        <div class="mini-k">Input</div>
+        <div class="mini-v">Bus routes, stops, schedules, vehicle capacity</div>
+        <div class="mini-d">Public transport data are structured into a route–stop–schedule network.</div>
       </div>
-    </section>
-
-    <!-- 2) Schedule-Based Bus Simulation -->
-    <section class="card embed-card">
-      <div class="embed-head">
-        <div>
-          <h2 class="embed-title">Schedule-Based Bus Simulation</h2>
-          <p class="embed-note">
-            Interactive demo showing schedule-based vehicle movement across the city.
-          </p>
-        </div>
-        <div class="btn-row">
-          <a class="btn" href="https://defy-6.github.io/HCMC-bus/" target="_blank" rel="noopener">Open demo site ↗</a>
-        </div>
+      <div class="mini-card">
+        <div class="mini-k">Simulation</div>
+        <div class="mini-v">Minute-level planned vehicle movement</div>
+        <div class="mini-d">Schedule-based positions are generated to approximate planned supply.</div>
       </div>
-
-      <iframe
-        class="embed-frame"
-        src="https://defy-6.github.io/HCMC-bus/"
-        title="Daily × Minutely Bus movement"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allow="fullscreen; clipboard-read; clipboard-write"
-      ></iframe>
-
-      <div class="grid2" style="margin-top:14px;">
-        <div class="subcard">
-          <div class="small-title">Objective</div>
-          <ul class="bullet">
-            <li>Reconstruct <b>ideal</b> vehicle positions based on schedule.</li>
-          </ul>
-
-          <div class="small-title" style="margin-top:14px;">Method</div>
-          <ul class="bullet">
-            <li>Simulate vehicle progression along routes.</li>
-            <li>Generate <b>time-dependent</b> vehicle positions.</li>
-            <li>Repeat for every hour of the week.</li>
-          </ul>
-        </div>
-
-        <div class="subcard">
-          <div class="small-title">Why it matters</div>
-          <ul class="bullet">
-            <li>Represents <b>planned supply</b> (independent from demand).</li>
-            <li>Provides a baseline for supply–demand comparison.</li>
-          </ul>
-          <p class="muted-note">
-            If your browser blocks embedding, use the “Open demo site” button above.
-          </p>
-        </div>
+      <div class="mini-card">
+        <div class="mini-k">Output</div>
+        <div class="mini-v">Grid-level supply and reachable-stop accessibility</div>
+        <div class="mini-d">Mean bus count, mean seat count, and reachable stops are compared across time.</div>
       </div>
-    </section>
+    </div>
 
-    <!-- 3) Weekday / Weekend supply videos -->
-    <section class="card">
-      <h2>Public Transport Supply Analysis (Weekday vs Weekend)</h2>
-      <p>
-        We aggregate simulated vehicle positions to a <b>250m grid</b> and compute two metrics:
-        <b>mean bus count per minute</b> and <b>mean seat count per minute</b>.
-      </p>
+    <div class="section-stack">
 
-      <div class="grid2" style="margin-top:14px;">
-        <div class="subcard">
-          <div class="small-title">Weekday pattern</div>
-          <ul class="bullet">
-            <li>6–9 AM → <b>Morning peak</b></li>
-            <li>9–12 → <b>Clear drop</b></li>
-            <li>12–1 → <b>Short rebound</b></li>
-            <li>1–5 → <b>Lower steady period</b></li>
-            <li>5–7 → <b>Evening peak</b></li>
-            <li>After 7 → <b>Decline</b></li>
-          </ul>
+      <!-- 1) Building the Bus Network -->
+      <section class="card">
+        <div class="grid2">
+          <div>
+            <h2>Building the HCMC Bus Network</h2>
+            <p>
+              The public transport layer is built from bus network data collected from BusMap Vietnam. The purpose is not only to map routes,
+              but to reconstruct how much planned service is available across the city and when it is available.
+            </p>
+
+            <div class="grid2" style="margin-top:14px;">
+              <div class="subcard">
+                <div class="small-title">Collected information</div>
+                <ul class="bullet">
+                  <li>Bus routes and geometries</li>
+                  <li>Stop locations</li>
+                  <li>Schedules, time of trip, and headway</li>
+                  <li>Vehicle capacity and fare information</li>
+                </ul>
+              </div>
+              <div class="subcard">
+                <div class="small-title">Analytical output</div>
+                <ul class="bullet">
+                  <li>A city-scale bus network</li>
+                  <li>A structured stop–route–schedule dataset</li>
+                  <li>A basis for supply simulation and accessibility analysis</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-img">
+            <img src="assets/public_transport_network.png" alt="Complete HCMC Public Transport network map"/>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Schedule-Based Bus Simulation -->
+      <section class="card embed-card">
+        <div class="embed-head">
+          <div>
+            <div class="module-tag">Interactive supply module</div>
+            <h2 class="embed-title">Schedule-Based Bus Simulation</h2>
+            <p class="embed-note">
+              This simulation reconstructs <b>planned public transport supply</b> by generating time-dependent vehicle positions from schedule data.
+              It works as the baseline representation of supply in the analysis framework, independent of passenger demand or real-time delay.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn" href="https://defy-6.github.io/HCMC-bus/" target="_blank" rel="noopener">Open full-screen version ↗</a>
+          </div>
         </div>
 
-        <div class="subcard">
-          <div class="small-title">Weekend pattern</div>
-          <ul class="bullet">
-            <li>9 AM → <b>Rising</b></li>
-            <li>9–12 → <b>High level</b></li>
-            <li>1–3 → <b>Slight drop</b></li>
-            <li>3–8 → <b>Sustained high</b></li>
-            <li>After 8 → <b>Gradual decline</b></li>
-          </ul>
-        </div>
-      </div>
+        <iframe
+          class="embed-frame"
+          src="https://defy-6.github.io/HCMC-bus/"
+          title="Daily × Minutely Bus movement"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="fullscreen; clipboard-read; clipboard-write"
+        ></iframe>
 
-      <div class="grid2" style="margin-top:14px;">
-        <div class="subcard">
-          <div class="small-title">Weekday mean bus count (per min)</div>
-          <video src="assets/bus_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
+        <div class="grid2" style="margin-top:14px;">
+          <div class="subcard">
+            <div class="small-title">Objective</div>
+            <ul class="bullet">
+              <li>Reconstruct ideal bus positions based on timetable information.</li>
+              <li>Represent the spatial and temporal rhythm of planned public transport service.</li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <div class="small-title">Why it matters</div>
+            <ul class="bullet">
+              <li>Provides a supply-side baseline independent from observed travel demand.</li>
+              <li>Supports comparison between public transport provision, congestion, and motorcycle dependence.</li>
+            </ul>
+            <p class="muted-note">
+              This externally hosted module is embedded to keep the analytical workflow continuous. If your browser blocks the iframe, use the full-screen link.
+            </p>
+          </div>
         </div>
-        <div class="subcard">
-          <div class="small-title">Weekday mean seat count (per min)</div>
-          <video src="assets/seat_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
-        </div>
-      </div>
+      </section>
 
-      <div class="grid2" style="margin-top:14px;">
-        <div class="subcard">
-          <div class="small-title">Weekend mean bus count (per min)</div>
-          <video src="assets/bus_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
-        </div>
-        <div class="subcard">
-          <div class="small-title">Weekend mean seat count (per min)</div>
-          <video src="assets/seat_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
-        </div>
-      </div>
-    </section>
+      <!-- 3) Weekday / Weekend supply videos -->
+      <section class="card">
+        <h2>Public Transport Supply in Space and Time</h2>
+        <p>
+          Simulated vehicle positions are aggregated to the <b>250m grid</b> to estimate two supply indicators:
+          <b>mean bus count per minute</b> and <b>mean seat count per minute</b>. These indicators allow weekday and weekend supply patterns
+          to be compared under the same spatial unit used in the traffic and congestion analysis.
+        </p>
 
-    <!-- 4) Network-based accessibility -->
-    <section class="card">
-      <div class="embed-head">
-        <div>
-          <h2 class="embed-title">Network-Based Accessibility (Grid Level)</h2>
-          <p class="embed-note">
-            Accessibility is measured at each 250m grid by the number of stops that can reach the grid within
-            a given travel time threshold.
-          </p>
-        </div>
-
-        <div class="btn-row">
-          <button class="btn is-active" id="btnAcc30" type="button">30 min</button>
-          <button class="btn" id="btnAcc60" type="button">60 min</button>
-        </div>
-      </div>
-
-      <div class="grid2" style="margin-bottom:14px;">
-        <div>
-          <p><b>Method overview</b><br/>
-            Each grid cell measures: number of bus stops that can reach it.
-          </p>
-          <p><b>Travel model assumptions</b></p>
-          <ul class="bullet">
-            <li>Dwell time: 20 sec</li>
-            <li>Waiting time: headway / 2</li>
-            <li>Route-specific speed (time-of-trip based)</li>
-            <li>Transfer radius: 150 m</li>
-            <li>Walking speed: 1.3 m/s</li>
-            <li>30 min and 60 min computed independently</li>
-          </ul>
+        <div class="grid2" style="margin-top:14px;">
+          <div class="subcard">
+            <div class="small-title">Weekday pattern</div>
+            <ul class="bullet">
+              <li>6–9 AM: morning peak</li>
+              <li>9–12: clear drop after peak commuting</li>
+              <li>12–1 PM: short rebound</li>
+              <li>1–5 PM: lower steady period</li>
+              <li>5–7 PM: evening peak</li>
+              <li>After 7 PM: gradual decline</li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <div class="small-title">Weekend pattern</div>
+            <ul class="bullet">
+              <li>9 AM: rising service intensity</li>
+              <li>9–12: high level</li>
+              <li>1–3 PM: slight drop</li>
+              <li>3–8 PM: sustained high period</li>
+              <li>After 8 PM: gradual decline</li>
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <p><b>Fields used from geojson</b></p>
-          <ul class="bullet">
-            <li><code>acc_cnt_30min</code></li>
-            <li><code>acc_cnt_60min</code></li>
-          </ul>
-          <p><b>Source file</b><br/>
-            <code>grid_250m_merged_all_features_with_quadrants.geojson</code>
-          </p>
-          <p><b>Output</b><br/>
-            Grid-level accessibility intensity (30 min / 60 min).
-          </p>
-        </div>
-      </div>
-
-      <div class="map-wrap taller">
-        <div id="mapAccessibility" class="map" aria-label="Accessibility map"></div>
-
-        <!-- 30 min legend -->
-        <div class="legend" id="legend30">
-          <h3>Accessibility (30 min)</h3>
-          <div class="field">Field: <span style="opacity:.9">acc_cnt_30min</span></div>
-
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 30</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>30 – 92</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>92 – 165</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>165 – 269</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>269 – 419</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>419 – 729</label></div></div>
-
-          <small>Higher value → more stops can reach the grid within 30 minutes.</small>
+        <div class="grid2" style="margin-top:14px;">
+          <div class="subcard">
+            <div class="small-title">Weekday mean bus count per minute</div>
+            <video src="assets/bus_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
+          </div>
+          <div class="subcard">
+            <div class="small-title">Weekday mean seat count per minute</div>
+            <video src="assets/seat_mean_weekday.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
+          </div>
         </div>
 
-        <!-- 60 min legend -->
-        <div class="legend" id="legend60" style="display:none;">
-          <h3>Accessibility (60 min)</h3>
-          <div class="field">Field: <span style="opacity:.9">acc_cnt_60min</span></div>
-
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 167</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>167 – 543</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>543 – 944</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>944 – 1353</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>1353 – 1814</label></div></div>
-          <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>1814 – 2532</label></div></div>
-
-          <small>Higher value → more stops can reach the grid within 60 minutes.</small>
+        <div class="grid2" style="margin-top:14px;">
+          <div class="subcard">
+            <div class="small-title">Weekend mean bus count per minute</div>
+            <video src="assets/bus_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
+          </div>
+          <div class="subcard">
+            <div class="small-title">Weekend mean seat count per minute</div>
+            <video src="assets/seat_mean_weekend.mp4" muted autoplay loop playsinline preload="metadata" style="width:100%; border-radius:14px;"></video>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 5) Reachability web tool -->
-    <section class="card embed-card">
-      <div class="embed-head">
-        <div>
-          <h2 class="embed-title">Interactive Reachable Stops (Web Tool)</h2>
-          <p class="embed-note">
-            Select an origin bus stop and compute reachable stops within <b>30 min</b> or <b>60 min</b>.
-            Time-colored stops: darker color → longer travel time.
-          </p>
+      <!-- 4) Network-based accessibility -->
+      <section class="card">
+        <div class="embed-head">
+          <div>
+            <h2 class="embed-title">Network-Based Accessibility at Grid Level</h2>
+            <p class="embed-note">
+              Accessibility is measured by the number of bus stops that can reach each grid cell within a defined travel time threshold.
+              This shifts the question from “where buses are present” to “how much of the network can effectively connect to this grid.”
+            </p>
+          </div>
+          <div class="btn-row">
+            <button class="btn is-active" id="btnAcc30" type="button">30 min</button>
+            <button class="btn" id="btnAcc60" type="button">60 min</button>
+          </div>
         </div>
-        <div class="btn-row">
-          <a class="btn" href="https://hcmc-bus-reachability-xmurong.streamlit.app" target="_blank" rel="noopener">Open web tool ↗</a>
+
+        <div class="grid2" style="margin-bottom:14px;">
+          <div class="subcard">
+            <div class="small-title">Travel model assumptions</div>
+            <ul class="bullet">
+              <li>Dwell time: 20 seconds</li>
+              <li>Waiting time: headway / 2</li>
+              <li>Route-specific speed based on time of trip</li>
+              <li>Transfer radius: 150 m</li>
+              <li>Walking speed: 1.3 m/s</li>
+              <li>30-minute and 60-minute accessibility computed separately</li>
+            </ul>
+          </div>
+          <div class="subcard">
+            <div class="small-title">Interpretation</div>
+            <p>
+              Higher values indicate that more stops can reach the grid within the selected threshold. This does not directly measure ridership;
+              it describes network connectivity and potential reach under schedule-based assumptions.
+            </p>
+            <p><b>Fields:</b> <code>acc_cnt_30min</code>, <code>acc_cnt_60min</code></p>
+          </div>
         </div>
-      </div>
 
-      <iframe
-        class="embed-frame tall"
-        src="https://hcmc-bus-reachability-xmurong.streamlit.app/?embedded=true"
-        title="HCMC Bus Reachability (Interactive Demo)"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allow="fullscreen"
-      ></iframe>
+        <div class="map-wrap taller">
+          <div id="mapAccessibility" class="map" aria-label="Accessibility map"></div>
 
-      <p class="muted-note">
-        If embedding is blocked, use the “Open web tool” button above.
-      </p>
-    </section>
+          <div class="legend" id="legend30">
+            <h3>Accessibility (30 min)</h3>
+            <div class="field">Field: <span style="opacity:.9">acc_cnt_30min</span></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 30</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>30 – 92</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>92 – 165</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>165 – 269</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>269 – 419</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>419 – 729</label></div></div>
+            <small>Higher value → more stops can reach the grid within 30 minutes.</small>
+          </div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px; opacity:.75;">
+          <div class="legend" id="legend60" style="display:none;">
+            <h3>Accessibility (60 min)</h3>
+            <div class="field">Field: <span style="opacity:.9">acc_cnt_60min</span></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#f3f7ff"></span><label>0 – 167</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#dbe8ff"></span><label>167 – 543</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#bfd7ff"></span><label>543 – 944</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#8fb8ff"></span><label>944 – 1353</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#5f92ff"></span><label>1353 – 1814</label></div></div>
+            <div class="row"><div class="row-left"><span class="swatch" style="background:#2e66ff"></span><label>1814 – 2532</label></div></div>
+            <small>Higher value → more stops can reach the grid within 60 minutes.</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Reachability web tool -->
+      <section class="card embed-card">
+        <div class="embed-head">
+          <div>
+            <div class="module-tag">Interactive accessibility module</div>
+            <h2 class="embed-title">Interactive Reachable Stops</h2>
+            <p class="embed-note">
+              This tool operationalizes the network-based accessibility metric. It allows users to select an origin bus stop and explore
+              which stops can be reached within <b>30 minutes</b> or <b>60 minutes</b>, with travel time represented through graduated colors.
+            </p>
+          </div>
+          <div class="btn-row">
+            <a class="btn" href="https://hcmc-bus-reachability-xmurong.streamlit.app" target="_blank" rel="noopener">Open full-screen version ↗</a>
+          </div>
+        </div>
+
+        <iframe
+          class="embed-frame tall"
+          src="https://hcmc-bus-reachability-xmurong.streamlit.app/?embedded=true"
+          title="HCMC Bus Reachability Interactive Demo"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="fullscreen"
+        ></iframe>
+
+        <div class="external-note">
+          This module is deployed externally because the reachability workflow depends on backend computation. It remains part of the Part III analytical workflow:
+          the map above summarizes accessibility at grid level, while this tool enables stop-level exploration of the same network logic.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Takeaway from Part III</h2>
+        <p>
+          Public transport in HCMC should be understood through both <b>service supply</b> and <b>network reach</b>. Schedule-based supply shows when and where bus service is planned,
+          while accessibility analysis shows how effectively the network connects different grid cells. Together, these measures provide the supply-side foundation for later interpretation of
+          motorcycle dependence, congestion pressure, and spatial strategy priorities.
+        </p>
+      </section>
+    </div>
+
+    <div class="footerbar-local">
       <div>HCMC Mobility — Part III</div>
       <a class="btn" href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">Back to top</a>
     </div>
   </main>
 
+  <script src="script.js"></script>
   <script>
     // ========= Mapbox token =========
     if (!mapboxgl.accessToken) {
@@ -729,5 +704,6 @@
       }
     })();
   </script>
+
 </body>
 </html>

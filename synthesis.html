@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Macro–Micro Synthesis | HCMC Mobility</title>
+
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+.page-pad{
+  padding-top:110px;
+}
+
+.section{
+  margin-bottom:70px;
+}
+
+.h1{
+  font-size:56px;
+  margin-bottom:10px;
+  line-height:1.03;
+}
+
+.sublead{
+  color:rgba(255,255,255,.72);
+  max-width:920px;
+  line-height:1.6;
+}
+
+.big-window{
+  width:100%;
+  height:700px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  margin-top:20px;
+  background: rgba(20,20,22,.66);
+}
+
+.big-window iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+.framework-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+  gap:18px;
+  margin-top:30px;
+}
+
+.framework-card{
+  background:rgba(20,20,22,.66);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.framework-card h3{
+  margin-top:0;
+  margin-bottom:12px;
+  font-size:22px;
+}
+
+.framework-card p{
+  color:rgba(255,255,255,.88);
+  font-size:14px;
+  line-height:1.58;
+  margin:6px 0;
+}
+
+.framework-card ul{
+  margin:8px 0 10px 18px;
+  padding:0;
+}
+
+.framework-card li{
+  color:rgba(255,255,255,.88);
+  font-size:14px;
+  line-height:1.55;
+  margin:4px 0;
+}
+
+.framework-label{
+  font-weight:800;
+  color:#fff;
+  margin-top:12px;
+  display:block;
+}
+
+.summary-card{
+  margin-top:20px;
+  background:rgba(20,20,22,.66);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.summary-card h3{
+  margin-top:0;
+  margin-bottom:10px;
+}
+
+.summary-card p{
+  color:rgba(255,255,255,.88);
+  line-height:1.6;
+  margin:0;
+}
+
+@media (max-width: 900px){
+  .h1{ font-size:42px; }
+  .big-window{ height:560px; }
+  .framework-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+
+<body class="theme-dark">
+
+<header class="topbar glass" role="banner">
+  <div class="topbar-left">
+    <div class="brand">
+      <div class="brand-title">HCMC Mobility</div>
+      <div class="brand-sub">Analysis for Mobility</div>
+    </div>
+  </div>
+
+  <nav class="topbar-nav" aria-label="Primary">
+    <a class="pill" href="index.html">Home</a>
+    <a class="pill" href="content.html">Content</a>
+    <a class="pill" href="motivation.html">Motivation</a>
+    <a class="pill" href="framework.html">Framework</a>
+
+    <div class="pill dropdown" tabindex="0" aria-label="Parts">
+      <span>Parts</span>
+      <div class="dropdown-menu" role="menu">
+        <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+        <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+        <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+      </div>
+    </div>
+
+    <a class="pill" href="interpretation.html">Interpretation</a>
+    <a class="pill" href="conclusion.html">Synthesis</a>
+  </nav>
+</header>
+
+<main class="page-pad">
+
+  <!-- TITLE -->
+  <section class="section container" id="top">
+    <div class="kicker">MACRO–MICRO SYNTHESIS</div>
+    <h1 class="h1">Linking Data-Driven Mobility Analysis with Field Observation</h1>
+
+    <p class="sublead">
+      This page extends the analytical results by connecting macro-scale mobility patterns with on-site observations.
+      Interactive field tools complement the data-driven analysis and provide a corridor-level perspective of mobility
+      conditions in Ho Chi Minh City.
+    </p>
+  </section>
+
+  <!-- STORYMAP -->
+  <section class="section container">
+    <h2 class="h2">Public Transport Experience Mapping</h2>
+
+    <p class="sublead">
+      This StoryMap documents field observations of bus-based travel experience, including waiting conditions,
+      transfer locations, roadside stops, and passenger behavior. It provides a micro-scale narrative complement
+      to the citywide mobility analysis.
+    </p>
+
+    <div class="big-window">
+      <iframe src="https://uploads.knightlab.com/storymapjs/27e136c1a6f69a8cfad4b3d7acb73336/bus-map/index.html"></iframe>
+    </div>
+  </section>
+
+  <!-- METRO TRAFFIC -->
+  <section class="section container">
+    <h2 class="h2">Traffic Observation Along Metro Line 1 and Line 2 Corridors</h2>
+
+    <p class="sublead">
+      This interactive map records observed traffic conditions along the existing and planned metro corridors.
+      It helps relate corridor-level street conditions with broader spatial mobility patterns identified in the analysis.
+    </p>
+
+    <div class="big-window">
+      <iframe src="https://defy-6.github.io/traffic-map/"></iframe>
+    </div>
+  </section>
+
+  <!-- DATA STRUCTURE -->
+  <section class="section container">
+    <div class="kicker">DATA AND ANALYSIS STRUCTURE</div>
+    <h2 class="h2">From Data Collection to Analytical Outputs</h2>
+
+    <div class="framework-grid">
+
+      <div class="framework-card">
+        <h3>1. Street-View Observation Data</h3>
+
+        <span class="framework-label">Data Source</span>
+        <p>
+          Large-scale street-view imagery collected through the <b>Mapillary platform</b>, providing geolocated
+          images of urban streets with timestamps and spatial coordinates.
+        </p>
+
+        <span class="framework-label">Processing</span>
+        <p>
+          AI-based <b>object detection</b> was applied to identify visible transport modes within each image, including:
+        </p>
+        <ul>
+          <li>motorcycles</li>
+          <li>cars</li>
+          <li>buses</li>
+        </ul>
+        <p>
+          This enables extraction of <b>mode-specific traffic observations</b> at the street level.
+        </p>
+
+        <span class="framework-label">Analytical Outputs</span>
+        <ul>
+          <li>Traffic distribution intensity across the city</li>
+          <li>Mode composition comparison</li>
+          <li>Spatial clustering of traffic composition</li>
+          <li>Grid-based aggregation of observed traffic intensity</li>
+        </ul>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Provides the <b>demand-side representation of mobility</b>, capturing how different transport modes are
+          actually used across urban space.
+        </p>
+      </div>
+
+      <div class="framework-card">
+        <h3>2. Road Network Structure</h3>
+
+        <span class="framework-label">Data Source</span>
+        <p>
+          Open road network datasets describing the physical road hierarchy:
+        </p>
+        <ul>
+          <li>motorway</li>
+          <li>trunk</li>
+          <li>primary</li>
+          <li>secondary</li>
+          <li>tertiary</li>
+          <li>other streets</li>
+        </ul>
+
+        <span class="framework-label">Derived Indicators</span>
+        <p>
+          Road network geometry was used to compute several structural indicators:
+        </p>
+        <ul>
+          <li><b>Road Length Density (RLD)</b></li>
+          <li><b>Road Area Density (RAD)</b></li>
+          <li><b>Road Supply Index (RSI)</b></li>
+        </ul>
+        <p>
+          These indicators represent the <b>infrastructure capacity available for traffic flow</b>.
+        </p>
+
+        <span class="framework-label">Analytical Outputs</span>
+        <ul>
+          <li>Spatial variation of road supply capacity</li>
+          <li>Structural road hierarchy patterns</li>
+          <li>Baseline supply conditions for congestion evaluation</li>
+        </ul>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Represents the <b>infrastructure supply side</b> of the mobility system.
+        </p>
+      </div>
+
+      <div class="framework-card">
+        <h3>3. Public Transport Data</h3>
+
+        <span class="framework-label">Data Source</span>
+        <p>
+          Public transport datasets collected from <b>BusMap Vietnam</b>, including:
+        </p>
+        <ul>
+          <li>bus routes</li>
+          <li>stops</li>
+          <li>schedule information</li>
+          <li>vehicle capacity</li>
+          <li>fare information</li>
+        </ul>
+
+        <span class="framework-label">Processing</span>
+        <p>
+          Using schedule data, bus movements were <b>simulated across the network over time</b>, allowing estimation of:
+        </p>
+        <ul>
+          <li>bus frequency</li>
+          <li>vehicle presence</li>
+          <li>seat availability</li>
+        </ul>
+
+        <span class="framework-label">Analytical Outputs</span>
+        <ul>
+          <li>Hourly public transport supply</li>
+          <li>Seat supply per grid cell</li>
+          <li>Accessibility within <b>30-minute and 60-minute travel thresholds</b></li>
+          <li>Reachable stops analysis through an interactive tool</li>
+        </ul>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Represents the <b>planned transport supply system</b>, allowing comparison between infrastructure provision
+          and observed travel behavior.
+        </p>
+      </div>
+
+      <div class="framework-card">
+        <h3>4. Unified Spatial and Temporal Framework</h3>
+
+        <span class="framework-label">Spatial Unit</span>
+        <p>
+          <b>250 m × 250 m grid cells</b> covering the entire metropolitan area.
+        </p>
+
+        <span class="framework-label">Temporal Unit</span>
+        <p>
+          Hourly time steps from <b>06:00 to 23:00</b>, with separate aggregation for:
+        </p>
+        <ul>
+          <li>weekday conditions</li>
+          <li>weekend conditions</li>
+        </ul>
+
+        <span class="framework-label">Purpose</span>
+        <p>
+          This unified framework allows datasets derived from different sources to be <b>directly comparable across
+          space and time</b>.
+        </p>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Acts as the <b>integration layer</b> connecting traffic observations, congestion measures, and transport supply.
+        </p>
+      </div>
+
+      <div class="framework-card">
+        <h3>5. Integrated Comparative Indicators</h3>
+
+        <span class="framework-label">Indicators</span>
+        <ul>
+          <li>Bus Supply → <b>seat_sum</b></li>
+          <li>Motorcycle Intensity → <b>n_motorcycle</b></li>
+          <li>Congestion Level → <b>CI_final</b></li>
+          <li>Bus Share → <b>share_bus_all</b></li>
+        </ul>
+        <p>
+          All indicators were aggregated at the <b>250 m grid level</b>.
+        </p>
+
+        <span class="framework-label">Method</span>
+        <p>
+          A <b>median split classification</b> was applied:
+        </p>
+        <ul>
+          <li>High: value greater than the city median</li>
+          <li>Low: value equal to or below the city median</li>
+        </ul>
+        <p>
+          This produces <b>quadrant-based comparisons</b> between variables.
+        </p>
+
+        <span class="framework-label">Analytical Outputs</span>
+        <ul>
+          <li>Public Transport Supply × Motorcycle Distribution</li>
+          <li>Public Transport Supply × Bus Share</li>
+          <li>Public Transport Supply × Congestion Index</li>
+        </ul>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Reveals <b>supply–demand mismatches, modal substitution patterns, and congestion pressure zones</b>.
+        </p>
+      </div>
+
+      <div class="framework-card">
+        <h3>6. Cluster-Based Urban Typology</h3>
+
+        <span class="framework-label">Method</span>
+        <p>
+          <b>K-Means clustering</b> using combined variables of:
+        </p>
+        <ul>
+          <li>public transport supply</li>
+          <li>motorcycle intensity</li>
+          <li>congestion index</li>
+        </ul>
+
+        <span class="framework-label">Outputs</span>
+        <ul>
+          <li><b>Motorcycle-Dependent Areas</b> — High motorcycle usage and congestion</li>
+          <li><b>Transit-Strained Core</b> — High public transport presence but still congested</li>
+          <li><b>Car-Oriented Districts</b> — Higher private vehicle dominance</li>
+          <li><b>Transit-Effective Zones</b> — High public transport supply with relatively low motorcycle dependence</li>
+        </ul>
+
+        <span class="framework-label">Role in the framework</span>
+        <p>
+          Transforms multiple analytical layers into <b>interpretable urban mobility patterns</b>.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="summary-card">
+      <h3>Overall Analytical Workflow</h3>
+      <p>
+        The framework connects multiple heterogeneous datasets — street-level observations, road network structure,
+        and public transport schedules — into a unified spatial grid system. This integration enables comparative
+        analysis of mobility demand, congestion pressure, and transport supply across Ho Chi Minh City, while the
+        micro-level tools provide on-site evidence to interpret how these macro patterns are actually experienced.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -3,335 +3,136 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Part II — Measuring Traffic Congestion</title>
-
+  <title>Part II — Measuring Traffic Congestion | HCMC Mobility</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Mapbox GL -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-
-  <!-- proj4: used to reproject RSI geojson from EPSG:32648 to EPSG:4326 in browser -->
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.2/dist/proj4.js"></script>
 
   <style>
-    .page-pad{ padding-top: 110px; }
-    .page-head{ margin-bottom: 18px; }
-
-    .h1{
-      font-size: 50px;
-      line-height: 1.05;
-      margin: 0 0 10px;
-    }
-    .sublead{
-      color: rgba(255,255,255,.74);
-      max-width: 90ch;
-      margin: 0 0 18px;
-      line-height: 1.58;
-    }
-
-    .section-tight{ padding: 48px 0 56px; }
-
-    .content-grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .support-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items:start;
-    }
-
-    @media (max-width: 980px){
-      .content-grid-2,
-      .support-grid{
-        grid-template-columns: 1fr;
-      }
-      .h1{ font-size: 40px; }
-    }
-
-    .text-block p,
-    .text-block li{
-      color: rgba(255,255,255,.86);
-      line-height: 1.58;
-      font-size: 15px;
-    }
-
-    .text-block ul{
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .formula{
-      display:block;
-      font-size: 16px;
-      line-height: 1.7;
-      color: rgba(255,255,255,.95);
-      font-weight: 700;
-      margin: 10px 0 4px;
-      word-break: break-word;
-    }
-
-    .formula-note{
-      color: rgba(255,255,255,.68);
-      font-size: 12.5px;
-      line-height: 1.45;
-      margin-bottom: 8px;
-    }
-
-    .media{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      overflow: hidden;
-      background: rgba(0,0,0,.16);
-      box-shadow: 0 18px 50px rgba(0,0,0,.42);
-    }
+    .page-pad{ padding-top:112px; }
+    .section-tight{ padding:48px 0 58px; }
+    .page-head{ margin-bottom:20px; }
+    .h1{ font-size:56px; line-height:1.03; margin:0 0 12px; letter-spacing:-.03em; }
+    .sublead{ color:rgba(255,255,255,.74); max-width:94ch; line-height:1.62; margin:0; }
+    .section-intro{ display:grid; grid-template-columns:1.05fr .95fr; gap:18px; align-items:start; margin-top:18px; }
+    .logic-strip{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:18px; }
+    .logic-card{ border-radius:18px; padding:16px; background:rgba(20,20,22,.66); border:1px solid rgba(255,255,255,.09); box-shadow:0 12px 34px rgba(0,0,0,.28); }
+    .logic-k{ font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.55); margin-bottom:8px; }
+    .logic-title{ font-size:17px; font-weight:850; margin-bottom:6px; }
+    .logic-desc{ color:rgba(255,255,255,.78); line-height:1.5; font-size:13.5px; }
+    .content-grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; }
+    .support-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+    .text-block p,.text-block li{ color:rgba(255,255,255,.86); line-height:1.6; font-size:15px; }
+    .text-block ul{ margin:0; padding-left:18px; }
+    .formula{ display:block; font-size:16px; line-height:1.7; color:rgba(255,255,255,.95); font-weight:800; margin:10px 0 4px; word-break:break-word; }
+    .formula-note{ color:rgba(255,255,255,.68); font-size:12.5px; line-height:1.45; margin-bottom:8px; }
+    .analysis-card{ border-radius:22px; padding:18px; background:rgba(20,20,22,.66); border:1px solid rgba(255,255,255,.09); box-shadow:0 14px 46px rgba(0,0,0,.36); }
+    .mini-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px; }
+    .mini-card{ border-radius:16px; padding:13px 14px; background:rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.10); }
+    .mini-title{ font-size:13px; font-weight:850; margin-bottom:5px; }
+    .mini-text{ color:rgba(255,255,255,.78); font-size:13px; line-height:1.48; }
+    .media{ border-radius:18px; border:1px solid rgba(255,255,255,.10); overflow:hidden; background:rgba(0,0,0,.16); box-shadow:0 18px 50px rgba(0,0,0,.42); }
     .media img{ width:100%; height:auto; display:block; }
     .media video{ width:100%; height:auto; display:block; background:#000; }
-
-    .callout{
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .callout h3{
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-    .callout p,
-    .callout li{
-      margin: 0;
-      color: rgba(255,255,255,.82);
-      line-height: 1.58;
-      font-size: 15px;
-    }
-    .callout ul{
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .map-wrap{
-      position: relative;
-      overflow: hidden;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.20);
-      box-shadow: 0 18px 50px rgba(0,0,0,.45);
-      min-height: 640px;
-    }
-    .map-wrap.large{ min-height: 720px; }
-    .map-wrap.mid{ min-height: 640px; }
+    .map-wrap{ position:relative; overflow:hidden; border-radius:22px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.20); box-shadow:0 18px 50px rgba(0,0,0,.45); min-height:640px; }
+    .map-wrap.large{ min-height:720px; }
     .map{ position:absolute; inset:0; }
-
-    .legend-box{
-      position:absolute;
-      left:16px;
-      bottom:16px;
-      z-index:5;
-      width: 290px;
-      padding: 13px 13px;
-      border-radius: 18px;
-      background: rgba(18,22,28,.90);
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 18px 60px rgba(0,0,0,.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      font-size: 12.5px;
-      color: rgba(255,255,255,.90);
-    }
-    .legend-title{
-      font-weight: 800;
-      letter-spacing: .08em;
-      font-size: 12px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-    .legend-sub{
-      color: rgba(255,255,255,.65);
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-    .legend-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin: 6px 0;
-    }
-    .legend-left{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      min-width: 0;
-    }
-    .legend-k{
-      color: rgba(255,255,255,.88);
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-    .swatch{
-      width: 14px;
-      height: 10px;
-      border-radius: 3px;
-      border: 1px solid rgba(255,255,255,.15);
-      flex: 0 0 auto;
-    }
-
-    .caption{
-      margin-top: 10px;
-      color: rgba(255,255,255,.68);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .toggle-row{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin: 14px 0 16px;
-    }
-    .toggle-btn{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.88);
-      padding: 8px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      transition: .18s ease;
-    }
-    .toggle-btn:hover{
-      background: rgba(255,255,255,.10);
-    }
-    .toggle-btn.active{
-      background: rgba(255,255,255,.90);
-      color: #12161c;
-    }
-
-    .footerbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top: 20px;
-    }
-
-    .mapboxgl-ctrl-attrib,
-    .mapboxgl-ctrl-logo{
-      opacity: .95;
-    }
+    .legend-box{ position:absolute; left:16px; bottom:16px; z-index:5; width:292px; padding:13px; border-radius:18px; background:rgba(18,22,28,.90); border:1px solid rgba(255,255,255,.14); box-shadow:0 18px 60px rgba(0,0,0,.55); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); font-size:12.5px; color:rgba(255,255,255,.90); }
+    .legend-title{ font-weight:850; letter-spacing:.08em; font-size:12px; margin-bottom:6px; text-transform:uppercase; }
+    .legend-sub{ color:rgba(255,255,255,.65); font-size:12px; margin-bottom:8px; }
+    .legend-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:6px 0; }
+    .legend-left{ display:flex; align-items:center; gap:8px; min-width:0; }
+    .legend-k{ color:rgba(255,255,255,.88); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .swatch{ width:14px; height:10px; border-radius:3px; border:1px solid rgba(255,255,255,.15); flex:0 0 auto; }
+    .caption{ margin-top:10px; color:rgba(255,255,255,.68); font-size:13px; line-height:1.5; }
+    .toggle-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:14px 0 16px; }
+    .toggle-btn{ border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:rgba(255,255,255,.88); padding:8px 14px; border-radius:999px; cursor:pointer; font-size:13px; font-weight:750; transition:.18s ease; }
+    .toggle-btn:hover{ background:rgba(255,255,255,.10); transform:translateY(-1px); }
+    .toggle-btn.active{ background:rgba(255,255,255,.90); color:#12161c; }
+    .footerbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; }
+    .mapboxgl-ctrl-attrib,.mapboxgl-ctrl-logo{ opacity:.95; }
+    @media (max-width:980px){ .content-grid-2,.support-grid,.section-intro,.logic-strip{ grid-template-columns:1fr; } .h1{ font-size:42px; } .map-wrap,.map-wrap.large{ min-height:560px; } }
   </style>
 </head>
 
 <body class="theme-dark">
   <header class="topbar glass" role="banner">
-    <div class="topbar-left">
-      <div class="brand">
+    <a class="brand brand-link" href="index.html" aria-label="HCMC Mobility Home">
+      <div class="brand-mark"></div>
+      <div>
         <div class="brand-title">HCMC Mobility</div>
-        <div class="brand-sub">Analysis for Mobility</div>
+        <div class="brand-sub">More Than Movement</div>
       </div>
-    </div>
+    </a>
 
-    <nav class="topbar-nav" aria-label="Primary">
-      <a class="pill" href="index.html">Home</a>
-      <a class="pill" href="content.html">Content</a>
-      <a class="pill" href="motivation.html">Motivation</a>
-      <a class="pill" href="framework.html">Framework</a>
-
-      <div class="pill dropdown" tabindex="0" aria-label="Parts">
-        <span>Parts</span>
-        <div class="dropdown-menu" role="menu">
-          <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
-          <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
-          <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+    <nav class="topbar-nav" aria-label="Primary navigation">
+      <div class="nav-group nav-main">
+        <a class="pill" href="index.html">Home</a>
+        <a class="pill" href="content.html">Content</a>
+        <a class="pill" href="motivation.html">Motivation</a>
+        <a class="pill" href="framework.html">Framework</a>
+        <div class="pill dropdown" tabindex="0" aria-label="Parts">
+          <span>Parts</span>
+          <div class="dropdown-menu" role="menu">
+            <a role="menuitem" href="part1.html">Part I — Traffic Distribution</a>
+            <a role="menuitem" href="part2.html">Part II — Measuring Congestion</a>
+            <a role="menuitem" href="part3.html">Part III — Public Transport Supply</a>
+          </div>
         </div>
+        <a class="pill" href="interpretation.html">Interpretation</a>
       </div>
-
-      <a class="pill" href="interpretation.html">Interpretation</a>
-      <a class="pill" href="conclusion.html">Conclusion</a>
+      <div class="nav-group nav-output">
+        <a class="pill output" href="synthesis.html">Synthesis</a>
+        <a class="pill output strong" href="analyzer.html">Analyzer</a>
+        <a class="pill output" href="conclusion.html">Conclusion</a>
+      </div>
     </nav>
   </header>
 
   <main class="page-pad">
-    <!-- PAGE HEADER -->
     <section class="section-tight" id="top">
       <div class="container page-head">
         <div class="kicker">PART II</div>
         <h1 class="h1">Measuring Traffic Congestion</h1>
         <p class="sublead">
-          This part focuses on how congestion is measured from the relationship between
-          <b>traffic pressure</b> and <b>road supply</b>, and how the resulting congestion
-          patterns are interpreted through <b>typology</b> and <b>weekday–weekend transitions</b>.
+          This part translates street-view traffic observations into a grid-based congestion diagnosis. Rather than treating congestion as traffic volume alone, it compares <b>visual traffic pressure</b> with <b>road supply</b> to identify where mobility stress emerges from demand pressure, supply shortage, or a severe mismatch between the two.
         </p>
+        <div class="logic-strip">
+          <div class="logic-card"><div class="logic-k">Input</div><div class="logic-title">Visual Traffic Intensity</div><div class="logic-desc">Motorcycle, car, and bus detections are combined as street-level traffic pressure.</div></div>
+          <div class="logic-card"><div class="logic-k">Support</div><div class="logic-title">Road Supply Index</div><div class="logic-desc">Road length, road area, and road hierarchy are used to represent local capacity.</div></div>
+          <div class="logic-card"><div class="logic-k">Diagnosis</div><div class="logic-title">Congestion Mechanism</div><div class="logic-desc">Top congestion grids are interpreted through type, time, and day-type variation.</div></div>
+        </div>
       </div>
     </section>
 
-    <!-- RSI -->
     <section class="section-tight" id="rsi">
       <div class="container">
         <div class="kicker">ROAD SUPPLY</div>
-        <h2 class="h2">Road Supply Index (RSI)</h2>
-
-        <div class="card glass">
+        <h2 class="h2">Road Supply Index</h2>
+        <div class="analysis-card">
           <div class="content-grid-2">
             <div class="text-block">
-              <p><b>Road supply through network density and effective area</b></p>
-
-              <p><b>Key components</b><br/>
-                Road network classified into:<br/>
-                <i>motorway · trunk · primary · secondary · tertiary · other</i>
-              </p>
-
-              <p>
-                Two complementary dimensions of supply:<br/>
-                <b>RLD</b> – Road Length Density<br/>
-                <b>RAD</b> – Road Area Density
-              </p>
-
-              <p>
-                <b>1.</b> Buffer by road class (e.g. 30–5 m)<br/>
-                <b>2.</b> Compute per-grid:
-              </p>
-
-              <span class="formula">
-                RLD<sub>raw</sub> = Σ<sub>k</sub> w<sub>k</sub> · ld<sub>k</sub>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                RAD<sub>raw</sub> = Σ<sub>k</sub> w<sub>k</sub> · ad<sub>k</sub>
-              </span>
-
-              <p><b>3.</b> Robust normalization:</p>
-              <span class="formula">
-                RSI = (RLD* + RAD*) / 2
-              </span>
-              <div class="formula-note">(* indicates robust normalization)</div>
+              <p><b>Road supply is defined through network density and effective road area.</b> The road network is classified by hierarchy — motorway, trunk, primary, secondary, tertiary, and other roads — so that higher-capacity roads contribute more to the supply score.</p>
+              <p>Two complementary indicators are calculated for each 250m grid:</p>
+              <ul>
+                <li><b>Road Length Density</b>: weighted road length per grid</li>
+                <li><b>Road Area Density</b>: weighted buffered road area per grid</li>
+              </ul>
+              <span class="formula">RLD<sub>raw</sub> = Σ<sub>k</sub> w<sub>k</sub> · ld<sub>k</sub> &nbsp;&nbsp; RAD<sub>raw</sub> = Σ<sub>k</sub> w<sub>k</sub> · ad<sub>k</sub></span>
+              <span class="formula">RSI = (RLD* + RAD*) / 2</span>
+              <div class="formula-note">* indicates robust normalization before combining the two dimensions.</div>
             </div>
-
             <div class="support-grid">
-              <div class="media">
-                <img src="./assets/road_network_data.png" alt="Road network data" />
-              </div>
-              <div class="media">
-                <img src="./assets/public_transport_data.png" alt="Supporting map" />
-              </div>
+              <div class="media"><img src="./assets/road_network_data.png" alt="Road network data" /></div>
+              <div class="media"><img src="./assets/public_transport_data.png" alt="Supporting mobility network map" /></div>
             </div>
           </div>
-
           <div style="margin-top:18px;">
             <div class="map-wrap large">
               <div id="mapRSI" class="map" aria-label="RSI map"></div>
-
               <div class="legend-box">
-                <div class="legend-title">RSI (Road Supply Index)</div>
-                <div class="legend-sub">Field: RSI</div>
-
+                <div class="legend-title">RSI (Road Supply Index)</div><div class="legend-sub">Field: RSI</div>
                 <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#eff3ff"></span><span class="legend-k">-0.29 – -0.10</span></div></div>
                 <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d9e2ff"></span><span class="legend-k">-0.10 – 0.37</span></div></div>
                 <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#b8ccff"></span><span class="legend-k">0.37 – 1.06</span></div></div>
@@ -340,207 +141,119 @@
                 <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#1e3fff"></span><span class="legend-k">3.41 – 7.86</span></div></div>
               </div>
             </div>
-
-            <div class="caption">
-              Interactive RSI map using <b>HCMC_grid_250m_RSI.geojson</b>.
-              The code reprojects the source from <b>EPSG:32648</b> to <b>EPSG:4326</b> in browser, so you can keep using the original file.
-            </div>
+            <div class="caption">The RSI layer represents the spatial distribution of road supply. It provides the infrastructure-side baseline for evaluating whether observed traffic pressure exceeds local support capacity.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CI -->
     <section class="section-tight" id="ci">
       <div class="container">
         <div class="kicker">CONGESTION INDEX</div>
-        <h2 class="h2">Congestion Index: Balancing Pressure and Supply</h2>
-
-        <div class="card glass">
+        <h2 class="h2">Congestion = Traffic Pressure − Road Supply</h2>
+        <div class="analysis-card">
           <div class="content-grid-2">
             <div class="text-block">
-              <p><b>Definition:</b></p>
-              <span class="formula">
-                CI = VTI* − RSI*
-              </span>
-              <div class="formula-note">* indicates ECDF normalization</div>
-
-              <p>
-                <b>CI &gt; 0</b><br/>
-                → Observed traffic pressure exceeds local road supply
-              </p>
-
-              <p>
-                <b>CI &lt; 0</b><br/>
-                → Road supply is sufficient for observed traffic
-              </p>
-
-              <p><b>Key Processing Steps</b><br/>
-                Robust scaling applied before comparison<br/>
-                Quantile / ECDF mapping used to:
-              </p>
-
-              <ul>
-                <li>mitigate scale mismatch between demand & supply</li>
-                <li>handle saturation in street-level observations</li>
-              </ul>
-
-              <p style="margin-top:10px;">
-                CI computed <b>consistently across all hours and day types</b>
-              </p>
+              <p><b>Visual Traffic Intensity</b> represents observed street-level traffic pressure. Different vehicle types are weighted to reflect their relative contribution to road space and congestion pressure.</p>
+              <span class="formula">VTI = 0.4 · n<sub>motorcycle</sub> + 1.0 · n<sub>car</sub> + 2.0 · n<sub>bus</sub></span>
+              <p>The final congestion index compares normalized traffic pressure with normalized road supply:</p>
+              <span class="formula">CI = VTI* − RSI*</span>
+              <div class="formula-note">A positive CI indicates that observed traffic pressure exceeds local road supply; a negative CI indicates comparatively sufficient road supply.</div>
+              <div class="mini-grid">
+                <div class="mini-card"><div class="mini-title">What CI captures</div><div class="mini-text">Relative stress between demand and infrastructure, not absolute traffic volume.</div></div>
+                <div class="mini-card"><div class="mini-title">Why it matters</div><div class="mini-text">It helps distinguish crowded places from structurally overloaded places.</div></div>
+              </div>
             </div>
-
-            <div class="media">
-              <img src="./assets/diagram1.jpg" alt="Congestion index diagnostics" />
-            </div>
+            <div class="media"><img src="./assets/diagram1.jpg" alt="Congestion index diagnostic diagram" /></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DYNAMICS -->
     <section class="section-tight" id="dynamics">
       <div class="container">
-        <div class="kicker">DYNAMICS</div>
-        <h2 class="h2">Congestion Index Dynamics Across Time (Weekday vs Weekend)</h2>
-
-        <div class="card glass">
+        <div class="kicker">SPACE × TIME</div>
+        <h2 class="h2">Congestion Dynamics Across Weekday and Weekend</h2>
+        <div class="analysis-card">
           <div class="content-grid-2">
-            <div>
-              <div class="muted small" style="margin-bottom:8px; letter-spacing:.08em; text-transform:uppercase;">Weekday</div>
-              <div class="media">
-                <video src="./assets/congestion_index_weekday.mp4" autoplay muted loop playsinline preload="auto"></video>
-              </div>
-            </div>
-
-            <div>
-              <div class="muted small" style="margin-bottom:8px; letter-spacing:.08em; text-transform:uppercase;">Weekend</div>
-              <div class="media">
-                <video src="./assets/congestion_index_weekend.mp4" autoplay muted loop playsinline preload="auto"></video>
-              </div>
-            </div>
+            <div><div class="muted small" style="margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;">Weekday</div><div class="media"><video src="./assets/congestion_index_weekday.mp4" autoplay muted loop playsinline preload="auto"></video></div></div>
+            <div><div class="muted small" style="margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;">Weekend</div><div class="media"><video src="./assets/congestion_index_weekend.mp4" autoplay muted loop playsinline preload="auto"></video></div></div>
           </div>
-
-          <div class="caption" style="margin-top:14px;">
-            • CI highlights <b>where and when</b> traffic pressure exceeds road supply<br/>
-            • High CI does <b>not necessarily imply high traffic volume</b>, but <b>relative stress</b>
-          </div>
+          <div class="caption" style="margin-top:14px;">The temporal comparison shows that congestion is not a fixed spatial condition. The same grid can experience different levels and causes of stress across weekday and weekend periods.</div>
         </div>
       </div>
     </section>
 
-    <!-- TYPOLOGY -->
     <section class="section-tight" id="typology">
       <div class="container">
-        <div class="kicker">FROM INDEX TO INSIGHT</div>
-        <h2 class="h2">From Index to Insight: Congestion Typology</h2>
-
-        <div class="card glass">
+        <div class="kicker">CONGESTION MECHANISM</div>
+        <h2 class="h2">Top Congestion Grids and Dominant Congestion Types</h2>
+        <div class="analysis-card">
           <div class="content-grid-2">
             <div class="text-block">
-              <p><b>Typology logic:</b></p>
-              <p>
-                <b>Frequency</b><br/>
-                How often a grid is congested
-              </p>
-
-              <p>
-                <b>Severity</b><br/>
-                Congestion intensity (top 1/3, top 1/6)
-              </p>
-
-              <p>
-                <b>Time-of-day pattern</b><br/>
-                When congestion occurs
-              </p>
-
-              <p style="margin-top:22px;"><b>Resulting types:</b></p>
-              <p>
-                Structural congestion<br/>
-                Commuting congestion<br/>
-                Activity-driven congestion<br/>
-                Episodic congestion<br/>
-                uncongested
-              </p>
+              <p>The top one-third congestion grids are selected for diagnosis. Instead of assigning one fixed label to each place, the analysis reads congestion as a <b>time-dependent mechanism</b>.</p>
+              <p><b>Three diagnostic dimensions:</b></p>
+              <ul>
+                <li><b>Type</b>: demand pressure, supply shortage, or severe mismatch</li>
+                <li><b>Time</b>: when congestion appears during the day</li>
+                <li><b>Day type</b>: weekday versus weekend patterns</li>
+              </ul>
+              <p style="margin-top:14px;">This helps identify whether intervention should prioritize demand management, road-space organization, or integrated system improvement.</p>
             </div>
-
             <div>
-              <div class="toggle-row">
-                <button class="toggle-btn active" id="btnTypoWeekday" type="button">Weekday dominant congestion type</button>
-                <button class="toggle-btn" id="btnTypoWeekend" type="button">Weekend dominant congestion type</button>
-              </div>
-
+              <div class="toggle-row"><button class="toggle-btn active" id="btnTypoWeekday" type="button">Weekday dominant congestion type</button><button class="toggle-btn" id="btnTypoWeekend" type="button">Weekend dominant congestion type</button></div>
               <div class="map-wrap large">
                 <div id="mapTypology" class="map" aria-label="Congestion typology map"></div>
-
                 <div class="legend-box" id="legendTypologyWeekday">
-                  <div class="legend-title">Typology (Weekday)</div>
-                  <div class="legend-sub">Field: congestion_type</div>
-
+                  <div class="legend-title">Typology (Weekday)</div><div class="legend-sub">Field: congestion_type</div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d73027"></span><span class="legend-k">Structural congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#fc8d59"></span><span class="legend-k">Commuting congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#ffd166"></span><span class="legend-k">Activity-driven congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#7e57c2"></span><span class="legend-k">Episodic congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#b0b7c3"></span><span class="legend-k">Mostly uncongested</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d9d9d9"></span><span class="legend-k">Insufficient data</span></div></div>
-                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0); border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
+                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0);border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
                 </div>
-
                 <div class="legend-box" id="legendTypologyWeekend" style="display:none;">
-                  <div class="legend-title">Typology (Weekend)</div>
-                  <div class="legend-sub">Field: congestion_type</div>
-
+                  <div class="legend-title">Typology (Weekend)</div><div class="legend-sub">Field: congestion_type</div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d73027"></span><span class="legend-k">Structural congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#fc8d59"></span><span class="legend-k">Commuting congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#ffd166"></span><span class="legend-k">Activity-driven congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#7e57c2"></span><span class="legend-k">Episodic congestion</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#b0b7c3"></span><span class="legend-k">Mostly uncongested</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d9d9d9"></span><span class="legend-k">Insufficient data</span></div></div>
-                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0); border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
+                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0);border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
                 </div>
               </div>
-
-              <div class="caption">
-                Weekday and weekend typologies are switched from the same map frame by button.
-              </div>
+              <div class="caption">Switching weekday and weekend shows how the dominant congestion mechanism changes under different activity rhythms.</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TRANSITION -->
     <section class="section-tight" id="transition">
       <div class="container">
-        <div class="kicker">FROM INDEX TO INSIGHT</div>
-        <h2 class="h2">From Index to Insight: Congestion Transitions</h2>
-
-        <div class="card glass">
+        <div class="kicker">TEMPORAL TRANSITION</div>
+        <h2 class="h2">Weekday–Weekend Congestion Transitions</h2>
+        <div class="analysis-card">
           <div class="content-grid-2">
             <div class="text-block">
-              <p><b>Transition analysis</b><br/>
-                Compare dominant congestion types between <b>weekday</b> and <b>weekend</b><br/>
-                Focus on <b>mechanism shifts</b>, not magnitude
-              </p>
-
-              <p style="margin-top:22px;"><b>Key transition patterns</b></p>
-              <p>
-                Commuting → Activity-driven<br/>
-                Persistent structural bottlenecks<br/>
-                Temporal switching<br/>
-                Consistently uncongested<br/>
-                Insufficient data
-              </p>
+              <p>Transition mapping compares dominant congestion types between weekday and weekend. The goal is not only to locate congestion, but to understand whether stress is persistent, commute-driven, activity-driven, or switching across temporal regimes.</p>
+              <p><b>Key transition readings:</b></p>
+              <ul>
+                <li>Persistent structural bottlenecks</li>
+                <li>Commuting-driven weekday pressure</li>
+                <li>Weekend activity concentration</li>
+                <li>Temporal switching across day types</li>
+                <li>Consistently uncongested or insufficient-data areas</li>
+              </ul>
             </div>
-
             <div>
               <div class="map-wrap large">
                 <div id="mapTransition" class="map" aria-label="Transition map"></div>
-
                 <div class="legend-box">
-                  <div class="legend-title">Transition (Weekday ↔ Weekend)</div>
-                  <div class="legend-sub">Field: transition_type</div>
-
+                  <div class="legend-title">Transition (Weekday ↔ Weekend)</div><div class="legend-sub">Field: transition_type</div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#c62828"></span><span class="legend-k">Structural bottleneck</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f57c20"></span><span class="legend-k">Commuting-driven</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#f2c14e"></span><span class="legend-k">Weekend activity</span></div></div>
@@ -548,21 +261,13 @@
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#66bb44"></span><span class="legend-k">Persistent moderate</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#b0b7c3"></span><span class="legend-k">Consistently uncongested</span></div></div>
                   <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:#d9d9d9"></span><span class="legend-k">Insufficient data</span></div></div>
-                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0); border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
+                  <div class="legend-row"><div class="legend-left"><span class="swatch" style="background:rgba(0,0,0,0);border-color:rgba(255,255,255,.2)"></span><span class="legend-k">No data</span></div></div>
                 </div>
               </div>
-
-              <div class="caption">
-                Transition mapping highlights whether congestion is <b>persistent</b>, <b>commute-driven</b>,
-                <b>weekend-activity driven</b>, or shifts across temporal regimes.
-              </div>
+              <div class="caption">The transition layer helps identify where congestion management should focus on daily commute operations, weekend activity management, or persistent infrastructure bottlenecks.</div>
             </div>
           </div>
-
-          <div class="footerbar">
-            <div class="muted">HCMC Mobility — Part II</div>
-            <a class="btn small" href="#top">Back to top</a>
-          </div>
+          <div class="footerbar"><div class="muted">HCMC Mobility — Part II</div><a class="btn small" href="part3.html">Continue to Part III →</a></div>
         </div>
       </div>
     </section>
@@ -570,7 +275,7 @@
 
   <script src="script.js"></script>
 
-  <script>
+<script>
     mapboxgl.accessToken = "pk.eyJ1IjoiZGVmZmllIiwiYSI6ImNtZTl1MTBvcjBvZGkyanFhdmwydHp0aTUifQ.vACEuAMjlPb7JoRrNbtKQg";
     const MAP_STYLE = "mapbox://styles/mapbox/light-v11";
 
